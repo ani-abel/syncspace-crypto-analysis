@@ -1,0 +1,229 @@
+.page-container {
+    header {
+        width: 100%;
+
+        nav {
+            width: 100%;
+            background: var(--bg-secondary);
+            box-shadow: var(--box-shadow-md);
+            padding: 10px 20px;
+
+            // position: -webkit-sticky; /* Safari */
+            // position: sticky;
+            position: fixed;
+            z-index: 99;
+            top: 0;
+
+            display: flex;
+            flex-direction: row;
+            flex: 1 1;
+            justify-content: center;
+            align-items: center;
+
+            .nav-section-widget {
+                width: 100%;
+
+                .hamburger-menu {
+                    span {
+                        height: 1px;
+                        width: 40px;
+                        display: block;
+                        margin-left: calc(100% - 40px);
+                        transition: all 0.2s ease;
+                        background: var(--primary-text-color);
+
+                        &:nth-of-type(1) {
+                            margin-bottom: 7px;
+                        }
+                    
+                        &:nth-of-type(3) {
+                            margin-top: 7px;
+                        }
+                    }
+                }
+
+                h1 {
+                    padding: 10px 5px;
+                    letter-spacing: 10px;
+                }
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                ul {
+                    li {
+                        list-style: none;
+                        display: inline;
+                        padding: 0 8px;
+
+                        a {
+                            font-size: var(--font-size);
+                            color: var(--secondary-text-color);
+                            text-decoration: none;
+                            letter-spacing: 1.5px;
+
+                            &:hover,
+                            &.active {
+                                color: var(--primary-text-color); 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    main {
+        width: 80%;
+        margin: 0 auto;
+        padding: 100px 0 60px 0;
+
+        display: flex;
+        flex: 1 1;
+        justify-content: center;
+
+        .page-widget {
+            width: 70%;
+            padding: 10px 15px;
+
+            &.questions-section {
+                width: 30%;
+                padding-top: 0;
+
+                ul {
+                    li {
+                        list-style: none;
+                        padding: 10px 20px 15px 20px;
+
+                        h5 {
+                            letter-spacing: 1.5px;
+                        }
+
+                        &:not(li:last-of-type) {
+                            border-bottom: 1px solid var(--border-color);
+                        }
+                    
+                        a {
+                            text-decoration: none;
+                            font-size: var(--font-size);
+                            color: var(--primary-text-color);
+                        }
+
+                        &.active {
+                            box-shadow: var(--box-shadow-md);
+                            background: var(--bg-secondary);
+                            border-left: 5px solid var(--danger-color);
+                        }
+                    }
+                }
+            }
+
+            &.answers-section {
+                background: var(--bg-secondary);
+                box-shadow: var(--box-shadow-md);
+                padding: 30px 20px;
+
+                .answer-widget {
+                    padding: 20px 0 10px 0;
+                   
+                    &:not(.answer-widget:last-of-type) {
+                        border-bottom: 1px solid var(--border-color);
+                    }
+
+                    .subheading,
+                    .content {
+                        letter-spacing: 1.5px;
+                    }
+                }
+
+                .page-subcaption {
+                    padding: 10px 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 992px) { 
+    .page-container {
+        main {
+            width: 90%;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .page-container {
+        main {
+            width: 100%;
+            flex-direction: column;
+            padding: 100px 20px 60px 20px;
+    
+            .page-widget {
+                width: 100%;
+                padding: 10px 15px;
+    
+                &.questions-section {
+                    width: 100%;
+                    padding: 0 0 30px 0;
+    
+                    ul {
+                        li {
+                            list-style: none;
+                            padding: 10px 15px 15px 10px;
+                        }
+                    }
+                }
+    
+                &.answers-section {
+    
+                    .answer-widget {
+                        .subheading,
+                        .content {
+                            letter-spacing: 1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) { 
+    .page-container {
+        main {
+            width: 100%;
+            flex-direction: column;
+            padding: 100px 20px 60px 20px;
+    
+            .page-widget {
+                width: 100%;
+                padding: 10px 15px;
+    
+                &.questions-section {
+                    width: 100%;
+                    padding: 0 0 30px 0;
+    
+                    ul {
+                        li {
+                            list-style: none;
+                            padding: 10px 15px 15px 10px;
+                        }
+                    }
+                }
+    
+                &.answers-section {
+    
+                    .answer-widget {
+                        .subheading,
+                        .content {
+                            letter-spacing: 1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

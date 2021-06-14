@@ -1,0 +1,122 @@
+<ion-content [fullscreen]="true">
+    <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
+    <section class="page-container full-width" [ngClass]="{ 'closed': ref.isOpen }">
+        <syncspace-crypto-analysis-nav-sidebar (closeNavbar)="ref.isOpen = false"></syncspace-crypto-analysis-nav-sidebar>
+        <header class="full-width">
+            <nav class="nav-lg full-width">
+                <div class="nav-section-widget">
+                    <!-- <img src="./assets/images/buncryp-logo.png" /> -->
+                    <h1 class="h5">SYNCSPACE</h1>
+                </div>
+                <div class="nav-section-widget text-right hidden-md-down">
+                    <ul class="no-margin no-padding">
+                        <li>
+                            <a [routerLink]="['/home']" [routerLinkActive]="'active'">Home</a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/privacy']" [routerLinkActive]="'active'">Privacy</a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/contact']"  [routerLinkActive]="'active'">Contact</a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/faq']"  [routerLinkActive]="'active'">FAQ</a>
+                        </li>
+                        <!-- <li>
+                            <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
+                        </li> -->
+                        <li>
+                            <a [routerLink]="['/sign-up']" class="btn btn-danger">Sign up</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-section-widget text-right visible-flex-md-down">
+                    <p class="hamburger-menu full-width text-right open-sidebar" 
+                      syncspaceCryptoAnalysisNavbarToggle
+                      #ref="syncspaceCryptoAnalysisNavbarToggle">
+                        <span class="top"></span>
+                        <span class="middle"></span>
+                        <span class="bottom"></span>
+                    </p>
+                </div>
+            </nav>
+        </header>
+
+        <main class="page-content">
+            <div class="page-widget questions-section">
+                <ul class="no-margin no-padding">
+                    <li class="active">
+                        <a href="">
+                            What are crypts from the 
+                            squad on main street and vodafone?
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            Why do they exist?
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            Who are they?
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="page-widget answers-section">
+                <h1 class="text-danger no-padding">
+                    Bitcoin breaks dips to lowest in 20 years
+                </h1>
+                <p class="tags">
+                    <span class="text-uppercase">
+                        Crypto
+                    </span>
+                </p>
+
+                <div class="answer-widget">
+                    <img class="analysis-image" src="./assets/images/financial-analysis-pic2.jpg" alt="" />
+                    <p class="no-margin author-detail">
+                        <img src="./assets/images/user-icon-female-muslim.png" alt=""> Annie Helen
+                    </p>
+                    <p class="date-tag no-margin">
+                        <i class="fa fa-calendar"></i> 21/12/2021
+                    </p>
+                    <!-- <h5 class="subheading no-padding">What are crypts?</h5> -->
+                    <p class="content">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, beatae blanditiis. Est aut cumque nemo sit quas aspernatur quibusdam! Praesentium inventore architecto minima ut? Est nesciunt temporibus quam atque deserunt modi ex ab enim nam dolore esse totam, obcaecati dignissimos id nobis harum, exercitationem nisi officiis explicabo accusantium non. Qui libero, facere nemo veritatis neque excepturi natus commodi porro dicta quos voluptates, totam unde quam dolores repellendus dolore impedit laborum, perspiciatis assumenda? Facere fugit illo tenetur, alias, eum facilis placeat magni, praesentium odit minus odio aspernatur? Odit eveniet velit quae neque minima similique quod doloremque ut! Facilis illo quibusdam illum?
+                    </p>
+                </div>
+
+                <div class="comment-widget full-width">
+                    <button class="btn btn-danger btn-block">
+                        Comment(22)
+                    </button>
+
+                    <div class="comment-list full-width">
+                        <div class="comment">
+                            <h5 class="no-margin comment-author">
+                                <img src="./assets/images/user-icon-female-muslim.png" alt="" />
+                                Jim Barnes | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
+                            </h5>
+                            <p class="no-margin">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eligendi tempora incidunt quas exercitationem quae accusamus nulla quod voluptas? Impedit?
+                            </p>
+                        </div>
+
+                        <div class="comment">
+                            <h5 class="no-margin comment-author">
+                                <img src="./assets/images/user-icon-female-muslim.png" alt="" />
+                                Jim Barnes | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
+                            </h5>
+                            <p class="no-margin">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eligendi tempora incidunt quas exercitationem quae accusamus nulla quod voluptas? Impedit?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <syncspace-crypto-analysis-footer></syncspace-crypto-analysis-footer>
+    </section>
+</ion-content>

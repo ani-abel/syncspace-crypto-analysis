@@ -12,9 +12,12 @@
   "npmScope": "syncspace-crypto-analysis",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "YThlN2E1ZGYtOGNiYi00NThlLWIwMTYtYjlmMTIyYzcwNzEwfHJlYWQtd3JpdGU=",
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
       }
     }
   },
@@ -25,6 +28,27 @@
     "demo-e2e": {
       "tags": [],
       "implicitDependencies": ["demo"]
+    },
+    "website": {
+      "tags": []
+    },
+    "website-e2e": {
+      "tags": [],
+      "implicitDependencies": ["website"]
+    },
+    "admin-app": {
+      "tags": []
+    },
+    "admin-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["admin-app"]
+    },
+    "user-app": {
+      "tags": []
+    },
+    "user-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["user-app"]
     }
   }
 }

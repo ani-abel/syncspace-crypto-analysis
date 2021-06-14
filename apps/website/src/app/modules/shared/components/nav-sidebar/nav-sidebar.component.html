@@ -1,0 +1,54 @@
+<aside class="sidenav full-width">
+    <ul>
+        <li class="navbar-list text-right">
+        <button class="nav-cancel-button btn-no-border cursor-pointer close-sidebar"
+            id="close-sidebar"
+            (click)="onClose($event)">
+            <svg xmlns:xlink="http://www.w3.org/1999/xlink" class="svg-close" version="1.1" viewBox="0 0 47 48" xmlns="http://www.w3.org/2000/svg">
+                <defs></defs>
+                <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1">
+                <g fill="#fff" id="Search---Default" transform="translate(-1313.000000, -80.000000)">
+                    <g id="Modal">
+                    <g id="Close-icon" transform="translate(1313.000000, 80.000000)">
+                        <path d="M23.6666667,22.5857864 L1.74635645,0.665476221 L0.332142888,2.07968978 L22.2524531,24 L0.332142888,45.9203102 L1.74635645,47.3345238 L23.6666667,25.4142136 L45.5869769,47.3345238 L47.0011904,45.9203102 L25.0808802,24 L47.0011904,2.07968978 L45.5869769,0.665476221 L23.6666667,22.5857864 Z" id="close-icon"></path>
+                    </g>
+                    </g>
+                </g>
+                </g>
+            </svg>
+        </button>
+        </li>
+        <!-- <li class="navbar-list">
+            <a [routerLink]="['/login']" 
+                class="nav-sidebar-active btn btn-primary ignore-anchor-style text-decoration-none">
+                LOGIN
+            </a>
+        </li> -->
+        <li class="navbar-list">
+            <a [routerLink]="['/sign-up']"
+                class="nav-sidebar-active btn btn-danger ignore-anchor-style text-decoration-none">
+                Sign up
+            </a>
+        </li>
+        <li class="navbar-list">
+            <a [routerLink]="['/home']" [routerLinkActive]="'nav-sidebar-active'">
+                Home
+            </a>
+        </li>
+        <li class="navbar-list">
+            <a [routerLink]="['/privacy']" [routerLinkActive]="'nav-sidebar-active'">
+                Privacy
+            </a>
+        </li>
+        <li class="navbar-list">
+            <a [routerLink]="['/contact']" [routerLinkActive]="'nav-sidebar-active'">
+                Contact
+            </a>
+        </li>
+        <li class="navbar-list">
+            <a [routerLink]="['/faq']" [routerLinkActive]="'nav-sidebar-active'">
+                FAQ
+            </a>
+        </li>
+    </ul>
+</aside>

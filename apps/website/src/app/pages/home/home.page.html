@@ -1,0 +1,444 @@
+<ion-content [fullscreen]="true">
+  <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
+
+  <section class="page-container full-width" [ngClass]="{ 'closed': ref.isOpen }">
+      <syncspace-crypto-analysis-nav-sidebar (closeNavbar)="ref.isOpen = false"></syncspace-crypto-analysis-nav-sidebar>
+
+      <header class="full-width">
+          <nav class="nav-lg full-width">
+              <div class="nav-section-widget">
+                  <!-- <img src="./assets/images/buncryp-logo.png" /> -->
+                  <h1 class="h5">SYNCSPACE</h1>
+              </div>
+              <div class="nav-section-widget text-right hidden-md-down">
+                  <ul class="no-margin no-padding">
+                      <li>
+                          <a [routerLink]="['/home']" [routerLinkActive]="'active'">Home</a>
+                      </li>
+                      <li>
+                          <a [routerLink]="['/privacy']" [routerLinkActive]="'active'">Privacy</a>
+                      </li>
+                      <li>
+                          <a [routerLink]="['/contact']"  [routerLinkActive]="'active'">Contact</a>
+                      </li>
+                      <li>
+                          <a [routerLink]="['/faq']"  [routerLinkActive]="'active'">FAQ</a>
+                      </li>
+                      <!-- <li>
+                          <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
+                      </li> -->
+                      <li>
+                          <a [routerLink]="['/sign-up']" class="btn btn-danger">Sign up</a>
+                      </li>
+                  </ul>
+              </div>
+              <div class="nav-section-widget text-right visible-flex-md-down">
+                  <p class="hamburger-menu full-width text-right open-sidebar" 
+                    syncspaceCryptoAnalysisNavbarToggle
+                    #ref="syncspaceCryptoAnalysisNavbarToggle">
+                      <span class="top"></span>
+                      <span class="middle"></span>
+                      <span class="bottom"></span>
+                  </p>
+              </div>
+          </nav>
+
+          <section class="call-to-action-section full-width">
+              <div class="inner-section full-width">
+                  <div class="content">
+                      <h1 class="text-center text-uppercase">
+                          <!-- analytics is King -->
+                          Data is gold
+                      </h1>
+                      <p class="text-center subheading">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt atque <br />
+                          mollitia dolores veritatis expedita nostrum?
+                          <!-- Syncspace is the one-stop for financial info, data &amp; and   -->
+                      </p>
+                      <p class="text-center">
+                          <a [routerLink]="['/sign-up']" class="btn btn-danger text-decoration-none text-capitalize">
+                              Get started
+                          </a>
+                          &nbsp;
+                          <span>OR</span>
+                          &nbsp;
+                          <a [routerLink]="['/login']" class="btn btn-primary text-decoration-none text-capitalize">
+                              Login
+                          </a>
+                      </p>
+                  </div>
+              </div>
+          </section>
+      </header>
+
+      <section class="top-analysis-section full-width">
+          <h2 class="text-danger text-center header text-capitalize">
+              Latest financial Updates
+          </h2>
+          <div class="financial-updates">
+              <div class="financial-update-widget">
+                  <div class="flex-widget">
+                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
+                  </div>
+                  <div class="flex-widget">
+                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
+                          <h5 class="title no-padding text-capitalize">
+                              Title goes here consectetur adipisicing elit. Quos, facilis.
+                          </h5>
+                    </a>
+                      <p class="date-tag no-margin">
+                          <i class="fa fa-calendar"></i> 21/12/2021
+                      </p>
+                      <p class="content no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
+                      </p>
+                      <div class="tags full-width">
+                          <span class="tag text-uppercase">
+                              Forex
+                          </span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="financial-update-widget">
+                  <div class="flex-widget">
+                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
+                  </div>
+                  <div class="flex-widget">
+                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
+                          <h5 class="title no-padding text-capitalize">
+                              Title goes here consectetur adipisicing elit. Quos, facilis.
+                          </h5>
+                    </a>
+                      <p class="date-tag no-margin">
+                          <i class="fa fa-calendar"></i> 21/12/2021
+                      </p>
+                      <p class="content no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
+                      </p>
+                      <div class="tags full-width">
+                          <span class="tag text-uppercase">
+                              Crypto
+                          </span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="financial-update-widget">
+                  <div class="flex-widget">
+                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
+                  </div>
+                  <div class="flex-widget">
+                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
+                          <h5 class="title no-padding text-capitalize">
+                              Title goes here consectetur adipisicing elit. Quos, facilis.
+                          </h5>
+                    </a>
+                      <p class="date-tag no-margin">
+                          <i class="fa fa-calendar"></i> 21/12/2021
+                      </p>
+                      <p class="content no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
+                      </p>
+                      <div class="tags full-width">
+                          <span class="tag text-uppercase">
+                              Forex
+                          </span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="financial-update-widget">
+                  <div class="flex-widget">
+                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
+                  </div>
+                  <div class="flex-widget">
+                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
+                          <h5 class="title no-padding text-capitalize">
+                              Title goes here consectetur adipisicing elit. Quos, facilis.
+                          </h5>
+                    </a>
+                      <p class="date-tag no-margin">
+                          <i class="fa fa-calendar"></i> 21/12/2021
+                      </p>
+                      <p class="content no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
+                      </p>
+                      <div class="tags full-width">
+                          <span class="tag text-uppercase">
+                              Crypto
+                          </span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="financial-update-widget">
+                  <div class="flex-widget">
+                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
+                  </div>
+                  <div class="flex-widget">
+                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
+                          <h5 class="title no-padding text-capitalize">
+                              Title goes here consectetur adipisicing elit. Quos, facilis.
+                          </h5>
+                    </a>
+                      <p class="date-tag no-margin">
+                          <i class="fa fa-calendar"></i> 21/12/2021
+                      </p>
+                      <p class="content no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
+                      </p>
+                      <div class="tags full-width">
+                          <span class="tag text-uppercase">
+                              Stocks
+                          </span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      <section class="stats-section full-width">
+          <div class="stats-widget text-center">
+              <i class="fa fa-clock-o"></i>
+              <h1 class="text-center text-danger">1039</h1>
+              <h4 class="text-center">Total Analysts</h4>
+          </div>
+          <div class="stats-widget text-center">
+              <i class="fa fa-clock-o"></i>
+              <h1 class="text-center text-danger">1039</h1>
+              <h4 class="text-center">Total Analysts</h4>
+          </div>
+          <div class="stats-widget text-center">
+              <i class="fa fa-clock-o"></i>
+              <h1 class="text-center text-danger">1039</h1>
+              <h4 class="text-center">Total Analysts</h4>
+          </div>
+      </section>
+
+      <!-- <section class="latest-analysis-section full-width">
+          <div class="latest-analysis-widget">
+              <h2 class="text-danger text-center header text-capitalize">Latest Updates</h2>
+              <p class="text-center no-margin">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus iure magnam saepe cumque, blanditiis fuga?
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus iure magnam saepe cumque, blanditiis fuga?
+              </p>
+          </div>
+          <div class="latest-analysis-widget">
+              <button class="tablink" onclick="openPage('crypto', this)" id="defaultOpen">
+                  Crypto
+              </button>
+              <button class="tablink" onclick="openPage('forex', this)">
+                  Forex
+              </button>
+              <button class="tablink" onclick="openPage('contact', this)">
+                  Contact
+              </button>
+          
+              <div id="crypto" class="tabcontent">
+                  <div class="analysis-content">
+                      <ul class="no-margin no-padding">
+                          <li>
+                              <div class="analysis-widget">
+                                  <h5 class="text-capitalize user-name">
+                                    <img src="./assets/images/user-icon-female-muslim.png" alt="annie Higgins"> 
+                                    Annie Higgins
+                                  </h5>
+                                  <p class="no-margin release-date-caption">
+                                      <i class="fa fa-calendar"></i> 12/12/2020
+                                  </p>
+                                  <p class="no-margin content">
+                                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos quisquam provident eaque laboriosam sit dolorem voluptas enim itaque repudiandae vero. Natus ratione, voluptate quibusdam, culpa eum cumque quo temporibus libero nihil architecto sint omnis nulla ullam! Laudantium quisquam doloribus unde recusandae? Quisquam repellendus mollitia explicabo aut nisi velit earum accusantium.
+                                      Lorem ipsum <button class="cursor-pointer ignore-general-style">View More</button>
+                                  </p>
+                              </div>
+                          </li>
+                          <li class="active">
+                              <div class="analysis-widget">
+                                  <h5 class="text-capitalize user-name">
+                                    <img src="./assets/images/user-icon-female.png" alt="annie Higgins"> 
+                                    Annie Higgins
+                                  </h5>
+                                  <p class="no-margin release-date-caption">
+                                      <i class="fa fa-calendar"></i> 12/12/2020
+                                  </p>
+                                  <p class="no-margin content">
+                                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos quisquam provident eaque laboriosam sit dolorem voluptas enim itaque repudiandae vero. Natus ratione, voluptate quibusdam, culpa eum cumque quo temporibus libero nihil architecto sint omnis nulla ullam! Laudantium quisquam doloribus unde recusandae? Quisquam repellendus mollitia explicabo aut nisi velit earum accusantium.
+                                      Lorem ipsum <button class="cursor-pointer ignore-general-style">View More</button>
+                                  </p>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+                
+                <div id="forex" class="tabcontent">
+                  <div class="analysis-content">
+                      <ul class="no-margin no-padding">
+                          <li>
+                              <div class="analysis-widget">
+                                  <h5 class="text-capitalize user-name">
+                                    <img src="./assets/images/user-icon-female-muslim.png" alt="annie Higgins"> 
+                                    Annie Higgins
+                                  </h5>
+                                  <p class="no-margin release-date-caption">
+                                      <i class="fa fa-calendar"></i> 12/12/2020
+                                  </p>
+                                  <p class="no-margin content">
+                                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos quisquam provident eaque laboriosam sit dolorem voluptas enim itaque repudiandae vero. Natus ratione, voluptate quibusdam, culpa eum cumque quo temporibus libero nihil architecto sint omnis nulla ullam! Laudantium quisquam doloribus unde recusandae? Quisquam repellendus mollitia explicabo aut nisi velit earum accusantium.
+                                      Lorem ipsum <button class="cursor-pointer ignore-general-style">View More</button>
+                                  </p>
+                              </div>
+                          </li>
+                          <li class="active">
+                              <div class="analysis-widget">
+                                  <h5 class="text-capitalize user-name">
+                                    <img src="./assets/images/user-icon-female.png" alt="annie Higgins"> 
+                                    Annie Higgins
+                                  </h5>
+                                  <p class="no-margin release-date-caption">
+                                      <i class="fa fa-calendar"></i> 12/12/2020
+                                  </p>
+                                  <p class="no-margin content">
+                                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos quisquam provident eaque laboriosam sit dolorem voluptas enim itaque repudiandae vero. Natus ratione, voluptate quibusdam, culpa eum cumque quo temporibus libero nihil architecto sint omnis nulla ullam! Laudantium quisquam doloribus unde recusandae? Quisquam repellendus mollitia explicabo aut nisi velit earum accusantium.
+                                      Lorem ipsum <button class="cursor-pointer ignore-general-style">View More</button>
+                                  </p>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+                
+                <div id="contact" class="tabcontent">
+                  <div class="analysis-content">
+                      <ul class="no-margin no-padding">
+                          <li>
+                              <div class="analysis-widget">
+                                  <h5 class="text-capitalize user-name">
+                                    <img src="./assets/images/user-icon-female-muslim.png" alt="annie Higgins"> 
+                                    Annie Higgins
+                                  </h5>
+                                  <p class="no-margin release-date-caption">
+                                      <i class="fa fa-calendar"></i> 12/12/2020
+                                  </p>
+                                  <p class="no-margin content">
+                                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos quisquam provident eaque laboriosam sit dolorem voluptas enim itaque repudiandae vero. Natus ratione, voluptate quibusdam, culpa eum cumque quo temporibus libero nihil architecto sint omnis nulla ullam! Laudantium quisquam doloribus unde recusandae? Quisquam repellendus mollitia explicabo aut nisi velit earum accusantium.
+                                      Lorem ipsum <button class="cursor-pointer ignore-general-style">View More</button>
+                                  </p>
+                              </div>
+                          </li>
+                          <li class="active">
+                              <div class="analysis-widget">
+                                  <h5 class="text-capitalize user-name">
+                                    <img src="./assets/images/user-icon-female.png" alt="annie Higgins"> 
+                                    Annie Higgins
+                                  </h5>
+                                  <p class="no-margin release-date-caption">
+                                      <i class="fa fa-calendar"></i> 12/12/2020
+                                  </p>
+                                  <p class="no-margin content">
+                                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos quisquam provident eaque laboriosam sit dolorem voluptas enim itaque repudiandae vero. Natus ratione, voluptate quibusdam, culpa eum cumque quo temporibus libero nihil architecto sint omnis nulla ullam! Laudantium quisquam doloribus unde recusandae? Quisquam repellendus mollitia explicabo aut nisi velit earum accusantium.
+                                      Lorem ipsum <button class="cursor-pointer ignore-general-style">View More</button>
+                                  </p>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+          </div>
+      </section> -->
+
+      <section class="top-analysts-section full-width">
+          <h2 class="text-danger text-center header text-capitalize">
+              Meet our Top analysts
+          </h2>
+          <p class="text-center subheading no-margin">
+              Meet our top analysts who bring you the latest financial predictions
+          </p>
+          <div class="analyst-widget-section full-width">
+              <div class="slider">
+                  <div class="slides">
+                    <div id="slide-1" class="analyst-data full-width">
+                      <div class="analyst-image">
+                          <img src="./assets/images/game-console.webp" />
+                      </div>
+                      <h3 class="header">Imah Taylor</h3>
+                      <p class="analyst-bio no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem possimus itaque eaque omnis cumque ipsum. iste ut expedita? Odio quibusdam, quis libero autem tempora temporibus eius amet atque exercitationem nihil nulla dolor impedit reiciendis eos facilis in nobis eveniet provident doloremque unde molestiae. Expedita, perferendis dicta saepe unde fuga ad illum nam atque provident hic labore! Similique doloremque alias temporibus magni voluptatem, error ducimus consectetur eum numquam nemo ipsa quisquam eos, ipsam necessitatibus?
+                      </p>
+                      <p class="text-center no-margin subscription-link-section">
+                          <a [routerLink]="['/']" class="btn btn-primary text-decoration-none">
+                              View Profile
+                          </a>
+                      </p>
+                    </div>
+                    <div id="slide-2" class="analyst-data full-width">
+                      <div class="analyst-image">
+                          <img src="./assets/images/game-console.webp" />
+                      </div>
+                      <h3 class="header">Imah Taylor</h3>
+                      <p class="analyst-bio no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem possimus itaque eaque omnis cumque ipsum. iste ut expedita? Odio quibusdam, quis libero autem tempora temporibus eius amet atque exercitationem nihil nulla dolor impedit reiciendis eos facilis in nobis eveniet provident doloremque unde molestiae. Expedita, perferendis dicta saepe unde fuga ad illum nam atque provident hic labore! Similique doloremque alias temporibus magni voluptatem, error ducimus consectetur eum numquam nemo ipsa quisquam eos, ipsam necessitatibus?
+                      </p>
+                      <p class="text-center no-margin subscription-link-section">
+                          <a [routerLink]="['/']" class="btn btn-primary text-decoration-none">
+                              View Profile
+                          </a>
+                      </p>
+                    </div>
+                    <div id="slide-3" class="analyst-data full-width">
+                      <div class="analyst-image">
+                          <img src="./assets/images/game-console.webp" />
+                      </div>
+                      <h3 class="header">Imah Taylor</h3>
+                      <p class="analyst-bio no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem possimus itaque eaque omnis cumque ipsum. iste ut expedita? Odio quibusdam, quis libero autem tempora temporibus eius amet atque exercitationem nihil nulla dolor impedit reiciendis eos facilis in nobis eveniet provident doloremque unde molestiae. Expedita, perferendis dicta saepe unde fuga ad illum nam atque provident hic labore! Similique doloremque alias temporibus magni voluptatem, error ducimus consectetur eum numquam nemo ipsa quisquam eos, ipsam necessitatibus?
+                      </p>
+                      <p class="text-center no-margin subscription-link-section">
+                          <a [routerLink]="['/']" class="btn btn-primary text-decoration-none">
+                              View Profile
+                          </a>
+                      </p>
+                    </div>
+                    <div id="slide-4" class="analyst-data full-width">
+                      <div class="analyst-image">
+                          <img src="./assets/images/game-console.webp" />
+                      </div>
+                      <h3 class="header">Timmy Taylor</h3>
+                      <p class="analyst-bio no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem possimus itaque eaque omnis cumque ipsum. iste ut expedita? Odio quibusdam, quis libero autem tempora temporibus eius amet atque exercitationem nihil nulla dolor impedit reiciendis eos facilis in nobis eveniet provident doloremque unde molestiae. Expedita, perferendis dicta saepe unde fuga ad illum nam atque provident hic labore! Similique doloremque alias temporibus magni voluptatem, error ducimus consectetur eum numquam nemo ipsa quisquam eos, ipsam necessitatibus?
+                      </p>
+                      <p class="text-center no-margin subscription-link-section">
+                          <a [routerLink]="['/']" class="btn btn-primary text-decoration-none">
+                              View Profile
+                          </a>
+                      </p>
+                    </div>
+                    <div id="slide-5" class="analyst-data full-width">
+                      <div class="analyst-image">
+                          <img src="./assets/images/game-console.webp" />
+                      </div>
+                      <h3 class="header">Imah Taylor</h3>
+                      <p class="analyst-bio no-margin">
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem possimus itaque eaque omnis cumque ipsum. iste ut expedita? Odio quibusdam, quis libero autem tempora temporibus eius amet atque exercitationem nihil nulla dolor impedit reiciendis eos facilis in nobis eveniet provident doloremque unde molestiae. Expedita, perferendis dicta saepe unde fuga ad illum nam atque provident hic labore! Similique doloremque alias temporibus magni voluptatem, error ducimus consectetur eum numquam nemo ipsa quisquam eos, ipsam necessitatibus?
+                      </p>
+                      <p class="text-center no-margin subscription-link-section">
+                          <a [routerLink]="['/']" class="btn btn-primary text-decoration-none">
+                              View Profile
+                          </a>
+                      </p>
+                    </div>
+                  </div>
+
+                  <a href="#slide-1" class="slider-navigator">1</a>
+                  <a href="#slide-2" class="slider-navigator">2</a>
+                  <a href="#slide-3" class="slider-navigator">3</a>
+                  <a href="#slide-4" class="slider-navigator">4</a>
+                  <a href="#slide-5" class="slider-navigator">5</a>
+              </div>
+          </div>
+      </section>
+
+      <syncspace-crypto-analysis-footer></syncspace-crypto-analysis-footer>
+  </section>
+</ion-content>
