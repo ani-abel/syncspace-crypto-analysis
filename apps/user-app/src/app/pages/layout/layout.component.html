@@ -1,0 +1,98 @@
+<ion-content [fullscreen]="true">
+    <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
+
+    <!-- Correct nav bar toggle -->
+    <aside
+        (click)="onStopPropagation($event)"
+        class="side-bar-nav" 
+        [ngClass]="{ 'hidden-visually': !ref.isOpen }">
+        <div class="logo-section full-width text-center">
+            <img src="/assets/images/user-icon-female-muslim.png" />
+            <h5 class="text-capitalize text-danger">Jim Clark</h5>
+        </div>
+        <div class="nav-content">
+            <ul class="no-margin">
+                <li class="active">
+                    <a href="">
+                       Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="">Feed</a>
+                </li>
+                <li>
+                    <a href="">Demo</a>
+                </li>
+            </ul>
+    
+            <div class="subheader">
+                <h6  class="subheading">Subheader</h6>
+                <ul class="no-margin">
+                    <li class="active">
+                        <a href="">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">Feed</a>
+                    </li>
+                    <li>
+                        <a href="">Demo</a>
+                    </li>
+                </ul>
+            </div>
+    
+            <div class="subheader">
+                <h6  class="subheading">Subheader</h6>
+                <ul class="no-margin">
+                    <li>
+                        <a href="">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">Feed</a>
+                    </li>
+                    <li>
+                        <a href="">Demo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <header class="full-width">
+        <nav>
+            <div class="nav-section">
+                <ul class="no-margin no-padding">
+                    <li>
+                        <a class="cursor-pointer" 
+                            syncspaceCryptoAnalysisNavbarToggle
+                            #ref="syncspaceCryptoAnalysisNavbarToggle">
+                            <ion-icon name="reorder-three-outline"></ion-icon>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-section text-right">
+               <ul class="no-margin no-padding">
+                <li>
+                    <a href="">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </a>
+                </li>
+                   <li>
+                       <a href="">
+                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                           <!-- <i class="fa fa-bell-o"></i> -->
+                       </a>
+                   </li>
+               </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="page-content">
+        <!-- <ion-router-outlet></ion-router-outlet> -->
+        <router-outlet></router-outlet>
+    </main>
+</ion-content>
