@@ -64,6 +64,67 @@ header {
             }
         }
     }
+
+    .notification-section {
+        width: 30%;
+        min-height: 200px;
+        max-height: 500px;
+        overflow-y: scroll;
+        position: fixed;
+        z-index: 99;
+        top: 70px;
+        right: 5px;
+        background: var(--bg-secondary);
+        box-shadow: var(--box-shadow-xl);
+        padding: 20px 0 0 0;
+
+        .title {
+            letter-spacing: 1.5px;
+            padding: 0 10px;
+        }
+
+        .notifications-container {
+            padding: 20px 0 0 0;
+
+            ul {
+                li {
+                    list-style: none;
+                    padding: 15px 10px 15px 10px;
+
+                    &:nth-child(odd) {
+                        background: var(--bg-primary);
+                    }
+
+                    .image-title {
+                        vertical-align: top;
+
+                        img {
+                            height: 50px;
+                            width: 50px;
+                            object-fit: cover;
+                            border-radius: 100%;
+                            vertical-align: top;
+
+                            float: left;
+                            margin: 2px 5px 2px 0;
+                        }
+
+                        p {
+                            text-align: justify;
+                        }
+                    }
+
+                    .date-tag {
+                        color: var(--text-hightlight-color);
+                        --font-size: 12px;
+                        font-size: var(--font-size);
+                        margin-top: 0;
+                        padding: 10px 0;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .side-bar-nav {
@@ -199,6 +260,10 @@ header {
     .page-content {
         width: 100% !important;
     }
+
+    .notification-section {
+        width: 60% !important;
+    }
 }
 
 @media (max-width: 576px) { 
@@ -208,5 +273,9 @@ header {
 
     .page-content {
         width: 100%;
+    }
+
+    .notification-section {
+        width: 80% !important;
     }
 }

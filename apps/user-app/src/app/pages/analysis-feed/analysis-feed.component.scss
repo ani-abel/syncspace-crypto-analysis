@@ -5,6 +5,18 @@
     flex-direction: row;
     padding: 0 0 50px 0;
 
+    .post-tag {
+        padding: 10px 0;
+
+        span {
+            padding: 5px 8px;
+            border-left: 5px solid var(--danger-color);
+            background: var(--bg-primary);
+            color: var(--primary-text-color);
+            font-size: var(--font-size);
+        }
+    }
+
     .page-section {
         width: 65%;
 

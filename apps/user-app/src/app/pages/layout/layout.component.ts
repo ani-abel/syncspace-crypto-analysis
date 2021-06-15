@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'syncspace-crypto-analysis-layout',
@@ -6,15 +6,19 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  @Output() stopPropagation: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  isOpen: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onStopPropagation(event: MouseEvent): void {
-    this.stopPropagation.emit(event);
+  openSidebar(): void {
+    this.isOpen = true;
+  }
+
+  closeSidebar(): void {
+    this.isOpen = false;
   }
 
 }
