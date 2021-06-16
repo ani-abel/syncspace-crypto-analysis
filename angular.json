@@ -769,6 +769,31 @@
           }
         }
       }
+    },
+    "shared-frontend": {
+      "projectType": "library",
+      "root": "libs/shared-frontend",
+      "sourceRoot": "libs/shared-frontend/src",
+      "prefix": "syncspace-crypto-analysis",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-frontend"],
+          "options": {
+            "jestConfig": "libs/shared-frontend/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared-frontend/src/**/*.ts",
+              "libs/shared-frontend/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

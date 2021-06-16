@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Inject,  Directive, HostListener } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Plugins } from '@capacitor/core';

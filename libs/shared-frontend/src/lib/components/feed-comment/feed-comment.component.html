@@ -1,0 +1,28 @@
+<div class="comment-widget">
+    <h6 class="no-padding">
+        <img src="/assets/images/user-icon-female-muslim.png" alt="" />
+        John Doe | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
+    </h6>
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, nam sunt. Tempora modi nihil eaque vel sapiente consectetur facilis sit?
+    </p>
+    <p class="no-margin no-padding text-right">
+        <a class="text-decoration-none text-bold text-secondary cursor-pointer"
+            syncspaceCryptoAnalysisToggle
+            #refReplies="syncspaceCryptoAnalysisToggle">
+            View Replies
+        </a>
+    </p>
+
+    <div class="replies-section full-width" [ngClass]="{ 'hidden-visually': !refReplies.isOpen}">
+        <div class="comment-widget">
+            <h6 class="no-padding">
+                <img src="/assets/images/user-icon-female-muslim.png" alt="" />
+                John Doe | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
+            </h6>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, nam sunt. Tempora modi nihil eaque vel sapiente consectetur facilis sit?
+            </p>
+        </div>
+    </div>
+</div>

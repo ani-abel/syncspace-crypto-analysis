@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AnalysisFeedRoutingModule } from './analysis-feed-routing.module';
 import { AnalysisFeedComponent } from './analysis-feed.component';
-import { SharedModule } from '../../modules/shared/shared.module';
+import { SharedFrontendModule } from '@syncspace-crypto-analysis/shared-frontend';
 
 
 @NgModule({
@@ -12,7 +12,7 @@ import { SharedModule } from '../../modules/shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule,
+    SharedFrontendModule,
     AnalysisFeedRoutingModule
   ]
 })

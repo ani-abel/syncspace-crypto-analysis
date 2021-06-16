@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
@@ -40,12 +41,6 @@ export class NavbarToggleDirective {
     console.log({event, hh: 'hi'});
     event.stopPropagation();
   }
-
-  // @HostListener('click', ['$event'])
-  // onStopPropagation(event: Event): void {
-  //   console.log({ event });
-  //   event.stopPropagation();
-  // }
 
   private checkWindowSizeAsync(): void {
     if (window.innerWidth <= 800) {

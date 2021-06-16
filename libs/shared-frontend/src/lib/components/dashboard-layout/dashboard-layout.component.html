@@ -1,0 +1,123 @@
+<ion-content [fullscreen]="true">
+    <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
+
+    <aside class="side-bar-nav" 
+        [ngClass]="{ 'hidden-visually': !isOpen }">
+        <div class="logo-section full-width text-center">
+            <img src="/assets/images/user-icon-female-muslim.png" />
+            <h5 class="text-capitalize text-danger">Jim Clark</h5>
+        </div>
+        <div class="nav-content">
+            <ul class="no-margin">
+                <li [routerLinkActive]="'active'">
+                    <a [routerLink]="['/auth', 'dashboard']">
+                       Dashboard
+                    </a>
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a [routerLink]="['/auth', 'analysis-feed']">
+                        Feed
+                    </a>
+                </li>
+            </ul>
+    
+            <div class="subheader">
+                <h6  class="subheading">Subheader</h6>
+                <ul class="no-margin">
+                    <li [routerLinkActive]="'active'">
+                        <a href="">Feed</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <header class="full-width">
+        <nav>
+            <div class="nav-section">
+                <ul class="no-margin no-padding">
+                    <li>
+                        <a class="cursor-pointer" 
+                            (click)="openSidebar()">
+                            <ion-icon name="reorder-three-outline"></ion-icon>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-section text-right">
+               <ul class="no-margin no-padding">
+                <li>
+                    <a href="">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </a>
+                </li>
+                   <li>
+                       <a class="cursor-pointer" 
+                            syncspaceCryptoAnalysisToggle
+                            #refNotification="syncspaceCryptoAnalysisToggle">
+                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                       </a>
+                   </li>
+               </ul>
+            </div>
+        </nav>
+
+        <div class="notification-section" 
+            [ngClass]="{ 'hidden-visually': !refNotification.isOpen}">
+            <h4 class="no-margin no-padding title">
+                Notifications
+            </h4>
+            <div class="notifications-container">
+                <ul class="no-margin no-padding">
+                    <li>
+                        <div class="no-margin image-title">
+                            <img src="/assets/images/user-icon-female.png" alt="user icon" />
+                            <p class="no-margin">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis soluta veniam, animi beatae adipisci ratione earum voluptate quaerat aliquam cupiditate?
+                            </p>
+                        </div>
+                        <p class="no-margin no-padding date-tag">
+                            <i class="fa fa-calendar"></i> 22/12/2021
+                        </p>
+                    </li>
+                    <li>
+                        <div class="no-margin image-title">
+                            <img src="/assets/images/user-icon-female.png" alt="user icon" />
+                            <p class="no-margin">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis soluta veniam, animi beatae adipisci ratione earum voluptate quaerat aliquam cupiditate?
+                            </p>
+                        </div>
+                        <p class="no-margin no-padding date-tag">
+                            <i class="fa fa-calendar"></i> 22/12/2021
+                        </p>
+                    </li>
+                    <li>
+                        <div class="no-margin image-title">
+                            <img src="/assets/images/user-icon-female.png" alt="user icon" />
+                            <p class="no-margin">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis soluta veniam, animi beatae adipisci ratione earum voluptate quaerat aliquam cupiditate?
+                            </p>
+                        </div>
+                        <p class="no-margin no-padding date-tag">
+                            <i class="fa fa-calendar"></i> 22/12/2021
+                        </p>
+                    </li>
+                    <li>
+                        <div class="no-margin image-title">
+                            <img src="/assets/images/user-icon-female.png" alt="user icon" />
+                            <p class="no-margin">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis soluta veniam, animi beatae adipisci ratione earum voluptate quaerat aliquam cupiditate?
+                            </p>
+                        </div>
+                        <p class="no-margin no-padding date-tag">
+                            <i class="fa fa-calendar"></i> 22/12/2021
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main class="page-content" (click)="closeSidebar()">
+        <router-outlet></router-outlet>
+    </main>
+</ion-content>
