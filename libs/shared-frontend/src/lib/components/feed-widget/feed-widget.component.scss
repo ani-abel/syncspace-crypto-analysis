@@ -67,7 +67,6 @@
 }
 
 .feed-action {
-    border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: center;
     flex: 1 1;
@@ -100,6 +99,7 @@
 
 .feed-comments {
     padding: 25px 15px;
+    border-top: 1px solid var(--border-color);
 
     .comments-section {
         padding: 10px 0;
@@ -150,7 +150,6 @@
 
             &:not(.comment-widget:last-of-type) {
                 margin-bottom: 5px;
-                // border-bottom: 1px solid var(--bg-secondary);
             }
         }
     }

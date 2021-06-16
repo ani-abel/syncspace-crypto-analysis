@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedFrontendModule } from '@syncspace-crypto-analysis/shared-frontend';
 
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
+import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
+import { ForgotPasswordComponent } from './forgot-password.component';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
     SharedFrontendModule,
-    LoginRoutingModule
+    ForgotPasswordRoutingModule
   ]
 })
-export class LoginModule { }
+export class ForgotPasswordModule { }

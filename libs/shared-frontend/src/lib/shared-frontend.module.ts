@@ -32,6 +32,7 @@ import { FeedCommentComponent } from './components/feed-comment/feed-comment.com
     IonicModule,
     ReactiveFormsModule,
     FormsModule,
+    RouterModule,
     NavbarToggleDirective,
     ThemeToggleDirective,
     ToggleDirective,
