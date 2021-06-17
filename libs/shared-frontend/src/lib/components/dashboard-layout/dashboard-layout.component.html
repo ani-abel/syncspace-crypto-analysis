@@ -1,36 +1,7 @@
 <ion-content [fullscreen]="true">
     <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
 
-    <aside class="side-bar-nav" 
-        [ngClass]="{ 'hidden-visually': !isOpen }">
-        <div class="logo-section full-width text-center">
-            <img src="/assets/images/user-icon-female-muslim.png" />
-            <h5 class="text-capitalize text-danger">Jim Clark</h5>
-        </div>
-        <div class="nav-content">
-            <ul class="no-margin">
-                <li [routerLinkActive]="'active'">
-                    <a [routerLink]="['/auth', 'dashboard']">
-                       Dashboard
-                    </a>
-                </li>
-                <li [routerLinkActive]="'active'">
-                    <a [routerLink]="['/auth', 'analysis-feed']">
-                        Feed
-                    </a>
-                </li>
-            </ul>
-    
-            <div class="subheader">
-                <h6  class="subheading">Subheader</h6>
-                <ul class="no-margin">
-                    <li [routerLinkActive]="'active'">
-                        <a href="">Feed</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
+    <syncspace-crypto-analysis-sidebar [isOpen]="isOpen"></syncspace-crypto-analysis-sidebar>
 
     <header class="full-width">
         <nav>
@@ -47,7 +18,7 @@
             <div class="nav-section text-right">
                <ul class="no-margin no-padding">
                 <li>
-                    <a href="">
+                    <a [routerLink]="['/auth', 'my-profile']">
                         <ion-icon name="person-circle-outline"></ion-icon>
                     </a>
                 </li>

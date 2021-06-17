@@ -10,16 +10,20 @@ import { DashboardLayoutComponent } from './components/dashboard-layout/dashboar
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { FeedWidgetComponent } from './components/feed-widget/feed-widget.component';
 import { FeedCommentComponent } from './components/feed-comment/feed-comment.component';
+import { UserProfileCardComponent } from './components/user-profile-card/user-profile-card.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     NavbarToggleDirective,
     ThemeToggleDirective,
     ToggleDirective,
+    SidebarComponent,
     DashboardLayoutComponent,
     ThemeToggleComponent,
     FeedWidgetComponent,
-    FeedCommentComponent
+    FeedCommentComponent,
+    UserProfileCardComponent,
   ],
   imports: [
     CommonModule, 
@@ -39,7 +43,9 @@ import { FeedCommentComponent } from './components/feed-comment/feed-comment.com
     DashboardLayoutComponent,
     ThemeToggleComponent,
     FeedWidgetComponent,
-    FeedCommentComponent
+    FeedCommentComponent,
+    UserProfileCardComponent,
+    SidebarComponent
   ]
 })
 export class SharedFrontendModule {}

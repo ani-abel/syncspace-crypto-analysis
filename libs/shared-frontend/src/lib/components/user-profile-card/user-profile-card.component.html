@@ -1,0 +1,26 @@
+<div class="user-card full-width">
+    <div class="image-section full-width text-center">
+        <img src="/assets/images/financial-analysis-pic1.jpg" alt="" />
+    </div>
+    <div class="user-details full-width">
+        <h3 class="title text-danger text-center text-capitalize no-padding">
+            Wes Bos
+        </h3>
+        <p class="no-margin text-center details">
+            👏 22 Followers | ⛳ 64 Posts
+        </p>
+        <p class="text-center content no-margin">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi est inventore, ut, incidunt velit eveniet molestiae labore iusto qui blanditiis animi ab magnam optio eaque veniam. Quia natus corporis sunt quo ratione enim molestiae maxime, architecto ipsum modi, soluta totam quasi deleniti? Magnam sapiente minima sed. Ratione est eveniet a?
+        </p>
+    </div>
+    <div class="user-action full-width text-center" *ngIf="canSubscribe">
+        <button class="btn btn-danger">
+            Subscribe
+        </button>
+    </div>
+    <div class="user-action full-width text-center" *ngIf="canEdit">
+        <a [routerLink]="['/auth', 'edit-profile']" class="text-decoration-none btn btn-danger">
+            Edit Profile
+        </a>
+    </div>
+</div>

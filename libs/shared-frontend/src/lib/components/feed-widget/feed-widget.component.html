@@ -1,6 +1,6 @@
 <div class="feed-widget mb-20">
     <div class="feed-header">
-        <a [routerLink]="['/auth', 'feed-detail']" class="text-decoration-none">
+        <a [routerLink]="['/auth', 'user-feed', 123]" class="text-decoration-none">
             <h4 class="text-capitalize">
                 <img src="/assets/images/user-icon-female.png" alt="" />
                 Timmy Adams
@@ -19,7 +19,7 @@
        <img src="/assets/images/financial-analysis-pic1.jpg" alt="" />
     </div>
     <div class="feed-content full-width">
-        <a [routerLink]="['/auth', 'feed-detail']" class="text-decoration-none">
+        <a [routerLink]="['/auth', 'analysis-feed', 2]" class="text-decoration-none">
             <h4 class="text-danger text-capitalize">
                 Post title goes here
             </h4>
@@ -52,42 +52,6 @@
         </form>
         <div class="comments-section full-width mt-10">
             <syncspace-crypto-analysis-feed-comment></syncspace-crypto-analysis-feed-comment>
-            <!-- <div class="comment-widget">
-                <h6 class="no-padding">
-                    <img src="/assets/images/user-icon-female-muslim.png" alt="" />
-                    John Doe | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
-                </h6>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, nam sunt. Tempora modi nihil eaque vel sapiente consectetur facilis sit?
-                </p>
-                <p class="no-margin no-padding text-right">
-                    <a href="" class="text-decoration-none text-bold text-secondary">
-                        View Replies
-                    </a>
-                </p>
-
-                <div class="replies-section full-width">
-                    <div class="comment-widget">
-                        <h6 class="no-padding">
-                            <img src="/assets/images/user-icon-female-muslim.png" alt="" />
-                            John Doe | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
-                        </h6>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, nam sunt. Tempora modi nihil eaque vel sapiente consectetur facilis sit?
-                        </p>
-                    </div>
-
-                    <div class="comment-widget">
-                        <h6 class="no-padding">
-                            <img src="/assets/images/user-icon-female-muslim.png" alt="" />
-                            John Doe | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
-                        </h6>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, nam sunt. Tempora modi nihil eaque vel sapiente consectetur facilis sit?
-                        </p>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>

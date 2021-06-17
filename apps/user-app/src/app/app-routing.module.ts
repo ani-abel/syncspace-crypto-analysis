@@ -12,6 +12,14 @@ const routes: Routes = [
     path: 'login', 
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) 
   },
+  { 
+    path: 'sign-up', 
+    loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule) 
+  },
+  { 
+    path: 'forgot-password', 
+    loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) 
+  },
   {
     path: 'auth',
     component: LayoutComponent,
@@ -27,16 +35,41 @@ const routes: Routes = [
       },
       { 
         path: 'analysis-feed', 
-        loadChildren: () => import('./pages/analysis-feed/analysis-feed.module').then(m => m.AnalysisFeedModule) 
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            loadChildren: () => import('./pages/analysis-feed/analysis-feed.module').then(m => m.AnalysisFeedModule),
+
+          },
+          {
+            path: ':feedId',
+            loadChildren: () => import('./pages/feed-detail/feed-detail.module').then(m => m.FeedDetailModule)
+          }
+        ]
       },
       { 
-        path: 'feed-detail', 
-        loadChildren: () => import('./pages/feed-detail/feed-detail.module').then(m => m.FeedDetailModule) 
+        path: 'user-feed/:userId', 
+        loadChildren: () => import('./pages/user-feed/user-feed.module').then(m => m.UserFeedModule) 
+      },
+      { 
+        path: 'become-analyst', 
+        loadChildren: () => import('./pages/become-analyst/become-analyst.module').then(m => m.BecomeAnalystModule) 
+      },
+      { 
+        path: 'add-analysis', 
+        loadChildren: () => import('./pages/add-analysis/add-analysis.module').then(m => m.AddAnalysisModule) 
+      },
+      { 
+        path: 'my-profile', 
+        loadChildren: () => import('./pages/my-profile/my-profile.module').then(m => m.MyProfileModule) 
+      },
+      { 
+        path: 'edit-profile', 
+        loadChildren: () => import('./pages/edit-profile/edit-profile.module').then(m => m.EditProfileModule) 
       },
     ]
   },
-  { path: 'sign-up', loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule) },
-  { path: 'forgot-password', loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) },
 ];
 
 @NgModule({
