@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
     <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
-    <section class="page-container full-width" [ngClass]="{ 'closed': ref.isOpen }">
+    <section class="page-container full-width" [ngClass]="{ 'closed': !ref.isOpen }">
         <syncspace-crypto-analysis-nav-sidebar (closeNavbar)="ref.isOpen = false"></syncspace-crypto-analysis-nav-sidebar>
 
         <header class="full-width">
