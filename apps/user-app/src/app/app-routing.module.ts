@@ -64,6 +64,10 @@ const routes: Routes = [
         path: 'edit-profile', 
         loadChildren: () => import('./pages/edit-profile/edit-profile.module').then(m => m.EditProfileModule) 
       },
+      { 
+        path: 'payment', 
+        loadChildren: () => import('./pages/payment/payment.module').then(m => m.PaymentModule) 
+      },
       {
         path: 'subscription',
         children: [
@@ -101,7 +105,7 @@ const routes: Routes = [
         ]
       }
     ]
-  }
+  },
 ];
 
 @NgModule({

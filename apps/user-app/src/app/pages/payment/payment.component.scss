@@ -1,0 +1,96 @@
+.page-container {
+    width: 70%;
+    margin: 0 auto;
+
+    main {
+        .payment-options-section {
+            display: grid;
+            grid-gap: 20px;
+            grid-row-gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+    
+            padding: 20px 0;
+    
+            .payment-option-widget {
+                padding: 15px 10px;
+                background: var(--bg-secondary);
+                box-shadow: var(--box-shadow-md);
+                border: 2px solid var(--bg-secondary);
+
+                &.active,
+                &:hover {
+                    border: 2px solid var(--danger-color);
+                }
+
+                img {
+                    width: 60px;
+                    height: 60px;
+                }
+
+                h4 {
+                    letter-spacing: 1.5px;
+                }
+            }
+        }
+
+        .payment-actions {
+            padding: 15px 0;
+
+            p {
+                --font-size: 20px;
+            }
+
+            button {
+                --font-size: 16px;
+                font-size: var(--font-size);
+            }
+        }
+    
+    }
+}
+
+@media (max-width: 992px) { }
+
+@media (max-width: 768px) { 
+    .page-container {
+        main {
+            .payment-options-section {
+                grid-row-gap: 15px;
+                grid-template-columns: repeat(1, 1fr);
+        
+                .payment-option-widget {
+                    padding: 15px 10px;
+    
+                    img {
+                        width: 50px;
+                        height: 50px;
+                    }
+                }
+            }
+        
+        }
+    }
+}
+
+@media (max-width: 576px) { 
+    .page-container {
+        width: 100%;
+    
+        main {
+            .payment-options-section {
+                grid-row-gap: 15px;
+                grid-template-columns: repeat(1, 1fr);
+        
+                .payment-option-widget {
+                    padding: 15px 10px;
+    
+                    img {
+                        width: 50px;
+                        height: 50px;
+                    }
+                }
+            }
+        
+        }
+    }
+}

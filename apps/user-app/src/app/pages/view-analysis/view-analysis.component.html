@@ -6,9 +6,9 @@
                 <thead>
                     <tr>
                         <th>Title</th>
-                        <th>Content</th>
                         <th>Package</th>
                         <th>Date Created</th>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -17,7 +17,6 @@
                 <tbody>
                     <tr>
                         <td>Title goes here</td>
-                        <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, impedit?</td>
                         <td>DIAMOND</td>
                         <td>12/12/2021</td>
                         <td>
@@ -26,9 +25,17 @@
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-success btn-slim">
+                            <a [routerLink]="['/auth', 'payment']"
+                                [queryParams]="{ purpose: 'sponsorship' }" 
+                                class="btn btn-success text-decoration-none">
                                Sponsor
-                            </button>
+                            </a>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/auth', 'analysis-feed', 2]" 
+                                class="btn btn-danger text-decoration-none">
+                                View
+                            </a>
                         </td>
                         <td>
                             <a [routerLink]="['edit']" class="btn btn-primary text-decoration-none">
@@ -38,7 +45,6 @@
                     </tr>
                     <tr>
                         <td>Title goes here</td>
-                        <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, impedit?</td>
                         <td>DIAMOND</td>
                         <td>12/12/2021</td>
                         <td>
@@ -47,9 +53,17 @@
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-success btn-slim">
+                            <a [routerLink]="['/auth', 'payment']"
+                                [queryParams]="{ purpose: 'sponsorship' }" 
+                                class="btn btn-success text-decoration-none">
                                Sponsor
-                            </button>
+                            </a>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/auth', 'analysis-feed', 2]" 
+                                class="btn btn-danger text-decoration-none">
+                                View
+                            </a>
                         </td>
                         <td>
                             <a [routerLink]="['edit']" class="btn btn-primary text-decoration-none">
@@ -59,7 +73,6 @@
                     </tr>
                     <tr>
                         <td>Title goes here</td>
-                        <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam, impedit?</td>
                         <td>DIAMOND</td>
                         <td>12/12/2021</td>
                         <td>
@@ -68,9 +81,17 @@
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-success btn-slim">
+                            <a [routerLink]="['/auth', 'payment']"
+                                [queryParams]="{ purpose: 'sponsorship' }" 
+                                class="btn btn-success text-decoration-none">
                                Sponsor
-                            </button>
+                            </a>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/auth', 'analysis-feed', 2]" 
+                                class="btn btn-danger text-decoration-none">
+                                View
+                            </a>
                         </td>
                         <td>
                             <a [routerLink]="['edit']" class="btn btn-primary text-decoration-none">
