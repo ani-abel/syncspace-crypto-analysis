@@ -1,0 +1,65 @@
+    <section class="page-container full-width">
+        <main class="page-content">
+            <div class="form-section">
+                <h2 class="no-padding text-danger text-center">Edit Plan</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="title">Package Name*</label>
+                        <input type="text" id="title" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration*</label>
+                        <select id="duration" class="form-control">
+                            <option value="">ANNUALLY</option>
+                            <option value="">MONTHLY</option>
+                            <option value="">BI-ANUALLY</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price*</label>
+                        <input type="number" min="0" id="price" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="access-level">Who has access*</label>
+                        <select (change)="toggleAccessControl()" 
+                            #accessControlEl 
+                            id="access-level" 
+                            class="form-control">
+                            <option value="0">PUBLIC</option>
+                            <option value="1">ANYONE SUBSCRIBED</option>
+                            <option value="2">LIMITED SUBSCRIBERS</option>
+                        </select>
+                    </div>
+                    <ng-container *ngIf="optionSelected === 2">
+                        <div class="form-group">
+                            <label for="number-of-users">Number of allowed users*</label>
+                            <input type="number" min="1" id="number-of-users" class="form-control" />
+                        </div>
+                    </ng-container>
+                    <div class="form-group">
+                        <label for="description">Description*</label>
+                        <textarea class="form-textarea" id="description" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-block">
+                           Update
+                        </button>
+                    </div>
+                    <!-- <div class="form-group"> 
+                        <ul class="no-margin no-padding">
+                            <li>
+                                <p class="no-margin text-center">
+                                    Already have an account <a [routerLink]="['/login']">Login</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="text-right no-margin">
+                                    <a [routerLink]="['/forgot-password']">Forgot Password</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div> -->
+                </form>
+            </div>
+        </main>
+</section>

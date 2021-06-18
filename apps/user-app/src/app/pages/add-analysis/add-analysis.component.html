@@ -1,1 +1,63 @@
-<p>add-analysis works!</p>
+<syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
+    <section class="page-container full-width">
+        <main class="page-content">
+            <div class="form-section">
+                <h2 class="no-padding text-danger text-center">Make Analysis</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="analysis-image">Image*</label>&nbsp;
+                        <input accept="image/*" 
+                            type="file" 
+                            id="analysis-image" 
+                            class="display-none"
+                            #fileUploadEl />
+                        <button class="btn btn-danger slim-button" 
+                            (click)="fileUploadEl.click()">
+                            Select Image
+                        </button>
+                        <ng-container>
+                            <div class="image-preview mt-20 full-width">
+                                <img src="/assets/images/financial-analysis-pic1.jpg" alt="Analysis image" />
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title*</label>
+                        <input type="text" id="title" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="analysis-content">Content*</label>
+                        <textarea class="form-textarea" id="analysis-content" cols="30" rows="10"></textarea>
+                    </div>
+                    <ng-container>
+                        <div class="form-group">
+                            <label for="last-name">Package*</label>
+                            <select id="market" class="form-control">
+                                <option value="">DIAMOND</option>
+                                <option value="">GOLD</option>
+                            </select>
+                        </div>
+                    </ng-container>
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-block">
+                           Submit
+                        </button>
+                    </div>
+                    <!-- <div class="form-group"> 
+                        <ul class="no-margin no-padding">
+                            <li>
+                                <p class="no-margin text-center">
+                                    Already have an account <a [routerLink]="['/login']">Login</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="text-right no-margin">
+                                    <a [routerLink]="['/forgot-password']">Forgot Password</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div> -->
+                </form>
+            </div>
+        </main>
+</section>

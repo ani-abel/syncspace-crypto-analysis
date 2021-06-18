@@ -1,1 +1,52 @@
-<p>become-analyst works!</p>
+<syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
+    <section class="page-container full-width">
+        <main class="page-content">
+            <div class="form-section">
+                <h2 class="no-padding text-danger text-center">Become Analyst</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="market">Target Market*</label>
+                        <select id="market" class="form-control">
+                            <option value="">FOREX</option>
+                            <option value="">CRYPTO</option>
+                            <option value="">STOCKS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Analysis Type*</label>
+                        <select id="market" class="form-control">
+                            <option value="">FUNDAMENTAL</option>
+                            <option value="">TECHNICAL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="technique">Technique/Strategy*</label>
+                        <input type="text" id="technique" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio (Tell us about yourself)*</label>
+                        <textarea class="form-textarea" id="bio" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-block">
+                           Submit
+                        </button>
+                    </div>
+                    <!-- <div class="form-group"> 
+                        <ul class="no-margin no-padding">
+                            <li>
+                                <p class="no-margin text-center">
+                                    Already have an account <a [routerLink]="['/login']">Login</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="text-right no-margin">
+                                    <a [routerLink]="['/forgot-password']">Forgot Password</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div> -->
+                </form>
+            </div>
+        </main>
+</section>

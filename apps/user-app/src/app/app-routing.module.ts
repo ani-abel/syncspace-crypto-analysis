@@ -68,6 +68,24 @@ const routes: Routes = [
         path: 'edit-profile', 
         loadChildren: () => import('./pages/edit-profile/edit-profile.module').then(m => m.EditProfileModule) 
       },
+      {
+        path: 'subscription',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            loadChildren: () => import('./pages/view-subscription/view-subscription.module').then(m => m.ViewSubscriptionModule)
+          },
+          { 
+            path: 'add', 
+            loadChildren: () => import('./pages/add-subscription/add-subscription.module').then(m => m.AddSubscriptionModule) 
+          },
+          { 
+            path: 'edit', 
+            loadChildren: () => import('./pages/edit-subscription/edit-subscription.module').then(m => m.EditSubscriptionModule) 
+          },
+        ]
+      }
     ]
   },
 ];

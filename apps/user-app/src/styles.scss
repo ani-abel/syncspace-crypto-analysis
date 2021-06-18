@@ -303,8 +303,8 @@ table {
 
     thead {
         tr {
-            background: var(--text-color-dark);
-            color: var(--text-color);
+            background: var(--bg-secondary);
+            color: var(--primary-text-color);
             text-align: left;
         }
     }
@@ -314,20 +314,25 @@ table {
             border-bottom: 1px solid var(--border-color);
 
             &:nth-of-type(even) {
-                background-color: #f3f3f3;
+                background-color: var(--bg-secondary);
             }
 
             &:last-of-type {
                 // border-bottom: 2px solid var(--text-color-dark);
-                border-bottom: 2px solid var(--bg-primary);
+                border-bottom: 2px solid var(--danger-color);
             }
 
             &.active-row,
             &:hover {
                 font-weight: bold;
-                color: var(--bg-primary);
+                color: var(--primary-text-color);
             }
         }
+    }
+
+    th,
+    td {
+        font-size: var(--font-size);
     }
 }
 
@@ -461,6 +466,10 @@ form {
     background: var(--info-color);
 }
 
+.btn-slim {
+    height: 35px;
+}
+
 .btn-danger,
 .btn-info,
 .btn-primary,
@@ -571,6 +580,10 @@ form {
     width: 100%;
 }
 
+.display-none {
+    display: none;
+}
+
 .visible-md-down,
 .visible-sm-down,
 .visible-flex-md-down,
@@ -670,9 +683,37 @@ form {
     height: 20px;
 }
 
-@media (max-width: 992px) {}
+@media (max-width: 992px) {
+    .table-responsive {
+        overflow-x: scroll;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 2px;
+        }
+            
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 20px;
+        }
+    }
+}
 
 @media (max-width: 768px) { 
+    .table-responsive {
+        overflow-x: scroll;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 2px;
+        }
+            
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 20px;
+        }
+    }
+    
     .sidenav {
         padding: 20px 30px;
     
@@ -739,6 +780,20 @@ form {
 }
 
 @media (max-width: 576px) { 
+    .table-responsive {
+        overflow-x: scroll;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 2px;
+        }
+            
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 20px;
+        }
+    }
+
     .sidenav {
         padding: 20px 30px;
     
