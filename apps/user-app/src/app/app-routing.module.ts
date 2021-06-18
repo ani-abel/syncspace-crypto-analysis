@@ -57,10 +57,6 @@ const routes: Routes = [
         loadChildren: () => import('./pages/become-analyst/become-analyst.module').then(m => m.BecomeAnalystModule) 
       },
       { 
-        path: 'add-analysis', 
-        loadChildren: () => import('./pages/add-analysis/add-analysis.module').then(m => m.AddAnalysisModule) 
-      },
-      { 
         path: 'my-profile', 
         loadChildren: () => import('./pages/my-profile/my-profile.module').then(m => m.MyProfileModule) 
       },
@@ -84,10 +80,28 @@ const routes: Routes = [
             path: 'edit', 
             loadChildren: () => import('./pages/edit-subscription/edit-subscription.module').then(m => m.EditSubscriptionModule) 
           },
+        ],
+      },
+      {
+        path: 'analysis',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            loadChildren: () => import('./pages/view-analysis/view-analysis.module').then(m => m.ViewAnalysisModule)
+          },
+          { 
+            path: 'add', 
+            loadChildren: () => import('./pages/add-analysis/add-analysis.module').then(m => m.AddAnalysisModule) 
+          },
+          {
+            path: 'edit',
+            loadChildren: () => import('./pages/edit-analysis/edit-analysis.module').then(m => m.EditAnalysisModule)
+          }
         ]
       }
     ]
-  },
+  }
 ];
 
 @NgModule({
