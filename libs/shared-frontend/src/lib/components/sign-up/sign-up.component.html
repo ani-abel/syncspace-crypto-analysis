@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true">
+    <!-- <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle> -->
+    <section class="page-container full-width">
+        <main class="page-content">
+            <div class="form-section">
+                <h2 class="no-padding text-danger text-center">Sign up</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="first-name">First Name*</label>
+                        <input type="text" id="first-name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name*</label>
+                        <input type="text" id="last-name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone*</label>
+                        <input type="tel" id="phone" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country*</label>
+                        <select id="country" class="form-control">
+                            <option>Select Country</option>
+                            <option value="">Nigeria</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password*</label>
+                        <input type="password" id="password" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-block">
+                           Submit
+                        </button>
+                    </div>
+                    <div class="form-group"> 
+                        <ul class="no-margin no-padding">
+                            <li>
+                                <p class="no-margin text-center">
+                                    Already have an account <a [routerLink]="['/login']">Login</a>
+                                </p>
+                            </li>
+                            <!-- <li>
+                                <p class="text-right no-margin">
+                                    <a [routerLink]="['/forgot-password']">Forgot Password</a>
+                                </p>
+                            </li> -->
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </section>
+</ion-content>

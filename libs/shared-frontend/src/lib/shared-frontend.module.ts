@@ -12,6 +12,11 @@ import { FeedWidgetComponent } from './components/feed-widget/feed-widget.compon
 import { FeedCommentComponent } from './components/feed-comment/feed-comment.component';
 import { UserProfileCardComponent } from './components/user-profile-card/user-profile-card.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LoginComponent } from './components/login/login.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { AdminDashboardLayoutComponent } from './components/admin-dashboard-layout/admin-dashboard-layout.component';
+import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +29,11 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     FeedWidgetComponent,
     FeedCommentComponent,
     UserProfileCardComponent,
+    SignUpComponent,
+    LoginComponent,
+    ForgotPasswordComponent,
+    AdminDashboardLayoutComponent,
+    AdminSidebarComponent,
   ],
   imports: [
     CommonModule, 
@@ -45,7 +55,12 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     FeedWidgetComponent,
     FeedCommentComponent,
     UserProfileCardComponent,
-    SidebarComponent
+    SidebarComponent,
+    SignUpComponent,
+    LoginComponent,
+    ForgotPasswordComponent,
+    AdminDashboardLayoutComponent,
+    AdminSidebarComponent,
   ]
 })
 export class SharedFrontendModule {}

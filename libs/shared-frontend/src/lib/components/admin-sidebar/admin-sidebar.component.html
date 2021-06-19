@@ -1,0 +1,40 @@
+<aside class="side-bar-nav" 
+        [ngClass]="{ 'hidden-visually': !isOpen }">
+        <div class="logo-section full-width text-center">
+            <img src="/assets/images/user-icon-female-muslim.png" />
+            <h5 class="text-capitalize text-danger">Jim Clark</h5>
+        </div>
+        <div class="nav-content">
+            <ul class="no-margin">
+                <li [routerLinkActive]="'active'">
+                    <a [routerLink]="['/auth', 'dashboard']">
+                       Dashboard
+                    </a>
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a [routerLink]="['/auth', 'analysis-feed']">
+                        Feed
+                    </a>
+                </li>
+                <li [routerLinkActive]="'active'">
+                    <a [routerLink]="['/auth', 'users']">
+                        Users
+                    </a>
+                </li>
+            </ul>
+    
+            <div class="subheader">
+                <h6  class="subheading">Analysis</h6>
+                <ul class="no-margin">
+                    <li [routerLinkActive]="'active'">
+                        <a [routerLink]="['/auth', 'view-analyst-applicants']">Applicants</a>
+                    </li>
+                    <li [routerLinkActive]="'active'">
+                        <a [routerLink]="['/auth', 'statistics']">
+                            Statistics
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>

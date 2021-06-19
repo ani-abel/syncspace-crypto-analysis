@@ -1,0 +1,32 @@
+<ion-content [fullscreen]="true">
+    <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
+
+    <syncspace-crypto-analysis-admin-sidebar [isOpen]="isOpen"></syncspace-crypto-analysis-admin-sidebar>
+
+    <header class="full-width">
+        <nav>
+            <div class="nav-section">
+                <ul class="no-margin no-padding">
+                    <li>
+                        <a class="cursor-pointer" 
+                            (click)="openSidebar()">
+                            <ion-icon name="reorder-three-outline"></ion-icon>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-section text-right">
+               <ul class="no-margin no-padding">
+                <li>
+                    <a [routerLink]="['/auth', 'my-profile']">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                    </a>
+                </li>
+               </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="page-content" (click)="closeSidebar()">
+        <router-outlet></router-outlet>
+    </main>
+</ion-content>
