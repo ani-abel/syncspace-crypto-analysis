@@ -147,6 +147,8 @@ header {
 @media (max-width: 768px) { 
     header {
         nav {
+            height: 50px;
+
             .nav-section {
     
                 &:last-child {
@@ -162,10 +164,12 @@ header {
 
     .page-content {
         width: 100% !important;
+        padding: 60px 20px 20px 20px;
     }
 
     .notification-section {
         width: 60% !important;
+        top: 50px !important;
 
         .title {
             --font-size: 20px;
@@ -177,14 +181,16 @@ header {
 @media (max-width: 576px) { 
     header {
         nav {
+            height: 50px;
+
             .nav-section {
                 ion-icon {
-                    --font-size: 20px;
+                    --font-size: 25px;
                 }
 
                 &:first-child {
                     ion-icon {
-                        --font-size: 25px;
+                        --font-size: 30px;
                     }
                 }
     
@@ -201,10 +207,12 @@ header {
 
     .page-content {
         width: 100%;
+        padding: 60px 20px 20px 20px;
     }
-
+    
     .notification-section {
         width: 80% !important;
+        top: 50px !important;
 
         .title {
             --font-size: 20px;
