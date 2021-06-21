@@ -17,6 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { AdminDashboardLayoutComponent } from './components/admin-dashboard-layout/admin-dashboard-layout.component';
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
+import { CachedImageComponent } from './components/cached-image/cached-image.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.
     ForgotPasswordComponent,
     AdminDashboardLayoutComponent,
     AdminSidebarComponent,
+    CachedImageComponent,
   ],
   imports: [
     CommonModule, 
@@ -61,6 +63,7 @@ import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.
     ForgotPasswordComponent,
     AdminDashboardLayoutComponent,
     AdminSidebarComponent,
+    CachedImageComponent,
   ]
 })
 export class SharedFrontendModule {}

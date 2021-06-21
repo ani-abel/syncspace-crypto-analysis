@@ -16,7 +16,9 @@
                         </button>
                         <ng-container>
                             <div class="image-preview mt-20 full-width">
-                                <img src="/assets/images/financial-analysis-pic1.jpg" alt="Analysis image" />
+                                <syncspace-crypto-analysis-cached-image 
+                                    [src]="'https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg'"></syncspace-crypto-analysis-cached-image>
+                                <!-- <img src="/assets/images/financial-analysis-pic1.jpg" alt="Analysis image" /> -->
                             </div>
                         </ng-container>
                     </div>
@@ -27,6 +29,23 @@
                     <div class="form-group">
                         <label for="analysis-content">Content*</label>
                         <textarea class="form-textarea" id="analysis-content" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="visible-to">Visible to*</label>
+                        <div class="radio">
+                            <input id="radio-1" name="visible-to" type="radio" checked />
+                            <label for="radio-1" class="radio-label cursor-pointer">Public</label>
+                          </div>
+                        
+                          <div class="radio">
+                            <input id="radio-2" name="visible-to" type="radio" />
+                            <label  for="radio-2" class="radio-label cursor-pointer">Only Subscribers</label>
+                          </div>
+                        
+                          <div class="radio">
+                            <input id="radio-3" name="visible-to" type="radio" />
+                            <label for="radio-3" class="radio-label cursor-pointer">Specific Package</label>
+                          </div>
                     </div>
                     <ng-container>
                         <div class="form-group">
