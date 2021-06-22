@@ -23,15 +23,15 @@ const CACHE_FOLDER = 'CACHED-IMG';
   styleUrls: ['./cached-image.component.scss']
 })
 export class CachedImageComponent {
-  _src = '';
   @Input() spinner = false;
   @Input() width = '100%';
   @Input() height = '100%';
+  _src = '';
 
   @Input()
   set src(imageUrl: string) {
-    const imageName = imageUrl.split('/').pop();
-    const fileType = imageName.split('.').pop();
+    const imageName: string = imageUrl.split('/').pop();
+    const fileType: string = imageName.split('.').pop();
 
     Filesystem.readFile({
       directory: FilesystemDirectory.Cache,
@@ -47,11 +47,14 @@ export class CachedImageComponent {
       }).then(({ data }) => {
         this._src = `data:image/${fileType};base64,${data}`;
       });
-    })
+    });
   }
 
-  private async storeImage(url: string, path: string): Promise<FileWriteResult> {
-    const response = await fetch(`https://http-cors-proxy.herokuapp.com/${url}`);
+  private async storeImage(url: string, path: string)
+  : Promise<FileWriteResult> {
+    const response = url.startsWith('http') 
+    ? await fetch(`https://http-cors-proxy.herokuapp.com/${url}`)
+    : await fetch(url);
     const blob = await response.blob();
     const base64Data = await this.convertBlobToBase64(blob) as string;
     const savedFile = await Filesystem.writeFile({
@@ -70,7 +73,7 @@ export class CachedImageComponent {
         resolve(reader.result);
       };
       reader.readAsDataURL(blob);
-    })
+    });
   }
 
 }
