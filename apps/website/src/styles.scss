@@ -399,6 +399,7 @@ form {
 
         .form-control,
         .form-textarea {
+            font-size: var(--font-size);
             border-radius: 5px;
             border: none;
             width: 100%;

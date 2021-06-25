@@ -17,7 +17,6 @@ const CACHE_FOLDER = 'CACHED-IMG';
       [style.height]="height" />
     <ng-template #loading>
       <ion-skeleton-text animated></ion-skeleton-text>
-      <!-- <ion-spinner></ion-spinner> -->
     </ng-template>
   `,
   styleUrls: ['./cached-image.component.scss']
@@ -65,7 +64,8 @@ export class CachedImageComponent {
     return savedFile;
   }
 
-  private convertBlobToBase64(blob: Blob): Promise<string | ArrayBuffer> {
+  private convertBlobToBase64(blob: Blob)
+  : Promise<string | ArrayBuffer> {
     return new Promise((resolve, reject) => {
       const reader: FileReader = new FileReader;
       reader.onerror = reject;
@@ -75,5 +75,4 @@ export class CachedImageComponent {
       reader.readAsDataURL(blob);
     });
   }
-
 }
