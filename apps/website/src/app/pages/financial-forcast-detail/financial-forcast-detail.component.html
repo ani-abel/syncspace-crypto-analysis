@@ -88,11 +88,13 @@
                 </div>
 
                 <div class="comment-widget full-width">
-                    <button class="btn btn-danger btn-block">
+                    <button class="btn btn-danger btn-block" 
+                    syncspaceCryptoAnalysisToggle
+                    #refComment="syncspaceCryptoAnalysisToggle">
                         Comment(22)
                     </button>
-
-                    <div class="comment-list full-width">
+                    <div class="comment-list full-width" 
+                        [ngClass]="{ 'hidden-visually': !refComment.isOpen }">
                         <div class="comment">
                             <h5 class="no-margin comment-author">
                                 <img src="./assets/images/user-icon-female-muslim.png" alt="" />
@@ -105,7 +107,7 @@
 
                         <div class="comment">
                             <h5 class="no-margin comment-author">
-                                <img src="./assets/images/user-icon-female-muslim.png" alt="" />
+                                <img src="./assets/images/user-icon-female.png" alt="" />
                                 Jim Barnes | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
                             </h5>
                             <p class="no-margin">
