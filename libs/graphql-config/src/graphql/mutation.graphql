@@ -1,0 +1,16 @@
+mutation login($payload: LoginUserDTO!){
+  login(payload: $payload) {
+    userId,
+    email,
+    role,
+    token,
+    tokenExpiryDate,
+    tokenInitializationDate
+  }
+}
+
+mutation createContactMessage($payload: CreateContactMessageDTO!) {
+  createContactMessage(payload: $payload) {
+    id
+  }
+}

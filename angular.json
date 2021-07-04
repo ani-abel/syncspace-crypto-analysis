@@ -794,6 +794,56 @@
           }
         }
       }
+    },
+    "graphql-config": {
+      "projectType": "library",
+      "root": "libs/graphql-config",
+      "sourceRoot": "libs/graphql-config/src",
+      "prefix": "syncspace-crypto-analysis",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/graphql-config"],
+          "options": {
+            "jestConfig": "libs/graphql-config/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/graphql-config/src/**/*.ts",
+              "libs/graphql-config/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "graphql-requests": {
+      "projectType": "library",
+      "root": "libs/graphql-requests",
+      "sourceRoot": "libs/graphql-requests/src",
+      "prefix": "syncspace-crypto-analysis",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/graphql-requests"],
+          "options": {
+            "jestConfig": "libs/graphql-requests/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/graphql-requests/src/**/*.ts",
+              "libs/graphql-requests/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

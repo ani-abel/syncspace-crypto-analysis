@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { 
   FilesystemDirectory, 
   FileWriteResult, 
-  Plugins 
+  Plugins
 } from '@capacitor/core';
 const { Filesystem } = Plugins;
 
@@ -13,6 +13,7 @@ const CACHE_FOLDER = 'CACHED-IMG';
   template: `
     <img [src]="_src" 
       *ngIf="_src !== ''; else loading" 
+      [ngClass]="[class]"
       [style.width]="width" 
       [style.height]="height" />
     <ng-template #loading>
@@ -25,6 +26,7 @@ export class CachedImageComponent {
   @Input() spinner = false;
   @Input() width = '100%';
   @Input() height = '100%';
+  @Input() class;
   _src = '';
 
   @Input()

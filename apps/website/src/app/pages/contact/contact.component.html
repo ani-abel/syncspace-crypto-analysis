@@ -85,21 +85,33 @@
                     &amp; we'll try to get back to you as soon as possible
                 </p>
 
-                <form>
+                <form [formGroup]="contactMessageForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label for="name">Name*</label>
-                        <input type="text" id="name" class="form-control">
+                        <input type="text" id="name" [formControlName]="'name'" class="form-control" />
+                        <span *ngIf="contactMessageForm.get('name').touched && contactMessageForm.get('name').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                          </span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email*</label>
-                        <input type="email" id="email" class="form-control">
+                        <input type="email" id="email" [formControlName]="'email'" class="form-control" />
+                        <span *ngIf="contactMessageForm.get('email').touched && contactMessageForm.get('email').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                            <p class="form-helper danger" *ngIf="errorList['email']">Email required</p>
+                          </span>
                     </div>
                     <div class="form-group">
                         <label for="message">Message*</label>
-                        <textarea id="message" class="form-textarea" cols="30" rows="10"></textarea>
+                        <textarea [formControlName]="'message'" id="message" class="form-textarea" cols="30" rows="10"></textarea>
+                        <span *ngIf="contactMessageForm.get('message').touched && contactMessageForm.get('message').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                          </span>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn-block btn btn-danger">
+                        <button type="submit" 
+                            [disabled]="contactMessageForm.invalid" 
+                            class="btn-block btn btn-danger">
                             Submit
                         </button>
                     </div>

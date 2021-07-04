@@ -57,13 +57,13 @@
                       </p>
                       <p class="text-center">
                           <a [routerLink]="['/sign-up']" class="btn btn-danger text-decoration-none text-capitalize">
-                              Get started
+                            Get started
                           </a>
                           &nbsp;
                           <span>OR</span>
                           &nbsp;
                           <a [routerLink]="['/login']" class="btn btn-primary text-decoration-none text-capitalize">
-                              Login
+                            Login
                           </a>
                       </p>
                   </div>
@@ -73,124 +73,36 @@
 
       <section class="top-analysis-section full-width">
           <h2 class="text-danger text-center header text-capitalize">
-              Latest financial Updates
+            Latest financial Updates
           </h2>
-          <div class="financial-updates">
-              <div class="financial-update-widget">
+          <div class="financial-updates" 
+            *ngIf="(topPublicFeed$ | async) as topPublicFeed">
+              <div *ngFor="let feed of topPublicFeed" class="financial-update-widget">
                   <div class="flex-widget">
-                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
+                      <!-- <syncspace-crypto-analysis-cached-image 
+                        [src]="feed.imageUrl"
+                        [class]="'img-size'"
+                        [width]="'100%'"
+                        [height]="'100%'">
+                      </syncspace-crypto-analysis-cached-image> -->
+                      <img [src]="feed.imageUrl" [alt]="feed.title" />
                   </div>
                   <div class="flex-widget">
-                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
+                    <a [routerLink]="['/financial-forcast', feed.id]" 
+                        class="text-decoration-none">
                           <h5 class="title no-padding text-capitalize text-bold">
-                              Title goes here consectetur adipisicing elit. Quos, facilis.
+                            {{ feed.title }}
                           </h5>
                     </a>
                       <p class="date-tag no-margin">
-                          <i class="fa fa-calendar"></i> 21/12/2021
+                          <i class="fa fa-calendar"></i> {{ feed.dateCreated | date : 'short' }}
                       </p>
                       <p class="content no-margin">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
+                        {{ feed.body | summarizeContent : 70 }}
                       </p>
                       <div class="tags full-width">
                           <span class="tag text-uppercase">
-                              Forex
-                          </span>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="financial-update-widget">
-                  <div class="flex-widget">
-                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
-                  </div>
-                  <div class="flex-widget">
-                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
-                          <h5 class="title no-padding text-capitalize text-bold">
-                              Title goes here consectetur adipisicing elit. Quos, facilis.
-                          </h5>
-                    </a>
-                      <p class="date-tag no-margin">
-                          <i class="fa fa-calendar"></i> 21/12/2021
-                      </p>
-                      <p class="content no-margin">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
-                      </p>
-                      <div class="tags full-width">
-                          <span class="tag text-uppercase">
-                              Crypto
-                          </span>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="financial-update-widget">
-                  <div class="flex-widget">
-                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
-                  </div>
-                  <div class="flex-widget">
-                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
-                          <h5 class="title no-padding text-capitalize text-bold">
-                              Title goes here consectetur adipisicing elit. Quos, facilis.
-                          </h5>
-                    </a>
-                      <p class="date-tag no-margin">
-                          <i class="fa fa-calendar"></i> 21/12/2021
-                      </p>
-                      <p class="content no-margin">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
-                      </p>
-                      <div class="tags full-width">
-                          <span class="tag text-uppercase">
-                              Forex
-                          </span>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="financial-update-widget">
-                  <div class="flex-widget">
-                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
-                  </div>
-                  <div class="flex-widget">
-                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
-                          <h5 class="title no-padding text-capitalize text-bold">
-                              Title goes here consectetur adipisicing elit. Quos, facilis.
-                          </h5>
-                    </a>
-                      <p class="date-tag no-margin">
-                          <i class="fa fa-calendar"></i> 21/12/2021
-                      </p>
-                      <p class="content no-margin">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
-                      </p>
-                      <div class="tags full-width">
-                          <span class="tag text-uppercase">
-                              Crypto
-                          </span>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="financial-update-widget">
-                  <div class="flex-widget">
-                      <img src="./assets/images/financial-analysis-pic3.jpg" alt="" />
-                  </div>
-                  <div class="flex-widget">
-                    <a [routerLink]="['/financial-forcast/1']" class="text-decoration-none">
-                          <h5 class="title no-padding text-capitalize text-bold">
-                              Title goes here consectetur adipisicing elit. Quos, facilis.
-                          </h5>
-                    </a>
-                      <p class="date-tag no-margin">
-                          <i class="fa fa-calendar"></i> 21/12/2021
-                      </p>
-                      <p class="content no-margin">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid possimus! Perspiciatis nisi dolore impedit consectetur. Ea consectetur saepe aliquam!
-                      </p>
-                      <div class="tags full-width">
-                          <span class="tag text-uppercase">
-                              Stocks
+                            {{ feed.categoryTag }}
                           </span>
                       </div>
                   </div>
@@ -198,21 +110,22 @@
           </div>
       </section>
       
-      <section class="stats-section full-width">
+      <section class="stats-section full-width" 
+        *ngIf="(feedStatistics$ | async) as feedStatistics">
           <div class="stats-widget text-center">
               <i class="fa fa-clock-o"></i>
-              <h1 class="text-center text-danger">1039</h1>
+              <h1 class="text-center text-danger">{{ feedStatistics.sponsoredFeeds }}</h1>
+              <h4 class="text-center">Total Sponsored Feeds</h4>
+          </div>
+          <div class="stats-widget text-center">
+              <i class="fa fa-clock-o"></i>
+              <h1 class="text-center text-danger">{{ feedStatistics.totalAnalysts }}</h1>
               <h4 class="text-center">Total Analysts</h4>
           </div>
           <div class="stats-widget text-center">
               <i class="fa fa-clock-o"></i>
-              <h1 class="text-center text-danger">1039</h1>
-              <h4 class="text-center">Total Analysts</h4>
-          </div>
-          <div class="stats-widget text-center">
-              <i class="fa fa-clock-o"></i>
-              <h1 class="text-center text-danger">1039</h1>
-              <h4 class="text-center">Total Analysts</h4>
+              <h1 class="text-center text-danger">{{ feedStatistics.totalFeeds }}</h1>
+              <h4 class="text-center">Total Feeds</h4>
           </div>
       </section>
 
@@ -353,9 +266,37 @@
               Meet our Top analysts
           </h2>
           <p class="text-center subheading no-margin">
-              Meet our top analysts who bring you the latest financial predictions
+            Meet our top analysts who bring you the latest financial predictions
           </p>
           <div class="analyst-widget-section full-width">
+            <div class="slider" *ngIf="(topAnalysts$ | async) as topAnalysts">
+                <div class="slides">
+                  <div *ngFor="let analyst of topAnalysts; let i = index" 
+                    id="slide-{{ i + 1 }}" 
+                    class="analyst-data full-width">
+                    <div class="analyst-image">
+                        <img [src]="analyst.user.profileImageUrl" />
+                    </div>
+                    <h3 class="header text-danger">
+                        {{ analyst.user.firstName }} {{ analyst.user.lastName }}
+                    </h3>
+                    <p class="analyst-bio no-margin">
+                        {{ analyst.bio }}
+                    </p>
+                    <p class="text-center no-margin subscription-link-section">
+                        <a [routerLink]="['/', analyst.user.id]" class="btn btn-primary text-decoration-none">
+                            View Profile
+                        </a>
+                    </p>
+                  </div>
+                </div>
+                <a *ngFor="let analyst of topAnalysts; let i = index" 
+                    href="#slide-{{ i + 1 }}" class="slider-navigator">
+                    {{ i + 1 }}
+                </a>
+            </div>
+        </div>
+          <!-- <div class="analyst-widget-section full-width">
               <div class="slider">
                   <div class="slides">
                     <div id="slide-1" class="analyst-data full-width">
@@ -436,7 +377,7 @@
                   <a href="#slide-4" class="slider-navigator">4</a>
                   <a href="#slide-5" class="slider-navigator">5</a>
               </div>
-          </div>
+          </div> -->
       </section>
 
       <syncspace-crypto-analysis-footer></syncspace-crypto-analysis-footer>

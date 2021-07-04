@@ -32,6 +32,11 @@
     background: var(--bg-secondary);
 }
 
+.img-size {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+}
 
 .page-container {
     width: 100%;

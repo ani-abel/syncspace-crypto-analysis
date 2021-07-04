@@ -52,6 +52,12 @@
     },
     "shared-frontend": {
       "tags": []
+    },
+    "graphql-config": {
+      "tags": []
+    },
+    "graphql-requests": {
+      "tags": []
     }
   }
 }

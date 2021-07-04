@@ -1,28 +1,6 @@
-- Review Personal study
-- Draw up db for crypto Analysis
+- Website. 
+    - Build out contact From
+    - Display top 5 public feeds
 
-Questions for Project Meeting
--------------------------------
-- What's the project about? 
-- What are the expected features for MVP? [From a dev's perspective]
-- How much work has been done? [Dev]
-- What features are left?
-- Which specific ones will I be working on? (Doesn't have to be precise)
-
-TODO
------
-- Catch-up sections
-
-[Work]
-Monday - Friday
-
-Mid-week review
-Wednesday - 9pm
-
-Demo review
-Sunday - 9pm
-
-Question and answer will be like stack overflow
-
-Next steps
-- Billing [min: #500k, max: #600k]
+- User-app
+    - Auth

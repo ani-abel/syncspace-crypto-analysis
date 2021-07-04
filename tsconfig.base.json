@@ -17,6 +17,12 @@
     "paths": {
       "@syncspace-crypto-analysis/shared-frontend": [
         "libs/shared-frontend/src/index.ts"
+      ],
+      "@syncspace-crypto-analysis/graphql-config": [
+        "libs/graphql-config/src/index.ts"
+      ],
+      "@syncspace-crypto-analysis/graphql-requests": [
+        "libs/graphql-requests/src/index.ts"
       ]
     }
   },
