@@ -4,7 +4,8 @@ import {
   RouterModule, 
   Routes 
 } from '@angular/router';
-import { AuthGuard } from '@syncspace-crypto-analysis/shared-frontend';
+import { AppRole } from '@syncspace-crypto-analysis/graphql-config';
+import { RoleGuard } from '@syncspace-crypto-analysis/shared-frontend';
 import { LayoutComponent } from './pages/layout/layout.component';
 
 const routes: Routes = [
@@ -35,7 +36,8 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    canActivate: [AuthGuard],
+    canActivate: [RoleGuard],
+    data: { roles: [AppRole.Admin, AppRole.Trader] },
     component: LayoutComponent,
     children: [
       {

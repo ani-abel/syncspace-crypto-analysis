@@ -6,3 +6,4 @@ export * from './lib/interceptors/catch-error.interceptor';
 
 // ? Guards
 export * from './lib/guards/auth.guard';
+export * from './lib/guards/role.guard';
