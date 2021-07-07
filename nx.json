@@ -58,6 +58,9 @@
     },
     "graphql-requests": {
       "tags": []
+    },
+    "utils": {
+      "tags": []
     }
   }
 }

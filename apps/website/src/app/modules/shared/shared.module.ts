@@ -3,13 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavSidebarComponent } from './components/nav-sidebar/nav-sidebar.component';
 import { SharedFrontendModule } from '@syncspace-crypto-analysis/shared-frontend';
-import { SummarizeContentPipe } from './pipes/summarize.pipe';
 
 @NgModule({
   declarations: [
     FooterComponent,
     NavSidebarComponent,
-    SummarizeContentPipe,
   ],
   imports: [
     CommonModule,
@@ -19,7 +17,6 @@ import { SummarizeContentPipe } from './pipes/summarize.pipe';
     FooterComponent,
     NavSidebarComponent,
     SharedFrontendModule,
-    SummarizeContentPipe
   ]
 })
 export class SharedModule { }

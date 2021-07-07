@@ -30,3 +30,38 @@ query getFeedStatistics {
   } 
 }
 
+query findActiveCountries($status: Boolean!) {
+  findCountriesByStatus(status: $status) {
+    id,
+    name
+  }
+}
+
+query topSponsoredFeeds($limit: Int!) {
+  topSponsoredFeeds(limit: $limit) {
+    id,
+    title,
+    body,
+    accessLevel,
+    imageUrl,
+    categoryTag,
+    user {
+      firstName,
+      lastName,
+      id,
+      profileImageUrl
+    }
+  }
+}
+
+query findFeedCreatedByUser {
+  findFeedByUserId {
+    id,
+    title,
+    subscriptionPackage {
+      id,
+      name
+    },
+    dateCreated,
+  }
+}

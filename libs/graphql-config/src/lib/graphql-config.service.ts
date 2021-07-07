@@ -70,6 +70,11 @@ export enum CategoryTag {
   Stocks = 'STOCKS'
 }
 
+export type ChangePasswordDto = {
+  verificationToken: Scalars['String'];
+  newPassword: Scalars['String'];
+};
+
 /** Holds log of all messages sent by potential clients */
 export type ContactMessage = {
   __typename?: 'ContactMessage';
@@ -252,6 +257,9 @@ export type Mutation = {
   __typename?: 'Mutation';
   createUser: User;
   updateUser: DefaultResponseTypeGql;
+  verifyAccount: DefaultResponseTypeGql;
+  forgotPassword: DefaultResponseTypeGql;
+  changePassword: DefaultResponseTypeGql;
   login: AuthResponse;
   createCountry: Country;
   updateCountry: DefaultResponseTypeGql;
@@ -298,6 +306,21 @@ export type MutationCreateUserArgs = {
 
 export type MutationUpdateUserArgs = {
   payload: UpdateUserDto;
+};
+
+
+export type MutationVerifyAccountArgs = {
+  accountVerificationToken: Scalars['String'];
+};
+
+
+export type MutationForgotPasswordArgs = {
+  email: Scalars['String'];
+};
+
+
+export type MutationChangePasswordArgs = {
+  payload: ChangePasswordDto;
 };
 
 
@@ -515,6 +538,7 @@ export type Query = {
   findUsers: Array<User>;
   findCountries: Array<Country>;
   findCountryById: Country;
+  findCountriesByStatus: Array<Country>;
   getFeedStatistics: FeedStatatisticsDto;
   findFeeds: Array<Feed>;
   findFeedById: Feed;
@@ -562,6 +586,11 @@ export type QueryFindUserByEmailArgs = {
 
 export type QueryFindCountryByIdArgs = {
   countryId: Scalars['String'];
+};
+
+
+export type QueryFindCountriesByStatusArgs = {
+  status: Scalars['Boolean'];
 };
 
 
@@ -688,6 +717,7 @@ export type User = {
   profileImageUrl: Scalars['String'];
   role: AppRole;
   authProvider: AuthProvider;
+  accountVerificationToken?: Maybe<Scalars['String']>;
   dateCreated: Scalars['DateTime'];
   feedsCreatedByThisUser: Array<Feed>;
   subscriptionPackagesCreatedByThisUser: Array<Subscription_Package>;
@@ -809,7 +839,7 @@ export type LoginMutation = (
   { __typename?: 'Mutation' }
   & { login: (
     { __typename?: 'AuthResponse' }
-    & Pick<AuthResponse, 'userId' | 'email' | 'role' | 'token' | 'tokenExpiryDate' | 'tokenInitializationDate'>
+    & Pick<AuthResponse, 'userId' | 'email' | 'role' | 'token' | 'tokenExpiryDate' | 'tokenInitializationDate' | 'dateCreated'>
   ) }
 );
 
@@ -823,6 +853,58 @@ export type CreateContactMessageMutation = (
   & { createContactMessage: (
     { __typename?: 'ContactMessage' }
     & Pick<ContactMessage, 'id'>
+  ) }
+);
+
+export type SignUpMutationVariables = Exact<{
+  payload: CreateUserDto;
+}>;
+
+
+export type SignUpMutation = (
+  { __typename?: 'Mutation' }
+  & { createUser: (
+    { __typename?: 'USER' }
+    & Pick<User, 'id' | 'role'>
+  ) }
+);
+
+export type VerifyAccountMutationVariables = Exact<{
+  verificationToken: Scalars['String'];
+}>;
+
+
+export type VerifyAccountMutation = (
+  { __typename?: 'Mutation' }
+  & { verifyAccount: (
+    { __typename?: 'DefaultResponseTypeGQL' }
+    & Pick<DefaultResponseTypeGql, 'message' | 'status'>
+  ) }
+);
+
+export type ForgotPasswordMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type ForgotPasswordMutation = (
+  { __typename?: 'Mutation' }
+  & { forgotPassword: (
+    { __typename?: 'DefaultResponseTypeGQL' }
+    & Pick<DefaultResponseTypeGql, 'message' | 'status'>
+  ) }
+);
+
+export type ChangePasswordMutationVariables = Exact<{
+  payload: ChangePasswordDto;
+}>;
+
+
+export type ChangePasswordMutation = (
+  { __typename?: 'Mutation' }
+  & { changePassword: (
+    { __typename?: 'DefaultResponseTypeGQL' }
+    & Pick<DefaultResponseTypeGql, 'message' | 'status'>
   ) }
 );
 
@@ -867,6 +949,51 @@ export type GetFeedStatisticsQuery = (
   ) }
 );
 
+export type FindActiveCountriesQueryVariables = Exact<{
+  status: Scalars['Boolean'];
+}>;
+
+
+export type FindActiveCountriesQuery = (
+  { __typename?: 'Query' }
+  & { findCountriesByStatus: Array<(
+    { __typename?: 'COUNTRY' }
+    & Pick<Country, 'id' | 'name'>
+  )> }
+);
+
+export type TopSponsoredFeedsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type TopSponsoredFeedsQuery = (
+  { __typename?: 'Query' }
+  & { topSponsoredFeeds: Array<(
+    { __typename?: 'FEED' }
+    & Pick<Feed, 'id' | 'title' | 'body' | 'accessLevel' | 'imageUrl' | 'categoryTag'>
+    & { user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'firstName' | 'lastName' | 'id' | 'profileImageUrl'>
+    ) }
+  )> }
+);
+
+export type FindFeedCreatedByUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindFeedCreatedByUserQuery = (
+  { __typename?: 'Query' }
+  & { findFeedByUserId: Array<(
+    { __typename?: 'FEED' }
+    & Pick<Feed, 'id' | 'title' | 'dateCreated'>
+    & { subscriptionPackage?: Maybe<(
+      { __typename?: 'SUBSCRIPTION_PACKAGE' }
+      & Pick<Subscription_Package, 'id' | 'name'>
+    )> }
+  )> }
+);
+
 export const LoginDocument = gql`
     mutation login($payload: LoginUserDTO!) {
   login(payload: $payload) {
@@ -876,6 +1003,7 @@ export const LoginDocument = gql`
     token
     tokenExpiryDate
     tokenInitializationDate
+    dateCreated
   }
 }
     `;
@@ -903,6 +1031,82 @@ export const CreateContactMessageDocument = gql`
   })
   export class CreateContactMessageGQL extends Apollo.Mutation<CreateContactMessageMutation, CreateContactMessageMutationVariables> {
     document = CreateContactMessageDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const SignUpDocument = gql`
+    mutation signUp($payload: CreateUserDTO!) {
+  createUser(payload: $payload) {
+    id
+    role
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class SignUpGQL extends Apollo.Mutation<SignUpMutation, SignUpMutationVariables> {
+    document = SignUpDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const VerifyAccountDocument = gql`
+    mutation verifyAccount($verificationToken: String!) {
+  verifyAccount(accountVerificationToken: $verificationToken) {
+    message
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class VerifyAccountGQL extends Apollo.Mutation<VerifyAccountMutation, VerifyAccountMutationVariables> {
+    document = VerifyAccountDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const ForgotPasswordDocument = gql`
+    mutation forgotPassword($email: String!) {
+  forgotPassword(email: $email) {
+    message
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ForgotPasswordGQL extends Apollo.Mutation<ForgotPasswordMutation, ForgotPasswordMutationVariables> {
+    document = ForgotPasswordDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const ChangePasswordDocument = gql`
+    mutation changePassword($payload: ChangePasswordDTO!) {
+  changePassword(payload: $payload) {
+    message
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ChangePasswordGQL extends Apollo.Mutation<ChangePasswordMutation, ChangePasswordMutationVariables> {
+    document = ChangePasswordDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -971,6 +1175,78 @@ export const GetFeedStatisticsDocument = gql`
   })
   export class GetFeedStatisticsGQL extends Apollo.Query<GetFeedStatisticsQuery, GetFeedStatisticsQueryVariables> {
     document = GetFeedStatisticsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindActiveCountriesDocument = gql`
+    query findActiveCountries($status: Boolean!) {
+  findCountriesByStatus(status: $status) {
+    id
+    name
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindActiveCountriesGQL extends Apollo.Query<FindActiveCountriesQuery, FindActiveCountriesQueryVariables> {
+    document = FindActiveCountriesDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const TopSponsoredFeedsDocument = gql`
+    query topSponsoredFeeds($limit: Int!) {
+  topSponsoredFeeds(limit: $limit) {
+    id
+    title
+    body
+    accessLevel
+    imageUrl
+    categoryTag
+    user {
+      firstName
+      lastName
+      id
+      profileImageUrl
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class TopSponsoredFeedsGQL extends Apollo.Query<TopSponsoredFeedsQuery, TopSponsoredFeedsQueryVariables> {
+    document = TopSponsoredFeedsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindFeedCreatedByUserDocument = gql`
+    query findFeedCreatedByUser {
+  findFeedByUserId {
+    id
+    title
+    subscriptionPackage {
+      id
+      name
+    }
+    dateCreated
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindFeedCreatedByUserGQL extends Apollo.Query<FindFeedCreatedByUserQuery, FindFeedCreatedByUserQueryVariables> {
+    document = FindFeedCreatedByUserDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

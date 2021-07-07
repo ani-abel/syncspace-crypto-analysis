@@ -70,48 +70,33 @@
                 </ion-card-content>
               </ion-card>
         </div>
-        <div class="dashboard-content-widget">
+        <div class="dashboard-content-widget" 
+            *ngIf="(sponsoredPosts$ | async) as sponsoredPosts">
             <div class="sponsored-analysis-section">
-                <!-- <h3>Sponsored Analysis</h3> -->
                 <h3>Sponsored Posts</h3>
-                <div class="sponsored-analysis-widget">
-                    <h5>
-                        <img src="/assets/images/user-icon-female.png" alt="user" />
-                        &nbsp;
-                        Damian Diamler | <span><i class="fa fa-calendar"></i> 21/12/2012</span>
-                    </h5>
-                    <p class="no-margin">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Impedit iure molestias quos atque illum inventore obcaecati et tempora, 
-                        accusantium deleniti, ad quibusdam error eaque minima, 
-                        dignissimos corporis ex dolore. Veniam, assumenda consequatur tenetur molestiae 
-                        quam rerum dicta, et id error perspiciatis vitae? Voluptas ullam tenetur, 
-                        quisquam doloremque facere libero culpa.
-                        <a [routerLink]="['/auth', 'analysis-feed']" 
-                            class="text-decoration-none view-more-inline-button">
-                            View More
-                        </a>
-                    </p>
-                </div>
-                <div class="sponsored-analysis-widget">
-                    <h5>
-                        <img src="/assets/images/user-icon-female.png" alt="user" />
-                        &nbsp;
-                        Damian Diamler | <span><i class="fa fa-calendar"></i> 21/12/2012</span>
-                    </h5>
-                    <p class="no-margin">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Impedit iure molestias quos atque illum inventore obcaecati et tempora, 
-                        accusantium deleniti, ad quibusdam error eaque minima, 
-                        dignissimos corporis ex dolore. Veniam, assumenda consequatur 
-                        tenetur molestiae quam rerum dicta, et id error perspiciatis vitae?
-                        Voluptas ullam tenetur, quisquam doloremque facere libero culpa.
-                        <a [routerLink]="['/auth', 'analysis-feed']" 
-                            class="text-decoration-none view-more-inline-button">
-                            View More
-                        </a>
-                    </p>
-                </div>
+                <ng-container *ngIf="sponsoredPosts?.length > 0; else defaultSection">
+                    <div class="sponsored-analysis-widget" 
+                       *ngFor='let post of sponsoredPosts'>
+                        <h5>
+                            <img [src]="post.user.profileImageUrl" [alt]="post.user.firstName" />
+                            &nbsp;
+                            {{ post.user.firstName }} {{ post.user.lastName }}
+                             | <span><i class="fa fa-calendar"></i> {{ post.dateCreated | date : 'short' }}</span>
+                        </h5>
+                        <p class="no-margin">
+                            {{ post.body | summarizeContent : 150 | capitalize}}
+                            <a [routerLink]="['/auth', 'analysis-feed', post.id]" 
+                                class="text-decoration-none view-more-inline-button">
+                                View More
+                            </a>
+                        </p>
+                    </div>
+                </ng-container>
+                <ng-template #defaultSection>
+                    <div class="sponsored-analysis-widget">
+                        <syncspace-crypto-analysis-no-content></syncspace-crypto-analysis-no-content>
+                     </div> 
+                </ng-template>               
             </div>
         </div>
     </div>

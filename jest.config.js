@@ -7,5 +7,6 @@ module.exports = {
     '<rootDir>/libs/shared-frontend',
     '<rootDir>/libs/graphql-config',
     '<rootDir>/libs/graphql-requests',
+    '<rootDir>/libs/utils',
   ],
 };

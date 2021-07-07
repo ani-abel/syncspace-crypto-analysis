@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { 
+  PreloadAllModules, 
+  RouterModule, 
+  Routes 
+} from '@angular/router';
+import { AuthGuard } from '@syncspace-crypto-analysis/shared-frontend';
 import { LayoutComponent } from './pages/layout/layout.component';
 
 const routes: Routes = [
@@ -20,8 +25,17 @@ const routes: Routes = [
     path: 'forgot-password', 
     loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule) 
   },
+  { 
+    path: 'change-password', 
+    loadChildren: () => import('./pages/change-password/change-password.module').then(m => m.ChangePasswordModule) 
+  },
+  {
+    path: 'verify-account',
+    loadChildren: () => import('./pages/verify-account/verify-account-routing.module').then(m => m.VerifyAccountRoutingModule),
+  },
   {
     path: 'auth',
+    canActivate: [AuthGuard],
     component: LayoutComponent,
     children: [
       {

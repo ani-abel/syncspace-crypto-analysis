@@ -494,7 +494,7 @@ form {
 }
 
 .btn:disabled {
-    background: var(--secondary-background-color);
+    background: var(--border-color);
     box-shadow: none;
     cursor: not-allowed;
 }

@@ -1,1 +1,101 @@
-<syncspace-crypto-analysis-sign-up-abstract></syncspace-crypto-analysis-sign-up-abstract>
+<!-- <syncspace-crypto-analysis-sign-up-abstract></syncspace-crypto-analysis-sign-up-abstract> -->
+
+<ion-content [fullscreen]="true">
+    <!-- <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle> -->
+    <section class="page-container full-width">
+        <main class="page-content">
+            <div class="form-section">
+                <h2 class="no-padding text-danger text-center">Sign up</h2>
+                <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="first-name">First Name*</label>
+                        <input type="text" 
+                            [formControlName]="'firstName'"
+                            id="first-name" 
+                            class="form-control" />
+                        <span *ngIf="signUpForm.get('firstName').touched && signUpForm.get('firstName').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name*</label>
+                        <input type="text" 
+                            [formControlName]="'lastName'"
+                            id="last-name" 
+                            class="form-control" />
+                        <span *ngIf="signUpForm.get('lastName').touched && signUpForm.get('lastName').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" 
+                            [formControlName]="'email'"
+                            id="email" 
+                            class="form-control" />
+                        <span *ngIf="signUpForm.get('email').touched && signUpForm.get('email').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                            <p class="form-helper danger" *ngIf="errorList['email']">Email required</p>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone*</label>
+                        <input type="tel" 
+                            [formControlName]="'phone'"
+                            id="phone" 
+                            class="form-control" />
+                        <span *ngIf="signUpForm.get('phone').touched && signUpForm.get('phone').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country*</label>
+                        <select [formControlName]="'country'" 
+                            id="country" 
+                            class="form-control">
+                            <option value="">Select Country</option>
+                            <option [value]="country.id"
+                                *ngFor="let country of (countries$ | async)">
+                                {{ country.name | uppercase }}
+                            </option>
+                        </select>
+                        <span *ngIf="signUpForm.get('country').touched && signUpForm.get('country').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                            <p class="form-helper danger" *ngIf="errorList['email']">Email required</p>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password*</label>
+                        <input type="password" 
+                            [formControlName]="'password'"
+                            id="password" 
+                            class="form-control" />
+                        <span *ngIf="signUpForm.get('password').touched && signUpForm.get('password').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-danger btn-block" 
+                            [disabled]="signUpForm.invalid">
+                           Submit
+                        </button>
+                    </div>
+                    <div class="form-group"> 
+                        <ul class="no-margin no-padding">
+                            <li>
+                                <p class="no-margin text-center">
+                                    Already have an account <a [routerLink]="['/login']">Login</a>
+                                </p>
+                            </li>
+                            <!-- <li>
+                                <p class="text-right no-margin">
+                                    <a [routerLink]="['/forgot-password']">Forgot Password</a>
+                                </p>
+                            </li> -->
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </section>
+</ion-content>

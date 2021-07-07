@@ -117,3 +117,7 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+ion-loading {
+  --backdrop-opacity: 9;
+}

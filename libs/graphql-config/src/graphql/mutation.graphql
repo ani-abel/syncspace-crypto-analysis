@@ -5,12 +5,41 @@ mutation login($payload: LoginUserDTO!){
     role,
     token,
     tokenExpiryDate,
-    tokenInitializationDate
+    tokenInitializationDate,
+    dateCreated
   }
 }
 
 mutation createContactMessage($payload: CreateContactMessageDTO!) {
   createContactMessage(payload: $payload) {
     id
+  }
+}
+
+mutation signUp($payload: CreateUserDTO!) {
+  createUser(payload: $payload) {
+    id,
+    role,
+  }
+}
+
+mutation verifyAccount($verificationToken: String!) {
+  verifyAccount(accountVerificationToken: $verificationToken) {
+    message,
+    status
+  }
+}
+
+mutation forgotPassword($email: String!) {
+  forgotPassword(email: $email) {
+    message,
+    status
+  }
+}
+
+mutation changePassword($payload: ChangePasswordDTO!) {
+  changePassword(payload: $payload) {
+    message,
+    status
   }
 }

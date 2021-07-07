@@ -18,6 +18,9 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { AdminDashboardLayoutComponent } from './components/admin-dashboard-layout/admin-dashboard-layout.component';
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
 import { CachedImageComponent } from './components/cached-image/cached-image.component';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { SliceContentPipe } from './pipes/slice-content.pipe';
+import { SummarizeContentPipe } from './pipes/summarize.pipe';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { CachedImageComponent } from './components/cached-image/cached-image.com
     AdminDashboardLayoutComponent,
     AdminSidebarComponent,
     CachedImageComponent,
+    CapitalizePipe,
+    SliceContentPipe,
+    SummarizeContentPipe,
   ],
   imports: [
     CommonModule, 
@@ -64,6 +70,9 @@ import { CachedImageComponent } from './components/cached-image/cached-image.com
     AdminDashboardLayoutComponent,
     AdminSidebarComponent,
     CachedImageComponent,
+    CapitalizePipe,
+    SliceContentPipe,
+    SummarizeContentPipe,
   ]
 })
 export class SharedFrontendModule {}

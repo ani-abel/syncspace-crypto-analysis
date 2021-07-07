@@ -4,6 +4,7 @@ import { SharedFrontendModule } from '@syncspace-crypto-analysis/shared-frontend
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
+import { SharedModule } from '../../modules/shared/shared.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { DashboardComponent } from './dashboard.component';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    SharedFrontendModule
+    SharedFrontendModule,
+    SharedModule
   ]
 })
 export class DashboardModule { }
