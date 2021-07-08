@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApolloError } from 'apollo-client';
 import { Plugins } from '@capacitor/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 const { Storage } = Plugins;
 
@@ -26,7 +26,8 @@ export const convertFilesToBase64Strings = async (event: Event): Promise<string[
 
 export const getValueFromObservable = (obj: Observable<any>) => {
   let value: any;
-  obj.subscribe(v => value = v);
+  const subscription: Subscription = obj.subscribe(v => value = v);
+  subscription.unsubscribe();
   return value;
 };
 

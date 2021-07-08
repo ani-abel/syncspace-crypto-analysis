@@ -8,5 +8,6 @@ module.exports = {
     '<rootDir>/libs/graphql-config',
     '<rootDir>/libs/graphql-requests',
     '<rootDir>/libs/utils',
+    '<rootDir>/libs/http-requests',
   ],
 };

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 import { NavbarToggleDirective } from './directives/navbar-toggle.directive';
 import { ThemeToggleDirective } from './directives/theme-toggle.directive';
 import { ToggleDirective } from './directives/toggle.directive';
@@ -49,12 +50,14 @@ import { SummarizeContentPipe } from './pipes/summarize.pipe';
     IonicModule,
     ReactiveFormsModule,
     FormsModule,
+    VirtualScrollerModule,
   ],
   exports: [
     IonicModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
+    VirtualScrollerModule,
     NavbarToggleDirective,
     ThemeToggleDirective,
     ToggleDirective,

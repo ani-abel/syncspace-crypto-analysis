@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { InitialAppState } from '../model/app.model';
 import { actions as AppActions } from '../action/app.action';
+import { Feed } from '@syncspace-crypto-analysis/graphql-config';
 
 export const GENERIC_ERROR_MESSAGE = 'An error occured';
 
@@ -130,5 +131,101 @@ export const AppReducer = createReducer(
     }),
     on(AppActions.FindFeedCreatedByUserSuccessfulAction, (state, { payload }) => {
         return { ...state, isLoading: false, feedsYouCreated: payload };
+    }),
+    on(AppActions.DeleteFeedItemInitiatedAction, (state, { payload }) => {
+        return { 
+            ...state, 
+            isLoading: true, 
+        }
+    }),
+    on(AppActions.DeleteFeedItemSuccessfulAction, (state, { deletedFeedId, payload: { message } }) => {
+        const updatedListForUserFeeds: Partial<Feed>[] = state.feedsYouCreated?.filter((feed) => feed.id !== deletedFeedId);
+        return { 
+            ...state,
+            isLoading: false,
+            successMessage: message,
+            feedsYouCreated: [...updatedListForUserFeeds],
+        }
+    }),
+    on(AppActions.DeleteFeedItemFailedAction, (state, { payload }) => {
+        return { 
+            ...state, 
+            isLoading: false,
+            error: payload, 
+        }
+    }),
+    on(AppActions.CreateFeedItemInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(AppActions.CreateFeedItemFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.CreateFeedItemSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            feedsYouCreated: [...state.feedsYouCreated, payload],
+            successMessage: 'Successful',
+        }
+    }),
+    on(AppActions.FindFeedItemByIdInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.FindFeedItemByIdFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.FindFeedItemByIdSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            selectedFeedItem: payload,
+        }
+    }),
+    on(AppActions.FindSubscriptionPackagesCreatedByUserInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.FindSubscriptionPackagesCreatedByUserFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.FindSubscriptionPackagesCreatedByUserSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            subscriptionPackagesYouCreated: payload,
+        }
+    }),
+    on(AppActions.UpdateFeedInitiatedAction, (state) => {
+        return { ...state, isLoading: true };
+    }),
+    on(AppActions.UpdateFeedFailedAction, (state, { payload }) => {
+        return { ...state, isLoading: false, error: payload };
+    }),
+    on(AppActions.UpdateFeedSuccessfulAction, (state, { payload: { message } }) => {
+        return {
+            ...state,
+            isLoading: false,
+            successMessage: message,
+        }
     }),
 );

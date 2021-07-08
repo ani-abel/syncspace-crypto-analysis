@@ -43,3 +43,23 @@ mutation changePassword($payload: ChangePasswordDTO!) {
     status
   }
 }
+
+mutation deleteFeed($feedId: String!) {
+  deleteFeed(feedId: $feedId) {
+    message,
+    status
+  }
+}
+
+mutation createFeed($payload: CreateFeedDTO!) {
+  createFeed(payload: $payload) {
+    id
+  }
+}
+
+mutation updateFeed($payload: UpdateFeedDTO!) {
+  updateFeed(payload: $payload) {
+    message,
+    status
+  }
+}

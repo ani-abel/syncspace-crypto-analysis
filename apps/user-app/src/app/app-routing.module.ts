@@ -115,7 +115,7 @@ const routes: Routes = [
             loadChildren: () => import('./pages/add-analysis/add-analysis.module').then(m => m.AddAnalysisModule) 
           },
           {
-            path: 'edit',
+            path: 'edit/:feedId',
             loadChildren: () => import('./pages/edit-analysis/edit-analysis.module').then(m => m.EditAnalysisModule)
           }
         ]

@@ -1,5 +1,5 @@
 import { ApolloError } from "@apollo/client/errors";
-import { AuthResponse, Country, Feed, User } from "@syncspace-crypto-analysis/graphql-config";
+import { AuthResponse, Country, Feed, Subscription_Package, User } from "@syncspace-crypto-analysis/graphql-config";
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export interface AppModel {
@@ -12,6 +12,8 @@ export interface AppModel {
     countries: Partial<Country>[];
     sponsoredFeeds: Partial<Feed>[];
     feedsYouCreated: Partial<Feed>[];
+    selectedFeedItem: Partial<Feed>;
+    subscriptionPackagesYouCreated: Partial<Subscription_Package>[];
 }
 
 export const InitialAppState: AppModel =  {
@@ -21,7 +23,9 @@ export const InitialAppState: AppModel =  {
     error: undefined,
     errorMessage: undefined,
     successMessage: undefined,
-    countries: undefined,
-    sponsoredFeeds: undefined,
-    feedsYouCreated: undefined,
+    countries: [],
+    sponsoredFeeds: [],
+    feedsYouCreated: [],
+    selectedFeedItem: undefined,
+    subscriptionPackagesYouCreated: [],
 };

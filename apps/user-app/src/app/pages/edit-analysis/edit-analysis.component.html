@@ -3,43 +3,78 @@
         <main class="page-content">
             <div class="form-section">
                 <h2 class="no-padding text-danger text-center">Edit Analysis</h2>
-                <form>
+                <form [formGroup]="editAnalysisForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label for="analysis-image">Image*</label>&nbsp;
                         <input accept="image/*" 
                             type="file" 
                             id="analysis-image" 
                             class="display-none"
+                            (change)="onChange($event)"
                             #fileUploadEl />
                         <button class="btn btn-danger slim-button" 
                             (click)="fileUploadEl.click()">
                             Select Image
                         </button>
-                        <ng-container>
+                        <ng-container *ngIf="imageBase64Url">
                             <div class="image-preview mt-20 full-width">
-                                <img src="/assets/images/financial-analysis-pic1.jpg" alt="Analysis image" />
+                                <img [src]="imageBase64Url" alt="feed Image" />
                             </div>
                         </ng-container>
                     </div>
                     <div class="form-group">
                         <label for="title">Title*</label>
-                        <input type="text" id="title" class="form-control" />
+                        <input [formControlName]="'title'" type="text" id="title" class="form-control" />
+                        <span *ngIf="editAnalysisForm.get('title').touched && editAnalysisForm.get('title').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                        </span>
                     </div>
                     <div class="form-group">
                         <label for="analysis-content">Content*</label>
-                        <textarea class="form-textarea" id="analysis-content" cols="30" rows="10"></textarea>
+                        <textarea [formControlName]="'content'" 
+                            class="form-textarea" 
+                            id="analysis-content" 
+                            cols="30" 
+                            rows="10"></textarea>
+                        <span *ngIf="editAnalysisForm.get('content').touched && editAnalysisForm.get('content').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                        </span>
                     </div>
-                    <ng-container>
+                    <div class="form-group">
+                        <label for="visible-to">Accessible to*</label>
+                        <div class="radio" 
+                            *ngFor="let accessLevel of accessiblityOptions; let i = index">
+                            <input [formControlName]="'accessibleTo'" 
+                                id="radio-{{ i + 1 }}" 
+                                type="radio" 
+                                [value]="accessLevel"
+                                [checked]="i === 0" />
+                            <label for="radio-{{ i + 1 }}" 
+                                class="radio-label cursor-pointer">{{ accessLevel }}</label>
+                          </div>
+                        <span *ngIf="editAnalysisForm.get('accessibleTo').touched && editAnalysisForm.get('accessibleTo').errors as errorList">
+                            <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="editAnalysisForm.get('package')">
                         <div class="form-group">
                             <label for="last-name">Package*</label>
-                            <select id="market" class="form-control">
-                                <option value="">DIAMOND</option>
-                                <option value="">GOLD</option>
+                            <select [formControlName]="'package'" 
+                                id="market" 
+                                class="form-control">
+                                <option [value]="package.id" 
+                                    *ngFor="let package of (packagesCreatedByUser$ | async)">
+                                    {{ package.name | uppercase }}
+                                </option>
                             </select>
+                            <span *ngIf="editAnalysisForm.get('package').touched && editAnalysisForm.get('package').errors as errorList">
+                                <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                            </span>
                         </div>
                     </ng-container>
                     <div class="form-group">
-                        <button class="btn btn-danger btn-block">
+                        <button class="btn btn-danger btn-block"  
+                            [disabled]="editAnalysisForm.invalid">
                            Submit
                         </button>
                     </div>

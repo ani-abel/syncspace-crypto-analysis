@@ -17,7 +17,15 @@ import {
   ChangePasswordDto,
   TopSponsoredFeedsGQL,
   FindFeedCreatedByUserGQL,
+  DeleteFeedGQL,
+  CreateFeedGQL,
+  FindFeedByIdGQL,
   Feed,
+  CreateFeedDto,
+  FindSubscriptionPackagesByCurrentUserIdGQL,
+  Subscription_Package,
+  UpdateFeedGQL,
+  UpdateFeedDto,
 } from "@syncspace-crypto-analysis/graphql-config";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -37,6 +45,11 @@ export class GraphqlRequestsService {
     private readonly changePasswordSrv: ChangePasswordGQL,
     private readonly topSponsoredFeedsSrv: TopSponsoredFeedsGQL,
     private readonly findFeedCreatedByUserSrv: FindFeedCreatedByUserGQL,
+    private readonly deleteFeedSrv: DeleteFeedGQL,
+    private readonly createFeedSrv: CreateFeedGQL,
+    private readonly findFeedByIdSrv: FindFeedByIdGQL,
+    private readonly updateFeedSrv: UpdateFeedGQL,
+    private readonly findSubscriptionPackagesByCurrentUserIdSrv: FindSubscriptionPackagesByCurrentUserIdGQL,
   ) {}
 
   login(payload: LoginUserDto)
@@ -115,4 +128,55 @@ export class GraphqlRequestsService {
                 catchError((error: ApolloError) => throwError(error.graphQLErrors))
                );
   }
+
+  deleteFeed(feedId: string)
+  : Observable<DefaultResponseTypeGql> {
+    return this.deleteFeedSrv
+              .mutate({ feedId })
+              .pipe(
+                map((res) => res.data.deleteFeed),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  createFeed(payload: CreateFeedDto)
+  : Observable<Partial<Feed>> {
+    return this.createFeedSrv
+              .mutate({ payload })
+              .pipe(
+                map((res) => res.data.createFeed),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  findFeedById(feedId: string)
+  : Observable<Partial<Feed | any>> { 
+    return this.findFeedByIdSrv
+                .fetch({  feedId })
+                .pipe(
+                  map((res) => res.data.findFeedById),
+                  catchError((error: ApolloError) => throwError(error.graphQLErrors))
+                );
+  }
+
+  findSubscriptionPackagesByCurrentUserId()
+  : Observable<Partial<Subscription_Package>[]> {
+    return this.findSubscriptionPackagesByCurrentUserIdSrv
+              .fetch({})
+              .pipe(
+                map((res) => res.data.findSubscriptionPackagesByCurrentUserId),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  updateFeed(payload: UpdateFeedDto)
+  : Observable<Partial<DefaultResponseTypeGql>> {
+    return this.updateFeedSrv
+              .mutate({ payload })
+              .pipe(
+                map((res) => res.data.updateFeed),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+  
 }

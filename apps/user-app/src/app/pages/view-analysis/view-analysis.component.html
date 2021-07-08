@@ -14,64 +14,50 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Title goes here</td>
-                        <td>DIAMOND</td>
-                        <td>12/12/2021</td>
-                        <td>
-                            <button class="btn btn-danger btn-slim">
-                                Delete
-                            </button>
-                        </td>
-                        <td>
-                            <a [routerLink]="['/auth', 'payment']"
-                                [queryParams]="{ purpose: 'sponsorship' }" 
-                                class="btn btn-success text-decoration-none">
-                               Sponsor
-                            </a>
-                        </td>
-                        <td>
-                            <a [routerLink]="['/auth', 'analysis-feed', 2]" 
-                                class="btn btn-danger text-decoration-none">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a [routerLink]="['edit']" class="btn btn-primary text-decoration-none">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Title goes here</td>
-                        <td>DIAMOND</td>
-                        <td>12/12/2021</td>
-                        <td>
-                            <button class="btn btn-danger btn-slim">
-                                Delete
-                            </button>
-                        </td>
-                        <td>
-                            <a [routerLink]="['/auth', 'payment']"
-                                [queryParams]="{ purpose: 'sponsorship' }" 
-                                class="btn btn-success text-decoration-none">
-                               Sponsor
-                            </a>
-                        </td>
-                        <td>
-                            <a [routerLink]="['/auth', 'analysis-feed', 2]" 
-                                class="btn btn-danger text-decoration-none">
-                                View
-                            </a>
-                        </td>
-                        <td>
-                            <a [routerLink]="['edit']" class="btn btn-primary text-decoration-none">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
+                    <!-- <virtual-scroller #scroll [items]="(feedCreatedByUser$ | async)"> -->
+                        <!-- <virtual-scroller [items]="(feedCreatedByUser$ | async)" (update)="visibleElements = $event" style="height: calc(100vh - 4.2rem - 4.2rem - 4.2rem + 1.29rem);" [childHeight]="46"> -->
+                        <tbody>
+                            <tr *ngFor="let feed of (feedCreatedByUser$ | async)">
+                                <td>{{ feed.title }}</td>
+                                <td *ngIf="feed.subscriptionPackage; else noSubscription">
+                                    {{ feed.subscriptionPackage.name }}
+                                </td>
+                                <ng-template #noSubscription>
+                                    <td>
+                                        ---------
+                                    </td>
+                                </ng-template>
+                                <td>{{ feed.dateCreated | date : 'short' }}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-slim" (click)="onDelete(feed.id)">
+                                        Delete
+                                    </button>
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/auth', 'payment']"
+                                        [queryParams]="{ 
+                                            purpose: 'sponsorship',
+                                            feedId: feed.id
+                                        }" 
+                                        class="btn btn-success text-decoration-none">
+                                       Sponsor
+                                    </a>
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/auth', 'analysis-feed', feed.id]" 
+                                        class="btn btn-danger text-decoration-none">
+                                        View
+                                    </a>
+                                </td>
+                                <td>
+                                    <a [routerLink]="['edit', feed.id]" 
+                                        class="btn btn-primary text-decoration-none">
+                                        Edit
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    <!-- </virtual-scroller> -->
             </table>
         </div>
         <p class="text-right mt-20">

@@ -865,6 +865,31 @@
           }
         }
       }
+    },
+    "http-requests": {
+      "projectType": "library",
+      "root": "libs/http-requests",
+      "sourceRoot": "libs/http-requests/src",
+      "prefix": "syncspace-crypto-analysis",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/http-requests"],
+          "options": {
+            "jestConfig": "libs/http-requests/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/http-requests/src/**/*.ts",
+              "libs/http-requests/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

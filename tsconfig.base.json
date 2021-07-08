@@ -24,7 +24,10 @@
       "@syncspace-crypto-analysis/graphql-requests": [
         "libs/graphql-requests/src/index.ts"
       ],
-      "@syncspace-crypto-analysis/utils": ["libs/utils/src/index.ts"]
+      "@syncspace-crypto-analysis/utils": ["libs/utils/src/index.ts"],
+      "@syncspace-crypto-analysis/http-requests": [
+        "libs/http-requests/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

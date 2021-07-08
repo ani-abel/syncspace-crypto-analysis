@@ -2,7 +2,13 @@ import { Injectable } from "@angular/core";
 import { createEffect, Actions, ofType } from "@ngrx/effects";
 import { GraphqlRequestsService } from '@syncspace-crypto-analysis/graphql-requests';
 import { of } from "rxjs";
-import { switchMap, catchError, tap, map } from "rxjs/operators";
+import { 
+  switchMap, 
+  catchError, 
+  tap, 
+  map, 
+  mergeMap 
+} from "rxjs/operators";
 import { SharedService } from "../../modules/shared/services/shared.service";
 import { actions as AppActions } from '../action/app.action';
 
@@ -112,4 +118,72 @@ export class AppEffectService {
         })
       ));
 
+    // deleteFeedById$ = createEffect(() => 
+    //     this.actions$.pipe(
+    //       ofType(AppActions.DeleteFeedItemInitiatedAction),
+    //       switchMap(({ payload }) => {
+    //         const feedId = payload
+    //         return this.gqlRequestSrv.deleteFeed(payload).pipe(
+    //           map((data) => AppActions.DeleteFeedItemSuccessfulAction({ deletedFeedId: feedId, payload : data })),
+    //           catchError((error: Error) => of(AppActions.DeleteFeedItemFailedAction({ payload: error })))
+    //         )
+    //       })
+    //     ));
+
+    deleteFeed$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.DeleteFeedItemInitiatedAction),
+        switchMap(({ payload, feedId }) => {
+          return this.gqlRequestSrv.updateFeed(payload).pipe(
+            map((data) => AppActions.DeleteFeedItemSuccessfulAction({ deletedFeedId: feedId, payload: data })),
+            catchError((error: Error) => of(AppActions.DeleteFeedItemFailedAction({ payload: error })))
+          )
+        })
+      ));
+
+    updateFeed$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.UpdateFeedInitiatedAction),
+        switchMap(({ payload }) => {
+          return this.gqlRequestSrv.updateFeed(payload).pipe(
+            map((data) => AppActions.UpdateFeedSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.UpdateFeedFailedAction({ payload: error })))
+          )
+        })
+      ));
+
+    createFeedItem$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.CreateFeedItemInitiatedAction),
+        switchMap(({ payload }) => {
+          return this.gqlRequestSrv.createFeed(payload).pipe(
+            // ? Make an extra request to pull the newly created Feed
+            mergeMap((data) => this.gqlRequestSrv.findFeedById(data.id)),
+            map((data) => AppActions.CreateFeedItemSuccessfulAction({ payload: data })), 
+            catchError((error: Error) => of(AppActions.CreateFeedItemFailedAction({ payload: error })))
+          )
+        })
+      ));
+
+    findFeedItemById$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.FindFeedItemByIdInitiatedAction),
+        switchMap(({ payload }) => {
+          return this.gqlRequestSrv.findFeedById(payload).pipe(
+            map((data) => AppActions.FindFeedItemByIdSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.FindFeedItemByIdFailedAction({ payload: error })))
+          ) 
+        })
+      ));
+
+      findSubscriptionPackagesByCurrentUserId$ = createEffect(() => 
+        this.actions$.pipe(
+          ofType(AppActions.FindSubscriptionPackagesCreatedByUserInitiatedAction),
+          switchMap(() => {
+            return this.gqlRequestSrv.findSubscriptionPackagesByCurrentUserId().pipe(
+              map((data) => AppActions.FindSubscriptionPackagesCreatedByUserSuccessfulAction({ payload: data })),
+              catchError((error: Error) => of(AppActions.FindSubscriptionPackagesCreatedByUserFailedAction({ payload: error })))
+            )
+          })
+        ));
 }

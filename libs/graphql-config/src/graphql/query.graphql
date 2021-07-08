@@ -65,3 +65,29 @@ query findFeedCreatedByUser {
     dateCreated,
   }
 }
+
+query findFeedById($feedId: String!) {
+  findFeedById(feedId: $feedId) {
+    id,
+    title,
+    body,
+    categoryTag,
+    accessLevel,
+    imageUrl,
+    subscriptionPackage {
+      id,
+      name
+    },
+    dateCreated,
+  }
+}
+
+query findSubscriptionPackagesByCurrentUserId {
+  findSubscriptionPackagesByCurrentUserId {
+    id,
+    name,
+    duration,
+    price,
+    description
+  }
+}

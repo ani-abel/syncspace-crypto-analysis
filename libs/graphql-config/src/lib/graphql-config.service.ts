@@ -178,6 +178,7 @@ export type Feed = {
   userId: Scalars['String'];
   user: User;
   categoryTag: CategoryTag;
+  status: Scalars['Boolean'];
   dateCreated: Scalars['DateTime'];
   likesForThisFeed: Array<Feed_Like>;
   commentsForThisFeed: Array<Feed_Comment>;
@@ -565,6 +566,8 @@ export type Query = {
   findSubscriptionPackages: Array<Subscription_Package>;
   findSubscriptionPackageById: Subscription_Package;
   /** Returns all packages created by a finance analyst */
+  findSubscriptionPackagesByCurrentUserId: Array<Subscription_Package>;
+  /** Returns all packages created by a finance analyst */
   findSubscriptionPackagesByUserId: Array<Subscription_Package>;
   findFeeSetups: Array<Fee_Setup>;
   findFeeSetupById: Fee_Setup;
@@ -785,6 +788,7 @@ export type UpdateFeedDto = {
   categoryTag?: Maybe<CategoryTag>;
   subscriptionPackageId?: Maybe<Scalars['String']>;
   feedId: Scalars['String'];
+  status?: Maybe<Scalars['Boolean']>;
 };
 
 export type UpdatePackageSubscriberDto = {
@@ -908,6 +912,45 @@ export type ChangePasswordMutation = (
   ) }
 );
 
+export type DeleteFeedMutationVariables = Exact<{
+  feedId: Scalars['String'];
+}>;
+
+
+export type DeleteFeedMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteFeed: (
+    { __typename?: 'DefaultResponseTypeGQL' }
+    & Pick<DefaultResponseTypeGql, 'message' | 'status'>
+  ) }
+);
+
+export type CreateFeedMutationVariables = Exact<{
+  payload: CreateFeedDto;
+}>;
+
+
+export type CreateFeedMutation = (
+  { __typename?: 'Mutation' }
+  & { createFeed: (
+    { __typename?: 'FEED' }
+    & Pick<Feed, 'id'>
+  ) }
+);
+
+export type UpdateFeedMutationVariables = Exact<{
+  payload: UpdateFeedDto;
+}>;
+
+
+export type UpdateFeedMutation = (
+  { __typename?: 'Mutation' }
+  & { updateFeed: (
+    { __typename?: 'DefaultResponseTypeGQL' }
+    & Pick<DefaultResponseTypeGql, 'message' | 'status'>
+  ) }
+);
+
 export type TopPublicFeedsQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -991,6 +1034,34 @@ export type FindFeedCreatedByUserQuery = (
       { __typename?: 'SUBSCRIPTION_PACKAGE' }
       & Pick<Subscription_Package, 'id' | 'name'>
     )> }
+  )> }
+);
+
+export type FindFeedByIdQueryVariables = Exact<{
+  feedId: Scalars['String'];
+}>;
+
+
+export type FindFeedByIdQuery = (
+  { __typename?: 'Query' }
+  & { findFeedById: (
+    { __typename?: 'FEED' }
+    & Pick<Feed, 'id' | 'title' | 'body' | 'categoryTag' | 'accessLevel' | 'imageUrl' | 'dateCreated'>
+    & { subscriptionPackage?: Maybe<(
+      { __typename?: 'SUBSCRIPTION_PACKAGE' }
+      & Pick<Subscription_Package, 'id' | 'name'>
+    )> }
+  ) }
+);
+
+export type FindSubscriptionPackagesByCurrentUserIdQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindSubscriptionPackagesByCurrentUserIdQuery = (
+  { __typename?: 'Query' }
+  & { findSubscriptionPackagesByCurrentUserId: Array<(
+    { __typename?: 'SUBSCRIPTION_PACKAGE' }
+    & Pick<Subscription_Package, 'id' | 'name' | 'duration' | 'price' | 'description'>
   )> }
 );
 
@@ -1107,6 +1178,62 @@ export const ChangePasswordDocument = gql`
   })
   export class ChangePasswordGQL extends Apollo.Mutation<ChangePasswordMutation, ChangePasswordMutationVariables> {
     document = ChangePasswordDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const DeleteFeedDocument = gql`
+    mutation deleteFeed($feedId: String!) {
+  deleteFeed(feedId: $feedId) {
+    message
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class DeleteFeedGQL extends Apollo.Mutation<DeleteFeedMutation, DeleteFeedMutationVariables> {
+    document = DeleteFeedDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CreateFeedDocument = gql`
+    mutation createFeed($payload: CreateFeedDTO!) {
+  createFeed(payload: $payload) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateFeedGQL extends Apollo.Mutation<CreateFeedMutation, CreateFeedMutationVariables> {
+    document = CreateFeedDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdateFeedDocument = gql`
+    mutation updateFeed($payload: UpdateFeedDTO!) {
+  updateFeed(payload: $payload) {
+    message
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateFeedGQL extends Apollo.Mutation<UpdateFeedMutation, UpdateFeedMutationVariables> {
+    document = UpdateFeedDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -1247,6 +1374,56 @@ export const FindFeedCreatedByUserDocument = gql`
   })
   export class FindFeedCreatedByUserGQL extends Apollo.Query<FindFeedCreatedByUserQuery, FindFeedCreatedByUserQueryVariables> {
     document = FindFeedCreatedByUserDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindFeedByIdDocument = gql`
+    query findFeedById($feedId: String!) {
+  findFeedById(feedId: $feedId) {
+    id
+    title
+    body
+    categoryTag
+    accessLevel
+    imageUrl
+    subscriptionPackage {
+      id
+      name
+    }
+    dateCreated
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindFeedByIdGQL extends Apollo.Query<FindFeedByIdQuery, FindFeedByIdQueryVariables> {
+    document = FindFeedByIdDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindSubscriptionPackagesByCurrentUserIdDocument = gql`
+    query findSubscriptionPackagesByCurrentUserId {
+  findSubscriptionPackagesByCurrentUserId {
+    id
+    name
+    duration
+    price
+    description
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindSubscriptionPackagesByCurrentUserIdGQL extends Apollo.Query<FindSubscriptionPackagesByCurrentUserIdQuery, FindSubscriptionPackagesByCurrentUserIdQueryVariables> {
+    document = FindSubscriptionPackagesByCurrentUserIdDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

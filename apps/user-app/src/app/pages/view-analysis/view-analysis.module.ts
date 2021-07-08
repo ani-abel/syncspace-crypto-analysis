@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ViewAnalysisRoutingModule } from './view-analysis-routing.module';
 import { ViewAnalysisComponent } from './view-analysis.component';
-
+import { SharedFrontendModule } from '@syncspace-crypto-analysis/shared-frontend';
 
 @NgModule({
   declarations: [
@@ -11,6 +11,7 @@ import { ViewAnalysisComponent } from './view-analysis.component';
   ],
   imports: [
     CommonModule,
+    SharedFrontendModule,
     ViewAnalysisRoutingModule
   ]
 })

@@ -99,7 +99,10 @@ export class SharedService implements OnDestroy {
     this.subSink.sink =
     this.store.select((data) => data[0][key])
         .subscribe((data) => {
-          if (typeof data === 'undefined') {
+          if (
+            (typeof data === 'undefined') || 
+            (Array.isArray(data) && data.length < 1)
+          ) {
             if (payload) {
               this.store.dispatch(AppActions[initialAction]({ payload }));
             }
