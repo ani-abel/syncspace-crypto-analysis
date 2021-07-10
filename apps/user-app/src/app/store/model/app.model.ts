@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApolloError } from "@apollo/client/errors";
 import { AuthResponse, Country, Feed, Subscription_Package, User } from "@syncspace-crypto-analysis/graphql-config";
 
@@ -12,8 +13,9 @@ export interface AppModel {
     countries: Partial<Country>[];
     sponsoredFeeds: Partial<Feed>[];
     feedsYouCreated: Partial<Feed>[];
-    selectedFeedItem: Partial<Feed>;
+    selectedFeedItem: Partial<Feed | any>;
     subscriptionPackagesYouCreated: Partial<Subscription_Package>[];
+    selectedSubscriptionPackage: Partial<Subscription_Package>;
 }
 
 export const InitialAppState: AppModel =  {
@@ -28,4 +30,5 @@ export const InitialAppState: AppModel =  {
     feedsYouCreated: [],
     selectedFeedItem: undefined,
     subscriptionPackagesYouCreated: [],
+    selectedSubscriptionPackage: undefined,
 };

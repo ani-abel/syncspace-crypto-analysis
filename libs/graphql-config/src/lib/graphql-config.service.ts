@@ -806,6 +806,7 @@ export type UpdateSubscriptionPackageDto = {
   description?: Maybe<Scalars['String']>;
   duration?: Maybe<SubscriptionDurationType>;
   subscriptionPackageId: Scalars['String'];
+  status?: Maybe<Scalars['Boolean']>;
 };
 
 export type UpdateUserAnalystDto = {
@@ -951,6 +952,58 @@ export type UpdateFeedMutation = (
   ) }
 );
 
+export type CreateAnalystMutationVariables = Exact<{
+  payload: CreateUserAnalystDto;
+}>;
+
+
+export type CreateAnalystMutation = (
+  { __typename?: 'Mutation' }
+  & { createUserAnalyst: (
+    { __typename?: 'USER_ANALYST' }
+    & Pick<User_Analyst, 'id'>
+  ) }
+);
+
+export type CreateSubscriptionPackageMutationVariables = Exact<{
+  payload: CreateSubscriptionPackageDto;
+}>;
+
+
+export type CreateSubscriptionPackageMutation = (
+  { __typename?: 'Mutation' }
+  & { createSubscriptionPackage: (
+    { __typename?: 'SUBSCRIPTION_PACKAGE' }
+    & Pick<Subscription_Package, 'id'>
+  ) }
+);
+
+export type UpdateSubscriptionPackageMutationVariables = Exact<{
+  payload: UpdateSubscriptionPackageDto;
+}>;
+
+
+export type UpdateSubscriptionPackageMutation = (
+  { __typename?: 'Mutation' }
+  & { updateSubscriptionPackage: (
+    { __typename?: 'DefaultResponseTypeGQL' }
+    & Pick<DefaultResponseTypeGql, 'message' | 'status'>
+  ) }
+);
+
+export type MakeFeedCommentMutationVariables = Exact<{
+  payload: CreateFeedCommentDto;
+}>;
+
+
+export type MakeFeedCommentMutation = (
+  { __typename?: 'Mutation' }
+  & { createFeedComment: (
+    { __typename?: 'FEED_COMMENT' }
+    & Pick<Feed_Comment, 'id'>
+  ) }
+);
+
 export type TopPublicFeedsQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -1063,6 +1116,81 @@ export type FindSubscriptionPackagesByCurrentUserIdQuery = (
     { __typename?: 'SUBSCRIPTION_PACKAGE' }
     & Pick<Subscription_Package, 'id' | 'name' | 'duration' | 'price' | 'description'>
   )> }
+);
+
+export type FindSubscriptionPackageByIdQueryVariables = Exact<{
+  payload: Scalars['String'];
+}>;
+
+
+export type FindSubscriptionPackageByIdQuery = (
+  { __typename?: 'Query' }
+  & { findSubscriptionPackageById: (
+    { __typename?: 'SUBSCRIPTION_PACKAGE' }
+    & Pick<Subscription_Package, 'id' | 'name' | 'duration' | 'price' | 'description'>
+  ) }
+);
+
+export type FindFeedItemByIdQueryVariables = Exact<{
+  feedId: Scalars['String'];
+}>;
+
+
+export type FindFeedItemByIdQuery = (
+  { __typename?: 'Query' }
+  & { findFeedById: (
+    { __typename?: 'FEED' }
+    & Pick<Feed, 'id' | 'title' | 'body' | 'imageUrl' | 'dateCreated'>
+    & { likesForThisFeed: Array<(
+      { __typename?: 'FEED_LIKE' }
+      & Pick<Feed_Like, 'id'>
+      & { user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id'>
+      ) }
+    )>, user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+    ), commentsForThisFeed: Array<(
+      { __typename?: 'FEED_COMMENT' }
+      & Pick<Feed_Comment, 'id' | 'body' | 'dateCreated'>
+      & { user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+      ), repliesForThisComment: Array<(
+        { __typename?: 'FEED_COMMENT_REPLY' }
+        & Pick<Feed_Comment_Reply, 'id' | 'body'>
+        & { user: (
+          { __typename?: 'USER' }
+          & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+        ) }
+      )> }
+    )> }
+  ) }
+);
+
+export type FindFeedCommentbyIdQueryVariables = Exact<{
+  feedCommentId: Scalars['String'];
+}>;
+
+
+export type FindFeedCommentbyIdQuery = (
+  { __typename?: 'Query' }
+  & { findFeedCommentsById: (
+    { __typename?: 'FEED_COMMENT' }
+    & Pick<Feed_Comment, 'id' | 'body' | 'dateCreated'>
+    & { user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+    ), repliesForThisComment: Array<(
+      { __typename?: 'FEED_COMMENT_REPLY' }
+      & Pick<Feed_Comment_Reply, 'id' | 'body'>
+      & { user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+      ) }
+    )> }
+  ) }
 );
 
 export const LoginDocument = gql`
@@ -1234,6 +1362,79 @@ export const UpdateFeedDocument = gql`
   })
   export class UpdateFeedGQL extends Apollo.Mutation<UpdateFeedMutation, UpdateFeedMutationVariables> {
     document = UpdateFeedDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CreateAnalystDocument = gql`
+    mutation createAnalyst($payload: CreateUserAnalystDTO!) {
+  createUserAnalyst(payload: $payload) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateAnalystGQL extends Apollo.Mutation<CreateAnalystMutation, CreateAnalystMutationVariables> {
+    document = CreateAnalystDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CreateSubscriptionPackageDocument = gql`
+    mutation createSubscriptionPackage($payload: CreateSubscriptionPackageDTO!) {
+  createSubscriptionPackage(payload: $payload) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateSubscriptionPackageGQL extends Apollo.Mutation<CreateSubscriptionPackageMutation, CreateSubscriptionPackageMutationVariables> {
+    document = CreateSubscriptionPackageDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdateSubscriptionPackageDocument = gql`
+    mutation updateSubscriptionPackage($payload: UpdateSubscriptionPackageDTO!) {
+  updateSubscriptionPackage(payload: $payload) {
+    message
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateSubscriptionPackageGQL extends Apollo.Mutation<UpdateSubscriptionPackageMutation, UpdateSubscriptionPackageMutationVariables> {
+    document = UpdateSubscriptionPackageDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const MakeFeedCommentDocument = gql`
+    mutation makeFeedComment($payload: CreateFeedCommentDTO!) {
+  createFeedComment(payload: $payload) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class MakeFeedCommentGQL extends Apollo.Mutation<MakeFeedCommentMutation, MakeFeedCommentMutationVariables> {
+    document = MakeFeedCommentDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -1424,6 +1625,119 @@ export const FindSubscriptionPackagesByCurrentUserIdDocument = gql`
   })
   export class FindSubscriptionPackagesByCurrentUserIdGQL extends Apollo.Query<FindSubscriptionPackagesByCurrentUserIdQuery, FindSubscriptionPackagesByCurrentUserIdQueryVariables> {
     document = FindSubscriptionPackagesByCurrentUserIdDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindSubscriptionPackageByIdDocument = gql`
+    query findSubscriptionPackageById($payload: String!) {
+  findSubscriptionPackageById(packageId: $payload) {
+    id
+    name
+    duration
+    price
+    description
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindSubscriptionPackageByIdGQL extends Apollo.Query<FindSubscriptionPackageByIdQuery, FindSubscriptionPackageByIdQueryVariables> {
+    document = FindSubscriptionPackageByIdDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindFeedItemByIdDocument = gql`
+    query findFeedItemById($feedId: String!) {
+  findFeedById(feedId: $feedId) {
+    id
+    title
+    body
+    imageUrl
+    dateCreated
+    likesForThisFeed {
+      id
+      user {
+        id
+      }
+    }
+    user {
+      id
+      firstName
+      lastName
+      profileImageUrl
+    }
+    commentsForThisFeed {
+      id
+      body
+      dateCreated
+      user {
+        id
+        firstName
+        lastName
+        profileImageUrl
+      }
+      repliesForThisComment {
+        id
+        body
+        user {
+          id
+          firstName
+          lastName
+          profileImageUrl
+        }
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindFeedItemByIdGQL extends Apollo.Query<FindFeedItemByIdQuery, FindFeedItemByIdQueryVariables> {
+    document = FindFeedItemByIdDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindFeedCommentbyIdDocument = gql`
+    query findFeedCommentbyId($feedCommentId: String!) {
+  findFeedCommentsById(feedCommentId: $feedCommentId) {
+    id
+    body
+    dateCreated
+    user {
+      id
+      firstName
+      lastName
+      profileImageUrl
+    }
+    repliesForThisComment {
+      id
+      body
+      user {
+        id
+        firstName
+        lastName
+        profileImageUrl
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindFeedCommentbyIdGQL extends Apollo.Query<FindFeedCommentbyIdQuery, FindFeedCommentbyIdQueryVariables> {
+    document = FindFeedCommentbyIdDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

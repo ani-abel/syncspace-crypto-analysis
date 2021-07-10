@@ -63,3 +63,28 @@ mutation updateFeed($payload: UpdateFeedDTO!) {
     status
   }
 }
+
+mutation createAnalyst($payload: CreateUserAnalystDTO!) {
+  createUserAnalyst(payload: $payload) {
+    id
+  }
+}
+
+mutation createSubscriptionPackage($payload: CreateSubscriptionPackageDTO!) {
+  createSubscriptionPackage(payload: $payload) {
+    id
+  }
+}
+
+mutation updateSubscriptionPackage($payload: UpdateSubscriptionPackageDTO!) {
+  updateSubscriptionPackage(payload: $payload) {
+    message,
+    status
+  }
+}
+
+mutation makeFeedComment($payload: CreateFeedCommentDTO!) {
+  createFeedComment(payload: $payload) {
+    id
+  }
+}

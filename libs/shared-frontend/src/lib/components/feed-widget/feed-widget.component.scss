@@ -155,6 +155,10 @@
     }
 }
 
+button:disabled {
+    cursor: not-allowed;
+}
+
 @media (max-width: 992px) {}
 
 @media (max-width: 768px) { 

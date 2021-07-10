@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, Input } from '@angular/core';
 import { 
   FilesystemDirectory, 
@@ -12,8 +13,8 @@ const CACHE_FOLDER = 'CACHED-IMG';
   selector: 'syncspace-crypto-analysis-cached-image',
   template: `
     <img [src]="_src" 
+      [alt]="_alt"
       *ngIf="_src !== ''; else loading" 
-      [ngClass]="[class]"
       [style.width]="width" 
       [style.height]="height" />
     <ng-template #loading>
@@ -26,8 +27,13 @@ export class CachedImageComponent {
   @Input() spinner = false;
   @Input() width = '100%';
   @Input() height = '100%';
-  @Input() class;
   _src = '';
+  _alt = '';
+
+  @Input()
+  set alt(alternateText: string) {
+    this._alt = alternateText;
+  }
 
   @Input()
   set src(imageUrl: string) {

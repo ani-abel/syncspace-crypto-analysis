@@ -96,16 +96,16 @@ export class AppEffectService {
         }),
       ));
 
-      sponsoredPosts$ = createEffect(() => 
-        this.actions$.pipe(
-          ofType(AppActions.GetSponsoredFeedsInitiatedAction),
-          switchMap((action) => {
-            return this.gqlRequestSrv.sponsoredFeeds(action.payload).pipe(
-              map((data) => AppActions.GetSponsoredFeedsSuccessfulAction({ payload: data })),
-              catchError((error: Error) => of(AppActions.GetSponsoredFeedsFailedAction({ payload: error })))
-            )
-          })
-        ));
+    sponsoredPosts$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.GetSponsoredFeedsInitiatedAction),
+        switchMap((action) => {
+          return this.gqlRequestSrv.sponsoredFeeds(action.payload).pipe(
+            map((data) => AppActions.GetSponsoredFeedsSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.GetSponsoredFeedsFailedAction({ payload: error })))
+          )
+        })
+      ));
 
     findFeedCreatedByUser$ = createEffect(() =>
       this.actions$.pipe(
@@ -186,4 +186,86 @@ export class AppEffectService {
             )
           })
         ));
+
+    createAnalyst$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.CreateAnalystInitiatedAction),
+        switchMap(({ payload }) => {
+          return this.gqlRequestSrv.createAnalyst(payload).pipe(
+            map((data) => AppActions.CreateAnalystSuccessfulAction({ payload: data }),
+            catchError((error: Error) => of(AppActions.CreateAnalystFailedAction({ payload: error })))
+          ))
+        })
+      ));
+
+    createSubscriptionPackage$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.CreateSubscriptionPackageInitiatedAction),
+        switchMap(({ payload }) => {
+          return this.gqlRequestSrv.createSubscriptionPackage(payload).pipe(
+            map((data) => AppActions.CreateSubscriptionPackageSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.CreateSubscriptionPackageFailedAction({ payload: error }))),
+          )
+        })
+      ));
+
+    updateSubcriuptionPackage$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.UpdateSubscriptionPackageInitiatedAction),
+        switchMap(({ payload }) => {
+          return this.gqlRequestSrv.updateSubscriptionPackage(payload).pipe(
+            map((data) => AppActions.UpdateSubscriptionPackageSuccessfulAction({ 
+              packageId: payload.subscriptionPackageId, 
+              payload: data 
+            })),
+            catchError((error: Error) => of(AppActions.UpdateSubscriptionPackageFailedAction({ payload: error })))
+          )
+        })
+      ));
+
+    findSubscriptionPackageById$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.FindSubscriptionPackageByIdInitiatedAction),
+        switchMap(({ payload }) => {
+          return this.gqlRequestSrv.findSubscriptionPackageById(payload).pipe(
+            map((data) => AppActions.FindSubscriptionPackageByIdSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.FindSubscriptionPackageByIdFailedAction({ payload: error })))
+          )
+        })
+      ));
+
+      findDetailedFeedItemById$ = createEffect(() => 
+        this.actions$.pipe(
+          ofType(AppActions.FindDetailedFeedItemByIdInitiatedAction),
+          switchMap(({ payload }) => {
+            return this.gqlRequestSrv.findDetailedFeedItemById(payload).pipe(
+              map((data) => AppActions.FindDetailedFeedITemByIdSuccessfulAction({ payload: data })),
+              catchError((error: Error) => of(AppActions.FindDetailedFeedItemByIdFailedAction({ payload: error })))
+            )
+          })
+        ));
+
+    makeFeedComment$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.MakeFeedCommentInitiatedAction),
+        switchMap(({ payload }) => {
+          return this.gqlRequestSrv.makeFeedComment(payload).pipe(
+            // ? Pull in the newly created comment into app state
+            mergeMap((data) => this.gqlRequestSrv.findFeedCommentById(data.id)),
+            map((data) => AppActions.MakeFeedCommentSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.MakeFeedCommentFailedAction({ payload: error })))
+          )
+        })
+      ));
+
+    findFeedCommentById$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.FindFeedCommentByIdInitiatedAction),
+        switchMap(({ payload }) => {
+          return this.gqlRequestSrv.findFeedCommentById(payload).pipe(
+            map((data) => AppActions.FindFeedCommentByIdSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.FindFeedCommentByIdFailedAction({ payload: error })))
+          )
+        })
+      ));
 }

@@ -1,5 +1,11 @@
 <main class="page-container full-width">
     <div class="feed-section page-section">
-        <syncspace-crypto-analysis-feed-widget></syncspace-crypto-analysis-feed-widget>
+        <syncspace-crypto-analysis-feed-widget 
+            *ngIf="(selectedFeedItem$ | async) as feedItem" 
+            [feedItem]="feedItem"
+            (like)="onLike($event)"
+            (comment)="onComment($event)"
+            (commentForm)="onFormReset($event)">
+        </syncspace-crypto-analysis-feed-widget>
     </div>
 </main>

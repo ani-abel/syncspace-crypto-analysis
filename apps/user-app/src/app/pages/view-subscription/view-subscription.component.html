@@ -9,59 +9,24 @@
                         <th>Duration</th>
                         <th>Description</th>
                         <th>Price(₦)</th>
-                        <th>Access Level</th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Diamond</td>
-                        <td>9 MONTHS</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>3000</td>
-                        <td>PUBLIC</td>
+                    <tr *ngFor="let package of (activeSubscription$ | async)">
+                        <td>{{ package.name }}</td>
+                        <td>{{ package.duration }}</td>
+                        <td>{{ package.description | capitalize }}</td>
+                        <td>{{ package.price }}</td>
                         <td>
-                            <button class="btn btn-danger btn-slim">
+                            <button type="button" class="btn btn-danger btn-slim" 
+                                (click)="onDelete(package.id)">
                                 Delete
                             </button>
                         </td>
                         <td>
-                            <a [routerLink]="['edit']" class="btn btn-primary text-decoration-none">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Diamond</td>
-                        <td>9 MONTHS</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>3000</td>
-                        <td>PUBLIC</td>
-                        <td>
-                            <button class="btn btn-danger btn-slim">
-                                Delete
-                            </button>
-                        </td>
-                        <td>
-                            <a [routerLink]="['edit']" class="btn btn-primary text-decoration-none">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Diamond</td>
-                        <td>9 MONTHS</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>3000</td>
-                        <td>PUBLIC</td>
-                        <td>
-                            <button class="btn btn-danger btn-slim">
-                                Delete
-                            </button>
-                        </td>
-                        <td>
-                            <a [routerLink]="['edit']" class="btn btn-primary text-decoration-none">
+                            <a [routerLink]="['edit', package.id]" class="btn btn-primary text-decoration-none">
                                 Edit
                             </a>
                         </td>

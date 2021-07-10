@@ -4,6 +4,7 @@ ion-skeleton-text {
     margin: 0 auto
 }
 
-// img {
-//     box-shadow: var(--box-shadow-md);
-// }
+img {
+    object-fit: cover;
+    vertical-align: middle;
+}

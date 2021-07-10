@@ -37,7 +37,7 @@ const routes: Routes = [
   {
     path: 'auth',
     canActivate: [RoleGuard],
-    data: { roles: [AppRole.Admin, AppRole.Trader] },
+    data: { roles: [AppRole.Trader, AppRole.UnverifiedAnalyst, AppRole.VerifiedAnalyst] },
     component: LayoutComponent,
     children: [
       {
@@ -70,6 +70,8 @@ const routes: Routes = [
       },
       { 
         path: 'become-analyst', 
+        canActivate: [RoleGuard],
+        data: { roles: [AppRole.Trader] },
         loadChildren: () => import('./pages/become-analyst/become-analyst.module').then(m => m.BecomeAnalystModule) 
       },
       { 
@@ -97,7 +99,7 @@ const routes: Routes = [
             loadChildren: () => import('./pages/add-subscription/add-subscription.module').then(m => m.AddSubscriptionModule) 
           },
           { 
-            path: 'edit', 
+            path: 'edit/:packageId', 
             loadChildren: () => import('./pages/edit-subscription/edit-subscription.module').then(m => m.EditSubscriptionModule) 
           },
         ],

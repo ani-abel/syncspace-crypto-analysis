@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+import { Component, OnInit, Input } from '@angular/core';
+import { Feed_Comment } from '@syncspace-crypto-analysis/graphql-config';
 
 @Component({
   selector: 'syncspace-crypto-analysis-feed-comment',
@@ -6,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./feed-comment.component.scss']
 })
 export class FeedCommentComponent implements OnInit {
+  @Input() feedComment: Feed_Comment;
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

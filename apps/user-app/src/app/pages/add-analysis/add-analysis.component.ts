@@ -2,6 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpRequestService } from '@syncspace-crypto-analysis/http-requests';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { 
   AccessLevelType, 
   CategoryTag, 
@@ -11,7 +12,6 @@ import {
 import { Observable } from 'rxjs';
 import { SubSink } from 'subsink';
 import { convertFilesToBase64Strings } from '@syncspace-crypto-analysis/utils';
-import { Store } from '@ngrx/store';
 import { actions as AppActions } from '../../store/action/app.action';
 import { mergeMap, tap } from 'rxjs/operators';
 import { AppModel } from '../../store/model/app.model';

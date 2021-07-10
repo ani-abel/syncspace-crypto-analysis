@@ -26,6 +26,19 @@ import {
   Subscription_Package,
   UpdateFeedGQL,
   UpdateFeedDto,
+  CreateAnalystGQL,
+  CreateUserAnalystDto,
+  User_Analyst,
+  CreateSubscriptionPackageGQL,
+  UpdateSubscriptionPackageGQL,
+  CreateSubscriptionPackageDto,
+  UpdateSubscriptionPackageDto,
+  FindSubscriptionPackageByIdGQL,
+  FindFeedItemByIdGQL,
+  FindFeedCommentbyIdGQL,
+  MakeFeedCommentGQL,
+  CreateFeedCommentDto,
+  Feed_Comment,
 } from "@syncspace-crypto-analysis/graphql-config";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -49,6 +62,13 @@ export class GraphqlRequestsService {
     private readonly createFeedSrv: CreateFeedGQL,
     private readonly findFeedByIdSrv: FindFeedByIdGQL,
     private readonly updateFeedSrv: UpdateFeedGQL,
+    private readonly createAnalystSrv: CreateAnalystGQL,
+    private readonly createSubscriptionPackageSrv: CreateSubscriptionPackageGQL,
+    private readonly updateSubscriptionPackageSrv: UpdateSubscriptionPackageGQL,
+    private readonly findSubscriptionPackageByIdSrv: FindSubscriptionPackageByIdGQL,
+    private readonly findFeedItemByIdSrv: FindFeedItemByIdGQL,
+    private readonly findFeedCommentbyIdSrv: FindFeedCommentbyIdGQL,
+    private readonly makeFeedCommentSrv: MakeFeedCommentGQL,
     private readonly findSubscriptionPackagesByCurrentUserIdSrv: FindSubscriptionPackagesByCurrentUserIdGQL,
   ) {}
 
@@ -117,7 +137,7 @@ export class GraphqlRequestsService {
               .pipe(
                 map((res) => res.data.topSponsoredFeeds),
                 catchError((error: ApolloError) => throwError(error.graphQLErrors))
-              )
+              );
   }
 
   findFeedCreatedByUser(): Observable<Partial<Feed | any>[]> {
@@ -178,5 +198,71 @@ export class GraphqlRequestsService {
                 catchError((error: ApolloError) => throwError(error.graphQLErrors))
               );
   }
+
+  createAnalyst(payload: CreateUserAnalystDto)
+  : Observable<Partial<User_Analyst>> {
+    return this.createAnalystSrv
+              .mutate({ payload })
+              .pipe(
+                map((res) => res.data.createUserAnalyst),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  createSubscriptionPackage(payload: CreateSubscriptionPackageDto)
+  : Observable<Partial<Subscription_Package>> {
+    return this.createSubscriptionPackageSrv
+              .mutate({ payload })
+              .pipe(
+                map((res) => res.data.createSubscriptionPackage),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  updateSubscriptionPackage(payload: UpdateSubscriptionPackageDto)
+  : Observable<Partial<DefaultResponseTypeGql>> {
+    return this.updateSubscriptionPackageSrv
+              .mutate({ payload })
+              .pipe(
+                map((res) => res.data.updateSubscriptionPackage),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  findSubscriptionPackageById(subscriptionPackageId: string)
+  : Observable<Partial<Subscription_Package>> {
+    return this.findSubscriptionPackageByIdSrv
+              .fetch({ payload: subscriptionPackageId })
+              .pipe(
+                map((res) => res.data.findSubscriptionPackageById),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  findDetailedFeedItemById(feedId: string): Observable<Partial<Feed | any>> {
+    return this.findFeedItemByIdSrv
+              .fetch({ feedId })
+              .pipe(
+                map((res) => res.data.findFeedById),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
   
+  makeFeedComment(payload: CreateFeedCommentDto): Observable<Partial<Feed_Comment>> {
+    return this.makeFeedCommentSrv
+              .mutate({ payload })
+              .pipe(
+                map((res) => res.data.createFeedComment),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              )
+  }
+
+  findFeedCommentById(feedCommentId: string): Observable<Partial<Feed_Comment> | any> {
+    return this.findFeedCommentbyIdSrv
+              .fetch({ feedCommentId })
+              .pipe(
+                map((res) => res.data.findFeedCommentsById),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
 }

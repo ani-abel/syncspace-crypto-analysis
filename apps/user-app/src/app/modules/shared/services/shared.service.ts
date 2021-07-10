@@ -31,11 +31,12 @@ export class SharedService implements OnDestroy {
   }
 
   async displayMessage(message: string) {
-    const toast = await this.toastController.create({
+    const toast = 
+    await this.toastController.create({
       message,
       duration: 5000,
       position: 'top',
-      color: 'primary',
+      // color: 'primary',
       buttons: [
         {
           text: 'close',
@@ -50,7 +51,8 @@ export class SharedService implements OnDestroy {
   }
 
   async displayErrorMessage(message: string) {
-    const toast = await this.toastController.create({
+    const toast = 
+    await this.toastController.create({
       message,
       duration: 5000,
       position: 'top',
@@ -86,6 +88,7 @@ export class SharedService implements OnDestroy {
 
   // Get data from store or from api request
   /**
+   * TODO: Doesn't work on certain ngrx operations
    * Searches first in the internal store.
    * If resource is found, it returns it.
    * else if fetches the resource from an api request

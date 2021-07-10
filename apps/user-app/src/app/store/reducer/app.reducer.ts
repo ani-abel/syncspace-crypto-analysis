@@ -132,7 +132,7 @@ export const AppReducer = createReducer(
     on(AppActions.FindFeedCreatedByUserSuccessfulAction, (state, { payload }) => {
         return { ...state, isLoading: false, feedsYouCreated: payload };
     }),
-    on(AppActions.DeleteFeedItemInitiatedAction, (state, { payload }) => {
+    on(AppActions.DeleteFeedItemInitiatedAction, (state) => {
         return { 
             ...state, 
             isLoading: true, 
@@ -226,6 +226,165 @@ export const AppReducer = createReducer(
             ...state,
             isLoading: false,
             successMessage: message,
+        }
+    }),
+    on(AppActions.CreateAnalystInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(AppActions.CreateAnalystFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.CreateAnalystSuccessfulAction, (state) => {
+        return { 
+            ...state,
+            isLoading: false,
+            successMessage: 'Successful',
+        }
+    }),
+    on(AppActions.CreateSubscriptionPackageInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(AppActions.CreateSubscriptionPackageFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.CreateSubscriptionPackageSuccessfulAction, (state) => {
+        return {
+            ...state,
+            isLoading: false,
+            successMessage: 'Successful'
+        }
+    }),
+    on(AppActions.UpdateSubscriptionPackageInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.UpdateSubscriptionPackageFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload
+        }
+    }),
+    on(AppActions.UpdateSubscriptionPackageSuccessfulAction, (state, { packageId, payload }) => {
+        const updatedPackagesList =  state.subscriptionPackagesYouCreated.filter((subPackage) => subPackage.id !== packageId);
+        return {
+            ...state,
+            isLoading: false,
+            subscriptionPackagesYouCreated: [...updatedPackagesList],
+            successMessage: payload.message
+        }
+    }),
+    on(AppActions.FindSubscriptionPackageByIdInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(AppActions.FindSubscriptionPackageByIdFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload
+        }
+    }),
+    on(AppActions.FindSubscriptionPackageByIdSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            selectedSubscriptionPackage: payload,
+        }
+    }),
+    on(AppActions.FindDetailedFeedItemByIdInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.FindDetailedFeedItemByIdFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.FindDetailedFeedITemByIdSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            selectedFeedItem: { ...payload },
+        }
+    }),
+    on(AppActions.MakeFeedCommentInitiatedAction, (state) => {
+
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.MakeFeedCommentFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.MakeFeedCommentSuccessfulAction, (state, { payload }) => {
+        if (state?.selectedFeedItem) {
+            const feedItem: Partial<Feed> = {
+                ...state.selectedFeedItem,
+                commentsForThisFeed: [
+                    ...state.selectedFeedItem.commentsForThisFeed, 
+                    payload
+                ],
+            };
+            return {
+                ...state,
+                isLoading: false,
+                selectedFeedItem: feedItem,
+                successMessage: 'Successful'
+            }
+        }
+        else {
+            return {
+                ...state,
+                isLoading: false,
+                successMessage: 'Successful'
+            }
+        }
+    }),
+    on(AppActions.FindFeedCommentByIdInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.FindFeedCommentByIdFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: true,
+            error: payload,
+        }
+    }),
+    on(AppActions.FindFeedCommentByIdSuccessfulAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
         }
     }),
 );

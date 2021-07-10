@@ -1,4 +1,5 @@
 - User-app
-    - Add feed
     - Dashboard
-    - Become analyst
+    - Implement feed-like feature
+    - Add top-analysts section
+    - Add logic to add comments to feed when in a list

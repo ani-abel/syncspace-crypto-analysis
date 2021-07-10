@@ -4,14 +4,20 @@ import {
     AuthResponse, 
     ChangePasswordDto, 
     Country, 
+    CreateFeedCommentDto, 
     CreateFeedDto, 
+    CreateSubscriptionPackageDto, 
+    CreateUserAnalystDto, 
     CreateUserDto, 
     DefaultResponseTypeGql, 
     Feed, 
+    Feed_Comment, 
     LoginUserDto, 
     Subscription_Package, 
     UpdateFeedDto, 
-    User
+    UpdateSubscriptionPackageDto, 
+    User,
+    User_Analyst
 } from "@syncspace-crypto-analysis/graphql-config";
 
 export enum AppActionType {
@@ -59,6 +65,10 @@ export enum AppActionType {
     FIND_FEED_ITEM_BY_ID_FAILED = '[FEED] FIND_FEED_ITEM_BY_ID_FAILED',
     FIND_FEED_ITEM_BY_ID_SUCCESSFUL = '[FEED] FIND_FEED_ITEM_BY_ID_SUCCESSFUL',
 
+    FIND_DETAILED_FEED_ITEM_BY_ID_INITIATED = '[FEED] FIND_DETAILED_FEED_ITEM_BY_ID_INITIATED',
+    FIND_DETAILED_FEED_ITEM_BY_ID_FAILED = '[FEED] FIND_DETAILED_FEED_ITEM_BY_ID_FAILED',
+    FIND_DETAILED_FEED_ITEM_BY_ID_SUCCESSFUL = '[FEED] FIND_DETAILED_FEED_ITEM_BY_ID_SUCCESSFUL',
+
     FIND_SUBSCRIPTION_PACAKGES_CREATED_BY_USER_INITIATED = '[SUBSCRIPTIONS] FIND_SUBSCRIPTION_PACAKGES_CREATED_BY_USER_INITIATED',
     FIND_SUBSCRIPTION_PACAKGES_CREATED_BY_USER_FAILED = '[SUBSCRIPTIONS] FIND_SUBSCRIPTION_PACAKGES_CREATED_BY_USER_FAILED',
     FIND_SUBSCRIPTION_PACAKGES_CREATED_BY_USER_SUCCESSFUL = '[SUBSCRIPTIONS] FIND_SUBSCRIPTION_PACAKGES_CREATED_BY_USER_SUCCESSFUL',
@@ -66,6 +76,30 @@ export enum AppActionType {
     UPDATE_FEED_INITIATED = '[FEED] UPDATE_FEED_INITIATED',
     UPDATE_FEED_FAILED = '[FEED] UPDATE_FEED_FAILED',
     UPDATE_FEED_SUCCESSFUL = '[FEED] UPDATE_FEED_SUCCESSFUL',
+
+    CREATE_ANALYST_INITIATED = '[ANALYST] CREATE_ANALYST_INITIATED',
+    CREATE_ANALYST_FAILED = '[ANALYST] CREATE_ANALYST_FAILED',
+    CREATE_ANALYST_SUCCESSFUL = '[ANALYST] CREATE_ANALYST_SUCCESSFUL',
+
+    CREATE_SUBSCRIPTION_PACKAGE_INITIATED = '[SUBSCRIPTION_PLAN] CREATE_SUBSCRIPTION_PACKAGE_INITIATED',
+    CREATE_SUBSCRIPTION_PACKAGE_FAILED = '[SUBSCRIPTION_PLAN] CREATE_SUBSCRIPTION_PACKAGE_FAILED',
+    CREATE_SUBSCRIPTION_PACKAGE_SUCCESSFUL = '[SUBCRIPTION_PLAN] CREATE_SUBSCRIPTION_PACKAGE_SUCCESSFUL',
+
+    UPDATE_SUBSCRIPTION_PACKAGE_INITIATED = '[SUBSCRIPTION_PLAN] UPDATE_SUBSCRIPTION_PACKAGE_INITIATED',
+    UPDATE_SUBSCRIPTION_PACKAGE_FAILED = '[SUBSCRIPTION_PLAN] UPDATE_SUBSCRIPTION_PACKAGE_FAILED',
+    UPDATE_SUBSCRIPTION_PACKAGE_SUCCESSFUL = '[SUBSCRIPTION_PLAN] UPDATE_SUBSCRIPTION_PACKAGE_SUCCESSFUL',
+
+    FIND_SUBSCRIPTION_PACKAGE_BY_ID_INITIATED = '[SUBSCRIPTION_PLAN] FIND_SUBSCRIPTION_PACKAGE_BY_ID_INITIATED',
+    FIND_SUBSCRIPTION_PACKAGE_BY_ID_FAILED = '[SUBSCRIPTION_PLAN] FIND_SUBSCRIPTION_PACKAGE_BY_ID_FAILED',
+    FIND_SUBSCRIPTION_PACKAGE_BY_ID_SUCCESSFUL = '[SUBSCRIPTION_PLAN] FIND_SUBSCRIPTION_PACKAGE_BY_ID_SUCCESSFUL',
+
+    MAKE_FEED_COMMENT_INITIATED = '[FEED] MAKE_FEED_COMMENT_INITIATED',
+    MAKE_FEED_COMMENT_FAILED = '[FEED] MAKE_FEED_COMMENT_FAILED',
+    MAKE_FEED_COMMENT_SUCCESSFUL = '[FEED] MAKE_FEED_COMMENT_SUCCESSFUL',
+
+    FIND_FEED_COMMENT_BY_ID_INITIATED = '[FEED] FIND_FEED_COMMENT_BY_ID_INITIATED',
+    FIND_FEED_COMMENT_BY_ID_FAILED = '[FEED] FIND_FEED_COMMENT_BY_ID_FAILED',
+    FIND_FEED_COMMENT_BY_ID_SUCCESSFUL = '[FEED] FIND_FEED_COMMENT_BY_ID_SUCCESSFUL',
 
     CLEAR_MESSAGES_FROM_STATE = '[MESSAGES] CLEAR_MESSAGES_FROM_STATE',
 
@@ -232,5 +266,89 @@ export const actions = {
     UpdateFeedSuccessfulAction: createAction(
         AppActionType.UPDATE_FEED_SUCCESSFUL,
         props<{ payload: Partial<DefaultResponseTypeGql> }>()
+    ),
+    CreateAnalystInitiatedAction: createAction(
+        AppActionType.CREATE_ANALYST_INITIATED,
+        props<{ payload: CreateUserAnalystDto }>()
+    ),
+    CreateAnalystFailedAction: createAction(
+        AppActionType.CREATE_ANALYST_FAILED,
+        props<{ payload: Error }>()
+    ),
+    CreateAnalystSuccessfulAction: createAction(
+        AppActionType.CREATE_ANALYST_SUCCESSFUL,
+        props<{ payload: Partial<User_Analyst> }>()
+    ),
+    CreateSubscriptionPackageInitiatedAction: createAction(
+        AppActionType.CREATE_SUBSCRIPTION_PACKAGE_INITIATED,
+        props<{ payload: CreateSubscriptionPackageDto }>()
+    ),
+    CreateSubscriptionPackageFailedAction: createAction(
+        AppActionType.CREATE_SUBSCRIPTION_PACKAGE_FAILED,
+        props<{ payload: Error }>()
+    ),
+    CreateSubscriptionPackageSuccessfulAction: createAction(
+        AppActionType.CREATE_SUBSCRIPTION_PACKAGE_SUCCESSFUL,
+        props<{ payload: Partial<Subscription_Package> }>(),
+    ),
+    UpdateSubscriptionPackageInitiatedAction: createAction(
+        AppActionType.UPDATE_SUBSCRIPTION_PACKAGE_INITIATED,
+        props<{ payload: UpdateSubscriptionPackageDto }>()
+    ),
+    UpdateSubscriptionPackageFailedAction: createAction(
+        AppActionType.UPDATE_SUBSCRIPTION_PACKAGE_FAILED,
+        props<{ payload: Error }>()
+    ),
+    UpdateSubscriptionPackageSuccessfulAction: createAction(
+        AppActionType.UPDATE_SUBSCRIPTION_PACKAGE_SUCCESSFUL,
+        props<{ packageId: string, payload: Partial<DefaultResponseTypeGql> }>()
+    ),
+    FindSubscriptionPackageByIdInitiatedAction: createAction(
+        AppActionType.FIND_SUBSCRIPTION_PACKAGE_BY_ID_INITIATED,
+        props<{ payload: string }>()
+    ),
+    FindSubscriptionPackageByIdFailedAction: createAction(
+        AppActionType.FIND_SUBSCRIPTION_PACKAGE_BY_ID_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindSubscriptionPackageByIdSuccessfulAction: createAction(
+        AppActionType.FIND_SUBSCRIPTION_PACKAGE_BY_ID_SUCCESSFUL,
+        props<{ payload: Partial<Subscription_Package> }>()
+    ),
+    FindDetailedFeedItemByIdInitiatedAction: createAction(
+        AppActionType.FIND_DETAILED_FEED_ITEM_BY_ID_INITIATED,
+        props<{ payload: string }>()
+    ),
+    FindDetailedFeedItemByIdFailedAction: createAction(
+        AppActionType.FIND_DETAILED_FEED_ITEM_BY_ID_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindDetailedFeedITemByIdSuccessfulAction: createAction(
+        AppActionType.FIND_DETAILED_FEED_ITEM_BY_ID_SUCCESSFUL,
+        props<{ payload: Partial<Feed | any> }>()
+    ),
+    MakeFeedCommentInitiatedAction: createAction(
+        AppActionType.MAKE_FEED_COMMENT_INITIATED,
+        props<{ payload: CreateFeedCommentDto }>()
+    ),
+    MakeFeedCommentFailedAction: createAction(
+        AppActionType.MAKE_FEED_COMMENT_FAILED,
+        props<{ payload: Error }>()
+    ),
+    MakeFeedCommentSuccessfulAction: createAction(
+        AppActionType.MAKE_FEED_COMMENT_SUCCESSFUL,
+        props<{ payload: Partial<Feed_Comment> }>()
+    ),
+    FindFeedCommentByIdInitiatedAction: createAction(
+        AppActionType.FIND_FEED_COMMENT_BY_ID_INITIATED,
+        props<{ payload: string }>()
+    ),
+    FindFeedCommentByIdFailedAction: createAction(
+        AppActionType.FIND_FEED_COMMENT_BY_ID_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindFeedCommentByIdSuccessfulAction: createAction(
+        AppActionType.FIND_FEED_COMMENT_BY_ID_SUCCESSFUL,
+        props<{ payload: Partial<Feed_Comment> }>()
     ),
 };

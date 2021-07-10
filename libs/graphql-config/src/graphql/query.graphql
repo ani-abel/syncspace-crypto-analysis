@@ -91,3 +91,81 @@ query findSubscriptionPackagesByCurrentUserId {
     description
   }
 }
+
+query findSubscriptionPackageById($payload: String!) {
+  findSubscriptionPackageById(packageId: $payload) {
+    id,
+    name,
+    duration,
+    price,
+    description,
+    
+  }
+}
+
+query findFeedItemById($feedId: String!) {
+  findFeedById(feedId: $feedId) {
+    id,
+    title,
+    body,
+    imageUrl,
+    dateCreated,
+    likesForThisFeed {
+      id,
+      user {
+        id
+      },
+    },
+    user {
+      id,
+      firstName,
+      lastName,
+      profileImageUrl
+    },
+    commentsForThisFeed {
+      id,
+      body,
+      dateCreated,
+      user {
+        id,
+        firstName,
+        lastName,
+        profileImageUrl
+      },
+      repliesForThisComment {
+        id,
+        body,
+        user {
+          id,
+          firstName,
+          lastName,
+          profileImageUrl
+        }
+      }
+    }
+  }
+}
+
+query findFeedCommentbyId($feedCommentId: String!) {
+  findFeedCommentsById(feedCommentId: $feedCommentId) {
+     id,
+      body,
+      dateCreated,
+      user {
+        id,
+        firstName,
+        lastName,
+        profileImageUrl
+      },
+      repliesForThisComment {
+        id,
+        body,
+        user {
+          id,
+          firstName,
+          lastName,
+          profileImageUrl
+        }
+      }
+  }
+}

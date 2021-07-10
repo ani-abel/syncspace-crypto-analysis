@@ -1,28 +1,47 @@
-<div class="comment-widget">
+<div class="comment-widget mb-10">
     <h6 class="no-padding">
-        <img src="/assets/images/user-icon-female-muslim.png" alt="" />
-        John Doe | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
+        <syncspace-crypto-analysis-cached-image 
+            [height]="'30px'" 
+            [width]="'30px'" 
+            [alt]="feedComment.user.firstName + ' ' + feedComment.user.lastName"
+            [src]="feedComment.user.profileImageUrl">
+        </syncspace-crypto-analysis-cached-image>
+        <!-- <img [src]="feedComment.user.profileImageUrl" 
+            alt="{{ feedComment.user.firstName }} {{ feedComment.user.lastName }}" /> -->
+        {{ feedComment.user.firstName }} {{ feedComment.user.lastName }} | <span><i class="fa fa-calendar"></i> {{ feedComment.dateCreated | date : 'short' }}</span>
     </h6>
     <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, nam sunt. Tempora modi nihil eaque vel sapiente consectetur facilis sit?
-    </p>
-    <p class="no-margin no-padding text-right">
-        <a class="text-decoration-none text-bold text-secondary cursor-pointer"
-            syncspaceCryptoAnalysisToggle
-            #refReplies="syncspaceCryptoAnalysisToggle">
-            View Replies
-        </a>
+        {{ feedComment.body | capitalize }}
     </p>
 
-    <div class="replies-section full-width" [ngClass]="{ 'hidden-visually': !refReplies.isOpen}">
-        <div class="comment-widget">
-            <h6 class="no-padding">
-                <img src="/assets/images/user-icon-female-muslim.png" alt="" />
-                John Doe | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
-            </h6>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, nam sunt. Tempora modi nihil eaque vel sapiente consectetur facilis sit?
-            </p>
+    <ng-container *ngIf="feedComment.repliesForThisComment?.length > 0">
+        <p class="no-margin no-padding text-right">
+            <a class="text-decoration-none text-bold text-secondary cursor-pointer"
+                syncspaceCryptoAnalysisToggle
+                #refReplies="syncspaceCryptoAnalysisToggle">
+                View Replies
+            </a>
+        </p>
+    
+        <div class="replies-section full-width" 
+            [ngClass]="{ 'hidden-visually': !refReplies.isOpen}"
+            *ngFor="let reply of feedComment.repliesForThisComment">
+            <div class="comment-widget">
+                <h6 class="no-padding">
+                <syncspace-crypto-analysis-cached-image 
+                    [height]="'30px'" 
+                    [width]="'30px'" 
+                    [alt]="reply.user.firstName + ' ' + reply.user.lastName"
+                    [src]="reply.user.profileImageUrl">
+                </syncspace-crypto-analysis-cached-image>
+                    <!-- <img [src]="reply.user.profileImageUrl" 
+                        alt="{{ reply.user.firstName }} {{ reply.user.lastName}}" /> -->
+                    {{ reply.user.firstName }} {{ reply.user.lastName}} | <span><i class="fa fa-calendar"></i> {{  reply.dateCreated | date : 'short' }}</span>
+                </h6>
+                <p>
+                   {{ reply.body | capitalize }}
+                </p>
+            </div>
         </div>
-    </div>
+    </ng-container>
 </div>
