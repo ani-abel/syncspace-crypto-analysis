@@ -107,6 +107,7 @@ query findFeedItemById($feedId: String!) {
   findFeedById(feedId: $feedId) {
     id,
     title,
+    categoryTag,
     body,
     imageUrl,
     dateCreated,
@@ -151,6 +152,9 @@ query findFeedCommentbyId($feedCommentId: String!) {
      id,
       body,
       dateCreated,
+      feed {
+        id
+      },
       user {
         id,
         firstName,
@@ -167,5 +171,17 @@ query findFeedCommentbyId($feedCommentId: String!) {
           profileImageUrl
         }
       }
+  }
+}
+
+query findFeedLikeById($feedLikeId: String!) {
+  findLikeById(feedLikeId: $feedLikeId) {
+    id,
+    feed {
+      id
+    },
+    user {
+      id
+    }
   }
 }

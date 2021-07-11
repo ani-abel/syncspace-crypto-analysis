@@ -88,3 +88,9 @@ mutation makeFeedComment($payload: CreateFeedCommentDTO!) {
     id
   }
 }
+
+mutation likeFeed($feedId: String!) {
+  createLike(feedId: $feedId) {
+    id
+  }
+}

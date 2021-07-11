@@ -43,47 +43,44 @@
         </header>
 
         <main class="page-content">
-            <div class="page-widget questions-section">
+            <div class="page-widget questions-section" 
+                *ngIf="(topPublicFeed$ | async) as topPublicFeed">
                 <ul class="no-margin no-padding">
-                    <li class="active">
-                        <a href="">
-                            What are crypts from the 
-                            squad on main street and vodafone?
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            Why do they exist?
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            Who are they?
+                    <li [routerLinkActive]="'active'" 
+                        *ngFor="let feed of topPublicFeed">
+                        <a [routerLink]="['/financial-forcast', feed.id]">
+                            {{ feed.title | capitalize }}
                         </a>
                     </li>
                 </ul>
             </div>
-            <div class="page-widget answers-section">
+            <div *ngIf="(selectedFeedItem$ | async) as selectedFeedItem" 
+                class="page-widget answers-section">
                 <h1 class="text-danger no-padding">
-                    Bitcoin breaks dips to lowest in 20 years
+                    {{ selectedFeedItem.title | uppercase }}
                 </h1>
                 <p class="tags">
                     <span class="text-uppercase">
-                        Crypto
+                        {{ selectedFeedItem.categoryTag }}
                     </span>
                 </p>
 
                 <div class="answer-widget">
-                    <img class="analysis-image" src="./assets/images/financial-analysis-pic2.jpg" alt="" />
+                    <img class="analysis-image" 
+                        [src]="selectedFeedItem.imageUrl" 
+                        [alt]="selectedFeedItem.title" />
                     <p class="no-margin author-detail">
-                        <img src="./assets/images/user-icon-female-muslim.png" alt=""> Annie Helen
+                        <img [src]="selectedFeedItem.user.profileImageUrl" 
+                            [alt]="selectedFeedItem.user.firstName + ' ' + selectedFeedItem.user.lastName" />
+                        <!-- <img src="./assets/images/user-icon-female-muslim.png" alt="">  -->
+                        {{ selectedFeedItem.user.firstName }} {{ selectedFeedItem.user.lastName }}
                     </p>
                     <p class="date-tag no-margin">
-                        <i class="fa fa-calendar"></i> 21/12/2021
+                        <i class="fa fa-calendar"></i> {{ selectedFeedItem.dateCreated | date : 'short' }}
                     </p>
                     <!-- <h5 class="subheading no-padding">What are crypts?</h5> -->
                     <p class="content">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, beatae blanditiis. Est aut cumque nemo sit quas aspernatur quibusdam! Praesentium inventore architecto minima ut? Est nesciunt temporibus quam atque deserunt modi ex ab enim nam dolore esse totam, obcaecati dignissimos id nobis harum, exercitationem nisi officiis explicabo accusantium non. Qui libero, facere nemo veritatis neque excepturi natus commodi porro dicta quos voluptates, totam unde quam dolores repellendus dolore impedit laborum, perspiciatis assumenda? Facere fugit illo tenetur, alias, eum facilis placeat magni, praesentium odit minus odio aspernatur? Odit eveniet velit quae neque minima similique quod doloremque ut! Facilis illo quibusdam illum?
+                        {{ selectedFeedItem.body | capitalize }}
                     </p>
                 </div>
 
@@ -91,27 +88,18 @@
                     <button class="btn btn-danger btn-block" 
                     syncspaceCryptoAnalysisToggle
                     #refComment="syncspaceCryptoAnalysisToggle">
-                        Comment(22)
+                        Comment({{ selectedFeedItem.commentsForThisFeed?.length ?? 0 }})
                     </button>
                     <div class="comment-list full-width" 
                         [ngClass]="{ 'hidden-visually': !refComment.isOpen }">
-                        <div class="comment">
+                        <div *ngFor="let comment of selectedFeedItem.commentsForThisFeed" class="comment">
                             <h5 class="no-margin comment-author">
-                                <img src="./assets/images/user-icon-female-muslim.png" alt="" />
-                                Jim Barnes | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
+                                <img [src]="comment.user.profileImageUrl" 
+                                    [alt]="comment.user.firstName + ' ' +comment.user.lastName" />
+                                {{ comment.user.firstName }} {{ comment.user.lastName }} | <span><i class="fa fa-calendar"></i> {{  comment.dateCreated | date : 'short' }}</span>
                             </h5>
                             <p class="no-margin">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eligendi tempora incidunt quas exercitationem quae accusamus nulla quod voluptas? Impedit?
-                            </p>
-                        </div>
-
-                        <div class="comment">
-                            <h5 class="no-margin comment-author">
-                                <img src="./assets/images/user-icon-female.png" alt="" />
-                                Jim Barnes | <span><i class="fa fa-calendar"></i> 21/21/2021</span>
-                            </h5>
-                            <p class="no-margin">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit eligendi tempora incidunt quas exercitationem quae accusamus nulla quod voluptas? Impedit?
+                                {{ comment.body | capitalize }}
                             </p>
                         </div>
                     </div>

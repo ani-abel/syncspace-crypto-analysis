@@ -14,6 +14,7 @@ const CACHE_FOLDER = 'CACHED-IMG';
   template: `
     <img [src]="_src" 
       [alt]="_alt"
+      [ngClass]="{ 'rounder-img': isRounded }"
       *ngIf="_src !== ''; else loading" 
       [style.width]="width" 
       [style.height]="height" />
@@ -27,6 +28,7 @@ export class CachedImageComponent {
   @Input() spinner = false;
   @Input() width = '100%';
   @Input() height = '100%';
+  @Input() isRounded: boolean;
   _src = '';
   _alt = '';
 

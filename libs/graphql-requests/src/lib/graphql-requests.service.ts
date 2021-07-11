@@ -38,7 +38,17 @@ import {
   FindFeedCommentbyIdGQL,
   MakeFeedCommentGQL,
   CreateFeedCommentDto,
+  LikeFeedGQL,
+  FindFeedLikeByIdGQL,
   Feed_Comment,
+  Feed_Like,
+  FeedStatatisticsDto, 
+  GetFeedStatisticsGQL, 
+  TopAnalystsGQL, 
+  TopPublicFeedsGQL, 
+  CreateContactMessageGQL,
+  CreateContactMessageDto,
+  ContactMessage,
 } from "@syncspace-crypto-analysis/graphql-config";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -52,6 +62,7 @@ export class GraphqlRequestsService {
   constructor(
     private readonly loginGQLSrv: LoginGQL,
     private readonly signUpSrv: SignUpGQL,
+    private readonly createContactMessageSrv: CreateContactMessageGQL,
     private readonly findActiveCountriesSrv: FindActiveCountriesGQL,
     private readonly verifyAccountSrv: VerifyAccountGQL,
     private readonly forgotPasswordSrv: ForgotPasswordGQL,
@@ -69,8 +80,50 @@ export class GraphqlRequestsService {
     private readonly findFeedItemByIdSrv: FindFeedItemByIdGQL,
     private readonly findFeedCommentbyIdSrv: FindFeedCommentbyIdGQL,
     private readonly makeFeedCommentSrv: MakeFeedCommentGQL,
+    private readonly likeFeedSrv: LikeFeedGQL,
+    private readonly findFeedLikeByIdSrv: FindFeedLikeByIdGQL,
+    private readonly topPublicFeedsSrv: TopPublicFeedsGQL,
+    private readonly topAnalystsSrv: TopAnalystsGQL,
+    private readonly getFeedStatisticsSrv: GetFeedStatisticsGQL,
     private readonly findSubscriptionPackagesByCurrentUserIdSrv: FindSubscriptionPackagesByCurrentUserIdGQL,
   ) {}
+
+  topPublicFeed(limit: number = 5): Observable<Partial<Feed>[]> {
+    return this.topPublicFeedsSrv
+      .fetch({ limit })
+      .pipe(
+        map((res) => res.data.topPublicFeeds),
+        catchError((error: ApolloError) => throwError(error.graphQLErrors))
+      );
+  }
+
+  sendContactMessage(payload: CreateContactMessageDto)
+  : Observable<Partial<ContactMessage>> {
+    return this.createContactMessageSrv
+        .mutate({ payload })
+        .pipe(
+          map((res) => res.data.createContactMessage),
+          catchError((error: ApolloError) => throwError(error.graphQLErrors))
+        )
+  }
+
+  topAnalysts(limit: number = 5): Observable<Partial<User_Analyst | any>[]> {
+    return this.topAnalystsSrv
+    .fetch({ limit })
+    .pipe(
+      map((res) => res.data.topUserAnalysts),
+      catchError((error: ApolloError) => throwError(error.graphQLErrors))
+    );
+  }
+
+  feedStatistics(): Observable<Partial<FeedStatatisticsDto>> {
+    return this.getFeedStatisticsSrv
+            .fetch()
+            .pipe(
+              map((res) => res.data.getFeedStatistics),
+              catchError((error: ApolloError) => throwError(error.graphQLErrors))
+            );
+  }
 
   login(payload: LoginUserDto)
   : Observable<Partial<AuthResponse>> {
@@ -262,6 +315,24 @@ export class GraphqlRequestsService {
               .fetch({ feedCommentId })
               .pipe(
                 map((res) => res.data.findFeedCommentsById),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  likeFeed(feedId: string): Observable<Partial<Feed_Like>> {
+    return this.likeFeedSrv
+              .mutate({ feedId })
+              .pipe(
+                map((res) => res.data.createLike),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  findFeedLikeById(feedLikeId: string): Observable<Partial<Feed_Like> | any> {
+    return this.findFeedLikeByIdSrv
+              .fetch({ feedLikeId })
+              .pipe(
+                map((res) => res.data.findLikeById),
                 catchError((error: ApolloError) => throwError(error.graphQLErrors))
               );
   }

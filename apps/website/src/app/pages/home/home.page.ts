@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
+import { GraphqlRequestsService } from '@syncspace-crypto-analysis/graphql-requests';
 import { 
   Feed, 
   FeedStatatisticsDto, 
-  GetFeedStatisticsGQL, 
-  TopAnalystsGQL, 
-  TopPublicFeedsGQL, 
   User_Analyst 
 } from '@syncspace-crypto-analysis/graphql-config';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'syncspace-crypto-analysis-home',
@@ -22,31 +19,12 @@ export class HomePage implements OnInit {
   feedStatistics$: Observable<Partial<FeedStatatisticsDto>>;
 
   constructor(
-    private readonly topPublicFeedsSrv: TopPublicFeedsGQL,
-    private readonly topAnalystsSrv: TopAnalystsGQL,
-    private readonly getFeedStatisticsSrv: GetFeedStatisticsGQL,
+    private readonly gqlRequestSrv: GraphqlRequestsService,
   ) {}
 
   ngOnInit(): void {
-    this.topPublicFeed$ = 
-    this.topPublicFeedsSrv
-        .fetch({ limit: 5 })
-        .pipe(
-          map((res) => res.data.topPublicFeeds)
-        );
-
-    this.topAnalysts$ = 
-    this.topAnalystsSrv
-        .fetch({ limit: 5 })
-        .pipe(
-          map((res) => res.data.topUserAnalysts)
-        );
-
-    this.feedStatistics$ = 
-    this.getFeedStatisticsSrv
-        .fetch()
-        .pipe(
-          map((res) => res.data.getFeedStatistics)
-        );
+    this.topPublicFeed$ = this.gqlRequestSrv.topPublicFeed();
+    this.topAnalysts$ = this.gqlRequestSrv.topAnalysts();
+    this.feedStatistics$ = this.gqlRequestSrv.feedStatistics();
   }
 }

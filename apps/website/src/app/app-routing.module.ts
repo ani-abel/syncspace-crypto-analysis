@@ -33,7 +33,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule) 
   },
   { 
-    path: 'financial-forcast/:forcastId',
+    path: 'financial-forcast/:feedId',
     loadChildren: () => import('./pages/financial-forcast-detail/financial-forcast-detail.module').then(m => m.FinancialForcastDetailModule) 
   },
   { 

@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { CreateContactMessageGQL } from '@syncspace-crypto-analysis/graphql-config';
+import { GraphqlRequestsService } from '@syncspace-crypto-analysis/graphql-requests';
 import { SubSink } from 'subsink';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'syncspace-crypto-analysis-contact',
@@ -18,7 +18,8 @@ OnDestroy {
 
   constructor(
     private readonly createContactMessageGraphQLSrv: CreateContactMessageGQL,
-    private readonly toastController: ToastController
+    private readonly toastController: ToastController,
+    private readonly gqlRequestSrv: GraphqlRequestsService,
   ) { }
 
   ngOnInit(): void {
@@ -32,23 +33,17 @@ OnDestroy {
     const { value: { name, email, message } } = this.contactMessageForm;
     
     this.subSink.sink =
-    this.createContactMessageGraphQLSrv
-      .mutate({
-        payload: {
-          senderName: name,
-          contactEmail: email,
-          message
-        }
-      })
-      .pipe(
-        map((res) => res.data.createContactMessage)
-      )
-      .subscribe(async (res) => {
-        if (res.id) {
-          this.contactMessageForm.reset();
-          await this.displayMessage('Message sent');
-        }
-      });
+    this.gqlRequestSrv.sendContactMessage({
+      senderName: name,
+      contactEmail: email,
+      message
+    }).subscribe(async (res) => {
+      if (res.id) {
+        this.contactMessageForm.reset();
+        await this.displayMessage('Message sent');
+      }
+    });
+      
   }
 
   async displayMessage(message: string) {
@@ -56,7 +51,6 @@ OnDestroy {
       message,
       duration: 5000,
       position: 'top',
-      color: 'primary'
     });
     toast.present();
   }

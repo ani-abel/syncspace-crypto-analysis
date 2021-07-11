@@ -1,5 +1,9 @@
 - User-app
+    - Add logic to add comments to feed when in a list [Done]
+    - Implement feed-like feature [Done]
     - Dashboard
-    - Implement feed-like feature
     - Add top-analysts section
-    - Add logic to add comments to feed when in a list
+    - Stats for dashboard page
+
+- Website
+    - Add Feed-detail page [Done]

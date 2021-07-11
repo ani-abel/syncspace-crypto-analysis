@@ -1004,6 +1004,19 @@ export type MakeFeedCommentMutation = (
   ) }
 );
 
+export type LikeFeedMutationVariables = Exact<{
+  feedId: Scalars['String'];
+}>;
+
+
+export type LikeFeedMutation = (
+  { __typename?: 'Mutation' }
+  & { createLike: (
+    { __typename?: 'FEED_LIKE' }
+    & Pick<Feed_Like, 'id'>
+  ) }
+);
+
 export type TopPublicFeedsQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -1140,7 +1153,7 @@ export type FindFeedItemByIdQuery = (
   { __typename?: 'Query' }
   & { findFeedById: (
     { __typename?: 'FEED' }
-    & Pick<Feed, 'id' | 'title' | 'body' | 'imageUrl' | 'dateCreated'>
+    & Pick<Feed, 'id' | 'title' | 'categoryTag' | 'body' | 'imageUrl' | 'dateCreated'>
     & { likesForThisFeed: Array<(
       { __typename?: 'FEED_LIKE' }
       & Pick<Feed_Like, 'id'>
@@ -1179,7 +1192,10 @@ export type FindFeedCommentbyIdQuery = (
   & { findFeedCommentsById: (
     { __typename?: 'FEED_COMMENT' }
     & Pick<Feed_Comment, 'id' | 'body' | 'dateCreated'>
-    & { user: (
+    & { feed: (
+      { __typename?: 'FEED' }
+      & Pick<Feed, 'id'>
+    ), user: (
       { __typename?: 'USER' }
       & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
     ), repliesForThisComment: Array<(
@@ -1190,6 +1206,26 @@ export type FindFeedCommentbyIdQuery = (
         & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
       ) }
     )> }
+  ) }
+);
+
+export type FindFeedLikeByIdQueryVariables = Exact<{
+  feedLikeId: Scalars['String'];
+}>;
+
+
+export type FindFeedLikeByIdQuery = (
+  { __typename?: 'Query' }
+  & { findLikeById: (
+    { __typename?: 'FEED_LIKE' }
+    & Pick<Feed_Like, 'id'>
+    & { feed: (
+      { __typename?: 'FEED' }
+      & Pick<Feed, 'id'>
+    ), user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'id'>
+    ) }
   ) }
 );
 
@@ -1440,6 +1476,24 @@ export const MakeFeedCommentDocument = gql`
       super(apollo);
     }
   }
+export const LikeFeedDocument = gql`
+    mutation likeFeed($feedId: String!) {
+  createLike(feedId: $feedId) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class LikeFeedGQL extends Apollo.Mutation<LikeFeedMutation, LikeFeedMutationVariables> {
+    document = LikeFeedDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const TopPublicFeedsDocument = gql`
     query topPublicFeeds($limit: Int!) {
   topPublicFeeds(limit: $limit) {
@@ -1657,6 +1711,7 @@ export const FindFeedItemByIdDocument = gql`
   findFeedById(feedId: $feedId) {
     id
     title
+    categoryTag
     body
     imageUrl
     dateCreated
@@ -1713,6 +1768,9 @@ export const FindFeedCommentbyIdDocument = gql`
     id
     body
     dateCreated
+    feed {
+      id
+    }
     user {
       id
       firstName
@@ -1738,6 +1796,30 @@ export const FindFeedCommentbyIdDocument = gql`
   })
   export class FindFeedCommentbyIdGQL extends Apollo.Query<FindFeedCommentbyIdQuery, FindFeedCommentbyIdQueryVariables> {
     document = FindFeedCommentbyIdDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindFeedLikeByIdDocument = gql`
+    query findFeedLikeById($feedLikeId: String!) {
+  findLikeById(feedLikeId: $feedLikeId) {
+    id
+    feed {
+      id
+    }
+    user {
+      id
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindFeedLikeByIdGQL extends Apollo.Query<FindFeedLikeByIdQuery, FindFeedLikeByIdQueryVariables> {
+    document = FindFeedLikeByIdDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

@@ -13,6 +13,7 @@ export interface AppModel {
     countries: Partial<Country>[];
     sponsoredFeeds: Partial<Feed>[];
     feedsYouCreated: Partial<Feed>[];
+    feed: Partial<Feed>[];
     selectedFeedItem: Partial<Feed | any>;
     subscriptionPackagesYouCreated: Partial<Subscription_Package>[];
     selectedSubscriptionPackage: Partial<Subscription_Package>;
@@ -29,6 +30,7 @@ export const InitialAppState: AppModel =  {
     sponsoredFeeds: [],
     feedsYouCreated: [],
     selectedFeedItem: undefined,
+    feed: [],
     subscriptionPackagesYouCreated: [],
     selectedSubscriptionPackage: undefined,
 };

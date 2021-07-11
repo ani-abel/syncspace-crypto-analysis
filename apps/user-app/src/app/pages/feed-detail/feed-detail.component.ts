@@ -32,8 +32,10 @@ export class FeedDetailComponent implements OnInit {
     }
   }
 
-  onLike(event: any) {
-    console.log(event);
+  onLike(event: string) {
+    if (event) {
+      this.store.dispatch(AppActions.LikeFeedInitiatedAction({ payload: event }));
+    }
   }
 
   onComment(event: any) {

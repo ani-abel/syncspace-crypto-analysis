@@ -12,6 +12,7 @@ import {
     DefaultResponseTypeGql, 
     Feed, 
     Feed_Comment, 
+    Feed_Like, 
     LoginUserDto, 
     Subscription_Package, 
     UpdateFeedDto, 
@@ -100,6 +101,10 @@ export enum AppActionType {
     FIND_FEED_COMMENT_BY_ID_INITIATED = '[FEED] FIND_FEED_COMMENT_BY_ID_INITIATED',
     FIND_FEED_COMMENT_BY_ID_FAILED = '[FEED] FIND_FEED_COMMENT_BY_ID_FAILED',
     FIND_FEED_COMMENT_BY_ID_SUCCESSFUL = '[FEED] FIND_FEED_COMMENT_BY_ID_SUCCESSFUL',
+
+    LIKE_FEED_INITIATED = '[FEED] LIKE_FEED_INITIATED',
+    LIKE_FEED_FAILED = '[FEED] LIKE_FEED_FAILED',
+    LIKE_FEED_SUCCESSFUL = '[FEED] LIKE_FEED_SUCCESSFUL',
 
     CLEAR_MESSAGES_FROM_STATE = '[MESSAGES] CLEAR_MESSAGES_FROM_STATE',
 
@@ -350,5 +355,17 @@ export const actions = {
     FindFeedCommentByIdSuccessfulAction: createAction(
         AppActionType.FIND_FEED_COMMENT_BY_ID_SUCCESSFUL,
         props<{ payload: Partial<Feed_Comment> }>()
+    ),
+    LikeFeedInitiatedAction: createAction(
+        AppActionType.LIKE_FEED_INITIATED,
+        props<{ payload: string }>()
+    ),
+    LikeFeedFailedAction: createAction(
+        AppActionType.LIKE_FEED_FAILED,
+        props<{ payload: Error }>()
+    ),
+    LikeFeedSuccessfulAction: createAction(
+        AppActionType.LIKE_FEED_SUCCESSFUL,
+        props<{ payload: Partial<Feed_Like> }>()
     ),
 };

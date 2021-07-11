@@ -1,7 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
+import { Feed } from '@syncspace-crypto-analysis/graphql-config';
 import { InitialAppState } from '../model/app.model';
 import { actions as AppActions } from '../action/app.action';
-import { Feed } from '@syncspace-crypto-analysis/graphql-config';
+import { updateFeedItemWithNewComment, updateFeedItemWithNewLike, updateFeedWithNewComment, updateFeedWithNewLike } from '../utils/app.utils';
 
 export const GENERIC_ERROR_MESSAGE = 'An error occured';
 
@@ -345,27 +346,14 @@ export const AppReducer = createReducer(
         }
     }),
     on(AppActions.MakeFeedCommentSuccessfulAction, (state, { payload }) => {
-        if (state?.selectedFeedItem) {
-            const feedItem: Partial<Feed> = {
-                ...state.selectedFeedItem,
-                commentsForThisFeed: [
-                    ...state.selectedFeedItem.commentsForThisFeed, 
-                    payload
-                ],
-            };
-            return {
-                ...state,
-                isLoading: false,
-                selectedFeedItem: feedItem,
-                successMessage: 'Successful'
-            }
-        }
-        else {
-            return {
-                ...state,
-                isLoading: false,
-                successMessage: 'Successful'
-            }
+        const feedItem: Partial<Feed> = updateFeedItemWithNewComment(state, payload);
+        const feed: Partial<Feed>[] = updateFeedWithNewComment(state, payload);
+        return {
+            ...state,
+            feed,
+            selectedFeedItem: feedItem,
+            isLoading: false,
+            successMessage: 'Successful',
         }
     }),
     on(AppActions.FindFeedCommentByIdInitiatedAction, (state) => {
@@ -385,6 +373,29 @@ export const AppReducer = createReducer(
         return {
             ...state,
             isLoading: true,
+        }
+    }),
+    on(AppActions.LikeFeedInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(AppActions.LikeFeedFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload
+        }
+    }),
+    on(AppActions.LikeFeedSuccessfulAction, (state, { payload }) => {
+        const feedItem: Partial<Feed> = updateFeedItemWithNewLike(state, payload);
+        const updatedFeeds: Partial<Feed>[] = updateFeedWithNewLike(state, payload);
+        return {
+            ...state,
+            isLoading: false,
+            selectedFeedItem: feedItem,
+            feed: [...updatedFeeds],
         }
     }),
 );

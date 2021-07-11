@@ -268,4 +268,16 @@ export class AppEffectService {
           )
         })
       ));
+
+  likeFeed$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(AppActions.LikeFeedInitiatedAction),
+      switchMap(({ payload }) => {
+        return this.gqlRequestSrv.likeFeed(payload).pipe(
+          mergeMap((data) => this.gqlRequestSrv.findFeedLikeById(data.id)),
+          map((data) => AppActions.LikeFeedSuccessfulAction({ payload: data })),
+          catchError((error: Error) => of(AppActions.LikeFeedFailedAction({ payload: error })))
+        )
+      })
+    ));
 }
