@@ -14,6 +14,7 @@ import {
     Feed_Comment, 
     Feed_Like, 
     LoginUserDto, 
+    StatisticsDto, 
     Subscription_Package, 
     UpdateFeedDto, 
     UpdateSubscriptionPackageDto, 
@@ -105,6 +106,18 @@ export enum AppActionType {
     LIKE_FEED_INITIATED = '[FEED] LIKE_FEED_INITIATED',
     LIKE_FEED_FAILED = '[FEED] LIKE_FEED_FAILED',
     LIKE_FEED_SUCCESSFUL = '[FEED] LIKE_FEED_SUCCESSFUL',
+
+    FIND_DASHBOARD_STATS_INITIATED = '[DASHBOARD] FIND_DASHBOARD_STATS_INITIATED',
+    FIND_DASHBOARD_STATS_FAILED = '[DASBOARD] FIND_DASHBOARD_STATS_FAILED',
+    FIND_DASHBOARD_STATS_SUCCESSFUL = '[DASHBOARD] FIND_DASHBOARD_STATS_SUCCESSFUL',
+
+    FIND_MY_FEED_INITIATED = '[FEED]  FIND_MY_FEED_INITIATED',
+    FIND_MY_FEED_FAILED = '[FEED]  FIND_MY_FEED_FAILED',
+    FIND_MY_FEED_SUCCESSFUL = '[FEED]  FIND_MY_FEED_SUCCESSFUL',
+
+    GROUP_FEED_BY_CREATED_USER_INITIATED = '[FEED] GROUP_FEED_BY_CREATED_USER_INITIATED',
+    GROUP_FEED_BY_CREATED_USER_FAILED = '[FEED] GROUP_FEED_BY_CREATED_USER_FAILED',
+    GROUP_FEED_BY_CREATED_USER_SUCCESSFUL = '[FEED] GROUP_FEED_BY_CREATED_USER_SUCCESSFUL',
 
     CLEAR_MESSAGES_FROM_STATE = '[MESSAGES] CLEAR_MESSAGES_FROM_STATE',
 
@@ -367,5 +380,39 @@ export const actions = {
     LikeFeedSuccessfulAction: createAction(
         AppActionType.LIKE_FEED_SUCCESSFUL,
         props<{ payload: Partial<Feed_Like> }>()
+    ),
+    FindDashboardStatsInitiatedAction: createAction(
+        AppActionType.FIND_DASHBOARD_STATS_INITIATED,
+    ),
+    FindDashboardStatsFailedAction: createAction(
+        AppActionType.FIND_DASHBOARD_STATS_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindDashboardStatsSuccessfulAction: createAction(
+        AppActionType.FIND_DASHBOARD_STATS_SUCCESSFUL,
+        props<{ payload: StatisticsDto[] }>()
+    ),
+    FindMyFeedInitiatedAction: createAction(
+        AppActionType.FIND_MY_FEED_INITIATED
+    ),
+    FindMyFeedFailedAction: createAction(
+        AppActionType.FIND_MY_FEED_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindMyFeedSuccessfulAction: createAction(
+        AppActionType.FIND_MY_FEED_SUCCESSFUL,
+        props<{ payload: Partial<Feed | any>[] }>()
+    ),
+    GroupFeedByCreatedUserInitiatedAction: createAction(
+        AppActionType.GROUP_FEED_BY_CREATED_USER_INITIATED,
+        props<{ userId: string }>()
+    ),
+    GroupFeedByCreatedUserFailedAction: createAction(
+        AppActionType.GROUP_FEED_BY_CREATED_USER_FAILED,
+        props<{ payload: Error }>()
+    ),
+    GroupFeedByCreatedUserSuccessfulAction: createAction(
+        AppActionType.GROUP_FEED_BY_CREATED_USER_SUCCESSFUL,
+        props<{ payload: Partial<Feed | any>[] }>()
     ),
 };

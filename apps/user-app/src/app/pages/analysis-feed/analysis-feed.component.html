@@ -31,10 +31,13 @@
 </div>
 
 <main class="page-container full-width">
-    <div class="feed-section page-section">
-        <syncspace-crypto-analysis-feed-widget></syncspace-crypto-analysis-feed-widget>
-
-        <syncspace-crypto-analysis-feed-widget></syncspace-crypto-analysis-feed-widget>
+    <div class="feed-section page-section" *ngIf="(feeds$ | async) as feeds">
+        <syncspace-crypto-analysis-feed-widget 
+           *ngFor="let feed of feeds"
+           [feedItem]="feed" 
+           (like)="onLike($event)"
+           (comment)="onComment($event)"
+           (commentForm)="onFormReset($event)"></syncspace-crypto-analysis-feed-widget>
     </div>
 
     <div class="tag-section page-section hidden-md-down">

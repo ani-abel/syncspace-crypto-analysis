@@ -39,6 +39,7 @@ import {
   MakeFeedCommentGQL,
   CreateFeedCommentDto,
   LikeFeedGQL,
+  UserDashboardStatsGQL,
   FindFeedLikeByIdGQL,
   Feed_Comment,
   Feed_Like,
@@ -49,6 +50,9 @@ import {
   CreateContactMessageGQL,
   CreateContactMessageDto,
   ContactMessage,
+  StatisticsDto,
+  MyFeedGQL,
+  FindFeedByUserIdGQL,
 } from "@syncspace-crypto-analysis/graphql-config";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -85,6 +89,9 @@ export class GraphqlRequestsService {
     private readonly topPublicFeedsSrv: TopPublicFeedsGQL,
     private readonly topAnalystsSrv: TopAnalystsGQL,
     private readonly getFeedStatisticsSrv: GetFeedStatisticsGQL,
+    private readonly userDashboardStatsSrv: UserDashboardStatsGQL,
+    private readonly findFeedByUserIdSrv: FindFeedByUserIdGQL,
+    private readonly myFeedSrv: MyFeedGQL,
     private readonly findSubscriptionPackagesByCurrentUserIdSrv: FindSubscriptionPackagesByCurrentUserIdGQL,
   ) {}
 
@@ -336,4 +343,32 @@ export class GraphqlRequestsService {
                 catchError((error: ApolloError) => throwError(error.graphQLErrors))
               );
   }
+
+  findUserDashboardStats(): Observable<StatisticsDto[]> {
+    return this.userDashboardStatsSrv
+              .fetch({})
+              .pipe(
+                map((res) => res.data.userDashboardStats),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  findFeedByUserId(userId: string): Observable<Partial<Feed | any>[]> {
+    return this.findFeedByUserIdSrv
+              .fetch({ userId })
+              .pipe(
+                map((res) => res.data.findFeedByCreatedUser),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  myFeed(): Observable<Partial<Feed | any>[]> {
+    return this.myFeedSrv
+              .fetch({})
+              .pipe(
+                map((res) => res.data.myFeed),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
 }

@@ -347,7 +347,7 @@ export const AppReducer = createReducer(
     }),
     on(AppActions.MakeFeedCommentSuccessfulAction, (state, { payload }) => {
         const feedItem: Partial<Feed> = updateFeedItemWithNewComment(state, payload);
-        const feed: Partial<Feed>[] = updateFeedWithNewComment(state, payload);
+        const feed: Partial<Feed>[] = updateFeedWithNewComment(state.feed, payload);
         return {
             ...state,
             feed,
@@ -390,12 +390,72 @@ export const AppReducer = createReducer(
     }),
     on(AppActions.LikeFeedSuccessfulAction, (state, { payload }) => {
         const feedItem: Partial<Feed> = updateFeedItemWithNewLike(state, payload);
-        const updatedFeeds: Partial<Feed>[] = updateFeedWithNewLike(state, payload);
+        const updatedFeeds: Partial<Feed>[] = updateFeedWithNewLike(state.feed, payload);
         return {
             ...state,
             isLoading: false,
             selectedFeedItem: feedItem,
             feed: [...updatedFeeds],
+        }
+    }),
+    on(AppActions.FindDashboardStatsInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.FindDashboardStatsFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload
+        }
+    }),
+    on(AppActions.FindDashboardStatsSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            dashboardStats: [...payload],
+        }
+    }),
+    on(AppActions.FindMyFeedInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions. FindMyFeedFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.FindMyFeedSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            feed: [...payload],
+        }
+    }),
+    on(AppActions.GroupFeedByCreatedUserInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(AppActions.GroupFeedByCreatedUserFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload
+        }
+    }),
+    on(AppActions.GroupFeedByCreatedUserSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            feed: [...payload],
         }
     }),
 );

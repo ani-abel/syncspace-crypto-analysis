@@ -1,20 +1,9 @@
 <main>
-    <div class="entry-widget-section full-width">
-        <div class="entry-widget">
-            <h5 class="text-danger text-center no-padding">Active page views</h5>
-            <h2 class="text-center">81</h2>
-        </div>
-        <div class="entry-widget">
-            <h5 class="text-danger text-center no-padding">Active page views</h5>
-            <h2 class="text-center">81</h2>
-        </div>
-        <div class="entry-widget">
-            <h5 class="text-danger text-center no-padding">Active page views</h5>
-            <h2 class="text-center">81</h2>
-        </div>
-        <div class="entry-widget">
-            <h5 class="text-danger text-center no-padding">Active page views</h5>
-            <h2 class="text-center">81</h2>
+    <div class="entry-widget-section full-width" 
+        *ngIf="(dashboardStats$ | async) as dashboardStats">
+        <div class="entry-widget" *ngFor="let stats of dashboardStats">
+            <h5 class="text-danger text-center no-padding">{{ stats.key | uppercase }}</h5>
+            <h2 class="text-center">{{ stats.value }}</h2>
         </div>
     </div>
 
@@ -22,7 +11,6 @@
         <div class="dashboard-content-widget">
             <ion-card>
                 <ion-card-header>
-                  <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
                   <ion-card-title>Recomended Analysts</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
@@ -40,32 +28,11 @@
                               </a>
                           </div>
                       </div>
-                      <div class="analysts-widget">
-                            <div class="info-section widget-section">
-                            <h3>
-                                <img src="/assets/images/user-icon-female.png" alt="Jane Doe" />
-                                &nbsp;Jane Doe
-                            </h3>
-                            </div>
-                            <div class="action-section widget-section">
-                                <a href="" class="btn btn-danger text-decoration-none">
-                                Subscribe
-                                </a>
-                            </div>
-                        </div>
+                      <ng-template #noContentSection>
                         <div class="analysts-widget">
-                            <div class="info-section widget-section">
-                            <h3>
-                                <img src="/assets/images/user-icon-female.png" alt="Jane Doe" />
-                                &nbsp;Jane Doe
-                            </h3>
-                            </div>
-                            <div class="action-section widget-section text-right">
-                                <a href="" class="btn btn-danger text-decoration-none">
-                                Subscribe
-                                </a>
-                            </div>
+                            <syncspace-crypto-analysis-no-content></syncspace-crypto-analysis-no-content>
                         </div>
+                      </ng-template>
                   </div>
                 </ion-card-content>
               </ion-card>

@@ -37,33 +37,47 @@ export const updateFeedItemWithNewLike = (
 }
 
 export const updateFeedWithNewComment = (
-    state: AppModel,
+   feeds: Partial<Feed | any>[],
     comment: Feed_Comment | any
 ): Partial<Feed>[] => {
-    if (state?.feed.length > 0) {
-        const feedToUpdate = state.feed.findIndex((feed) => feed.id === comment.feed.id);
+    if (feeds.length > 0) {
+        const feedToUpdate = feeds.findIndex((feed) => feed.id === comment.feed.id);
         if (feedToUpdate !== -1) {
-            state.feed[feedToUpdate].commentsForThisFeed = [
-                ...state.feed[feedToUpdate].commentsForThisFeed,
-                comment
-            ];
+             // ? make a clone of the object, which allows its fields to become writable
+             const feedsClone = feeds.slice();
+             
+             feedsClone[feedToUpdate] = {
+                ...feedsClone[feedToUpdate],
+                commentsForThisFeed: [
+                    ...feeds[feedToUpdate].commentsForThisFeed,
+                    comment,
+                ]
+             }
+            return feedsClone;
         }
     }
-    return state.feed;
+    return feeds;
 }
 
 export const updateFeedWithNewLike = (
-    state: AppModel,
+    feeds: Partial<Feed>[],
     like: Feed_Like | any
 ): Partial<Feed>[] => {
-    if (state?.feed.length > 0) {
-        const feedToUpdate = state.feed.findIndex((feed) => feed.id === like.feed.id);
+    if (feeds.length > 0) {
+        const feedToUpdate = feeds.findIndex((feed) => feed.id === like.feed.id);
         if (feedToUpdate !== -1) {
-            state.feed[feedToUpdate].likesForThisFeed = [
-                ...state.feed[feedToUpdate].likesForThisFeed,
-                like
-            ];
+            // ? make a clone of the object, which allows its fields to become writable
+            const feedsClone = feeds.slice();
+
+            feedsClone[feedToUpdate] = {
+                ...feeds[feedToUpdate],
+                likesForThisFeed: [
+                    ...feeds[feedToUpdate].likesForThisFeed,
+                   like
+                ]
+            };
+            return feedsClone;
         }
     }
-    return state.feed;
+    return feeds;
 }

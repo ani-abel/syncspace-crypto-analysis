@@ -185,3 +185,110 @@ query findFeedLikeById($feedLikeId: String!) {
     }
   }
 }
+
+query userDashboardStats {
+  userDashboardStats {
+    key,
+    value
+  }
+}
+
+query myFeed {
+  myFeed {
+    id,
+    title,
+    categoryTag,
+    body,
+    imageUrl,
+    dateCreated,
+    likesForThisFeed {
+      id,
+      feed {
+      	id
+    	},
+      user {
+        id
+      }
+    },
+    user {
+      id,
+      firstName,
+      lastName,
+      profileImageUrl
+    },
+    commentsForThisFeed {
+      id,
+      body,
+      dateCreated,
+      feed {
+      	id
+    	},
+      user {
+        id,
+        firstName,
+        lastName,
+        profileImageUrl
+      },
+      repliesForThisComment {
+        id,
+        body,
+        user {
+          id,
+          firstName,
+          lastName,
+          profileImageUrl
+        }
+      }
+    }
+  }
+}
+
+query findFeedByUserId($userId: String!) {
+  findFeedByCreatedUser(userId: $userId) {
+    id,
+    title,
+    categoryTag,
+    body,
+    imageUrl,
+    dateCreated,
+    likesForThisFeed {
+      id,
+      feed {
+      	id
+    	},
+      user {
+        id
+      }
+    },
+    user {
+      id,
+      firstName,
+      lastName,
+      profileImageUrl
+    },
+    commentsForThisFeed {
+      id,
+      body,
+      dateCreated,
+      feed {
+      	id
+    	},
+      user {
+        id,
+        firstName,
+        lastName,
+        profileImageUrl
+      },
+      repliesForThisComment {
+        id,
+        body,
+        user {
+          id,
+          firstName,
+          lastName,
+          profileImageUrl
+        }
+      }
+  }
+}
+}

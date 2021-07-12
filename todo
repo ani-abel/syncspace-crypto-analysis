@@ -1,9 +1,15 @@
 - User-app
     - Add logic to add comments to feed when in a list [Done]
     - Implement feed-like feature [Done]
+    - Stats for dashboard page [Done]
     - Dashboard
     - Add top-analysts section
-    - Stats for dashboard page
 
 - Website
     - Add Feed-detail page [Done]
+
+
+Criteria for Top-Analysts
+- Have some feeds created [5]
+- Have min of 50 likes / post
+

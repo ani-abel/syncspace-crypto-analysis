@@ -268,7 +268,6 @@ export type Mutation = {
   createFeed: Feed;
   updateFeed: DefaultResponseTypeGql;
   deleteFeed: DefaultResponseTypeGql;
-  myFeed: Array<Feed>;
   createPackageSubscriber: Package_Subscriber;
   updatePackageSubsciber: DefaultResponseTypeGql;
   deletePackageSubscriber: DefaultResponseTypeGql;
@@ -540,10 +539,13 @@ export type Query = {
   findCountries: Array<Country>;
   findCountryById: Country;
   findCountriesByStatus: Array<Country>;
+  userDashboardStats: Array<StatisticsDto>;
+  myFeed: Array<Feed>;
   getFeedStatistics: FeedStatatisticsDto;
   findFeeds: Array<Feed>;
   findFeedById: Feed;
   findFeedByUserId: Array<Feed>;
+  findFeedByCreatedUser: Array<Feed>;
   topPublicFeeds: Array<Feed>;
   topSponsoredFeeds: Array<Feed>;
   findPackageSubscribers: Array<Package_Subscriber>;
@@ -599,6 +601,11 @@ export type QueryFindCountriesByStatusArgs = {
 
 export type QueryFindFeedByIdArgs = {
   feedId: Scalars['String'];
+};
+
+
+export type QueryFindFeedByCreatedUserArgs = {
+  userId: Scalars['String'];
 };
 
 
@@ -699,6 +706,12 @@ export type Subscription_Package = {
   feedsUnderThisPlan: Array<Feed>;
   dateCreated: Scalars['DateTime'];
   subscribersToThisPackage: Array<Package_Subscriber>;
+};
+
+export type StatisticsDto = {
+  __typename?: 'StatisticsDTO';
+  key: Scalars['String'];
+  value: Scalars['Int'];
 };
 
 export enum SubscriptionDurationType {
@@ -1227,6 +1240,103 @@ export type FindFeedLikeByIdQuery = (
       & Pick<User, 'id'>
     ) }
   ) }
+);
+
+export type UserDashboardStatsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserDashboardStatsQuery = (
+  { __typename?: 'Query' }
+  & { userDashboardStats: Array<(
+    { __typename?: 'StatisticsDTO' }
+    & Pick<StatisticsDto, 'key' | 'value'>
+  )> }
+);
+
+export type MyFeedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MyFeedQuery = (
+  { __typename?: 'Query' }
+  & { myFeed: Array<(
+    { __typename?: 'FEED' }
+    & Pick<Feed, 'id' | 'title' | 'categoryTag' | 'body' | 'imageUrl' | 'dateCreated'>
+    & { likesForThisFeed: Array<(
+      { __typename?: 'FEED_LIKE' }
+      & Pick<Feed_Like, 'id'>
+      & { feed: (
+        { __typename?: 'FEED' }
+        & Pick<Feed, 'id'>
+      ), user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id'>
+      ) }
+    )>, user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+    ), commentsForThisFeed: Array<(
+      { __typename?: 'FEED_COMMENT' }
+      & Pick<Feed_Comment, 'id' | 'body' | 'dateCreated'>
+      & { feed: (
+        { __typename?: 'FEED' }
+        & Pick<Feed, 'id'>
+      ), user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+      ), repliesForThisComment: Array<(
+        { __typename?: 'FEED_COMMENT_REPLY' }
+        & Pick<Feed_Comment_Reply, 'id' | 'body'>
+        & { user: (
+          { __typename?: 'USER' }
+          & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+        ) }
+      )> }
+    )> }
+  )> }
+);
+
+export type FindFeedByUserIdQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type FindFeedByUserIdQuery = (
+  { __typename?: 'Query' }
+  & { findFeedByCreatedUser: Array<(
+    { __typename?: 'FEED' }
+    & Pick<Feed, 'id' | 'title' | 'categoryTag' | 'body' | 'imageUrl' | 'dateCreated'>
+    & { likesForThisFeed: Array<(
+      { __typename?: 'FEED_LIKE' }
+      & Pick<Feed_Like, 'id'>
+      & { feed: (
+        { __typename?: 'FEED' }
+        & Pick<Feed, 'id'>
+      ), user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id'>
+      ) }
+    )>, user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+    ), commentsForThisFeed: Array<(
+      { __typename?: 'FEED_COMMENT' }
+      & Pick<Feed_Comment, 'id' | 'body' | 'dateCreated'>
+      & { feed: (
+        { __typename?: 'FEED' }
+        & Pick<Feed, 'id'>
+      ), user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+      ), repliesForThisComment: Array<(
+        { __typename?: 'FEED_COMMENT_REPLY' }
+        & Pick<Feed_Comment_Reply, 'id' | 'body'>
+        & { user: (
+          { __typename?: 'USER' }
+          & Pick<User, 'id' | 'firstName' | 'lastName' | 'profileImageUrl'>
+        ) }
+      )> }
+    )> }
+  )> }
 );
 
 export const LoginDocument = gql`
@@ -1820,6 +1930,149 @@ export const FindFeedLikeByIdDocument = gql`
   })
   export class FindFeedLikeByIdGQL extends Apollo.Query<FindFeedLikeByIdQuery, FindFeedLikeByIdQueryVariables> {
     document = FindFeedLikeByIdDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UserDashboardStatsDocument = gql`
+    query userDashboardStats {
+  userDashboardStats {
+    key
+    value
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UserDashboardStatsGQL extends Apollo.Query<UserDashboardStatsQuery, UserDashboardStatsQueryVariables> {
+    document = UserDashboardStatsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const MyFeedDocument = gql`
+    query myFeed {
+  myFeed {
+    id
+    title
+    categoryTag
+    body
+    imageUrl
+    dateCreated
+    likesForThisFeed {
+      id
+      feed {
+        id
+      }
+      user {
+        id
+      }
+    }
+    user {
+      id
+      firstName
+      lastName
+      profileImageUrl
+    }
+    commentsForThisFeed {
+      id
+      body
+      dateCreated
+      feed {
+        id
+      }
+      user {
+        id
+        firstName
+        lastName
+        profileImageUrl
+      }
+      repliesForThisComment {
+        id
+        body
+        user {
+          id
+          firstName
+          lastName
+          profileImageUrl
+        }
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class MyFeedGQL extends Apollo.Query<MyFeedQuery, MyFeedQueryVariables> {
+    document = MyFeedDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindFeedByUserIdDocument = gql`
+    query findFeedByUserId($userId: String!) {
+  findFeedByCreatedUser(userId: $userId) {
+    id
+    title
+    categoryTag
+    body
+    imageUrl
+    dateCreated
+    likesForThisFeed {
+      id
+      feed {
+        id
+      }
+      user {
+        id
+      }
+    }
+    user {
+      id
+      firstName
+      lastName
+      profileImageUrl
+    }
+    commentsForThisFeed {
+      id
+      body
+      dateCreated
+      feed {
+        id
+      }
+      user {
+        id
+        firstName
+        lastName
+        profileImageUrl
+      }
+      repliesForThisComment {
+        id
+        body
+        user {
+          id
+          firstName
+          lastName
+          profileImageUrl
+        }
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindFeedByUserIdGQL extends Apollo.Query<FindFeedByUserIdQuery, FindFeedByUserIdQueryVariables> {
+    document = FindFeedByUserIdDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

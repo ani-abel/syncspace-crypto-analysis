@@ -280,4 +280,38 @@ export class AppEffectService {
         )
       })
     ));
+
+  dashboardStats$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(AppActions.FindDashboardStatsInitiatedAction),
+      switchMap(() => {
+        return this.gqlRequestSrv.findUserDashboardStats().pipe(
+          map((data) => AppActions.FindDashboardStatsSuccessfulAction({ payload: data })),
+          catchError((error: Error) => of(AppActions.FindDashboardStatsFailedAction({ payload: error })))
+        )
+      })
+    ));
+
+    myFeed$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.FindMyFeedInitiatedAction),
+        switchMap(() => {
+          return this.gqlRequestSrv.myFeed().pipe(
+            map((data) => AppActions.FindMyFeedSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.FindMyFeedFailedAction({ payload: error })))
+          )
+        })
+      ));
+
+    findFeedByCreatedUser$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.GroupFeedByCreatedUserInitiatedAction),
+        switchMap(({ userId }) => {
+          return this.gqlRequestSrv.findFeedByUserId(userId).pipe(
+            map((data) => AppActions.GroupFeedByCreatedUserSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.GroupFeedByCreatedUserFailedAction({ payload: error })))
+          )
+        })
+      ));
+    
 }
