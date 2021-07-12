@@ -289,6 +289,28 @@ query findFeedByUserId($userId: String!) {
           profileImageUrl
         }
       }
+    }
   }
 }
+
+query findUserAnalystWithUserId($userId: String!) {
+  findUserAnalystWithUserId(userId: $userId) {
+    user {
+      profileImageUrl,
+      firstName,
+      lastName,
+      id,
+      feedsCreatedByThisUser {
+        id
+      }
+    },
+    id,
+    bio,
+    subscribedUsersToThisAnalyst {
+      id,
+       user {
+        id,
+      }
+    }
+  }
 }

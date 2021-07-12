@@ -313,5 +313,27 @@ export class AppEffectService {
           )
         })
       ));
+
+    findUserAnalystByUserId$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.FindUserAnalystByUserIdInitiatedAction),
+        switchMap(({ userId }) => {
+          return this.gqlRequestSrv.findUserAnalystWithUserId(userId).pipe(
+            map((data) => AppActions.FindUserAnalystByUserIdSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.FindUserAnalystByUserIdFailedAction({ payload: error })))
+          )
+        })
+      ));
+
+  subscribeToAnalyst$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(AppActions.SubcribeToAnalystInitiatedAction),
+      switchMap(({ userAnalystId }) => {
+        return this.gqlRequestSrv.createUserAnalystSubscriber(userAnalystId).pipe(
+          map((data) => AppActions.SubscribeToAnalystSuccessfulAction({ payload: data })),
+          catchError((error: Error) => of(AppActions.SubscribeToAnalystFailedAction({ payload: error })))
+        )
+      })
+    ));
     
 }

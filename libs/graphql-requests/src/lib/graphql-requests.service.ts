@@ -39,6 +39,7 @@ import {
   MakeFeedCommentGQL,
   CreateFeedCommentDto,
   LikeFeedGQL,
+  FindUserAnalystWithUserIdGQL,
   UserDashboardStatsGQL,
   FindFeedLikeByIdGQL,
   Feed_Comment,
@@ -53,6 +54,8 @@ import {
   StatisticsDto,
   MyFeedGQL,
   FindFeedByUserIdGQL,
+  CreateAnalystSubscriberGQL,
+  User_Analyst_Subscriber,
 } from "@syncspace-crypto-analysis/graphql-config";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -92,6 +95,8 @@ export class GraphqlRequestsService {
     private readonly userDashboardStatsSrv: UserDashboardStatsGQL,
     private readonly findFeedByUserIdSrv: FindFeedByUserIdGQL,
     private readonly myFeedSrv: MyFeedGQL,
+    private readonly createAnalystSubscriberSrv: CreateAnalystSubscriberGQL,
+    private readonly findUserAnalystWithUserIdSrv: FindUserAnalystWithUserIdGQL,
     private readonly findSubscriptionPackagesByCurrentUserIdSrv: FindSubscriptionPackagesByCurrentUserIdGQL,
   ) {}
 
@@ -369,6 +374,24 @@ export class GraphqlRequestsService {
                 map((res) => res.data.myFeed),
                 catchError((error: ApolloError) => throwError(error.graphQLErrors))
               );
+  }
+
+  findUserAnalystWithUserId(userId: string): Observable<Partial<User_Analyst | any>> {
+    return this.findUserAnalystWithUserIdSrv
+               .fetch({ userId })
+               .pipe(
+                 map((res) => res.data.findUserAnalystWithUserId),
+                 catchError((error: ApolloError) => throwError(error.graphQLErrors))
+               );
+  }
+
+  createUserAnalystSubscriber(userAnalystId: string): Observable<Partial<User_Analyst_Subscriber>> {
+    return this.createAnalystSubscriberSrv
+              .mutate({ userAnalystId })
+              .pipe(
+                map((res) => res.data.createUserAnalystSubscriber),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              )
   }
 
 }

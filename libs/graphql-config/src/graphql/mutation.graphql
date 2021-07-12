@@ -94,3 +94,9 @@ mutation likeFeed($feedId: String!) {
     id
   }
 }
+
+mutation createAnalystSubscriber($userAnalystId: String!) {
+  createUserAnalystSubscriber(userAnalystId: $userAnalystId) {
+    id
+  }
+}

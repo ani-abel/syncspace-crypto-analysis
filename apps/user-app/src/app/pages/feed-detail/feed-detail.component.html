@@ -3,6 +3,7 @@
         <syncspace-crypto-analysis-feed-widget 
             *ngIf="(selectedFeedItem$ | async) as feedItem" 
             [feedItem]="feedItem"
+            [isLast]="true"
             (like)="onLike($event)"
             (comment)="onComment($event)"
             (commentForm)="onFormReset($event)">

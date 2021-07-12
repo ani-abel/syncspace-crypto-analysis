@@ -15,6 +15,7 @@ export type CommentEventType = {
 })
 export class FeedWidgetComponent implements OnInit {
   @Input() feedItem: Feed;
+  @Input() isLast: boolean;
   @Output() like: EventEmitter<string> = new EventEmitter<string>();
   @Output() comment: EventEmitter<CommentEventType> = new EventEmitter<CommentEventType>();
   @Output() commentForm: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();

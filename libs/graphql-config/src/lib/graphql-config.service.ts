@@ -559,6 +559,7 @@ export type Query = {
   findLikeById: Feed_Like;
   findUserAnalysts: Array<User_Analyst>;
   findUserAnalystWithId: User_Analyst;
+  findUserAnalystWithUserId: User_Analyst;
   topUserAnalysts: Array<User_Analyst>;
   findFeedComments: Array<Feed_Comment>;
   findFeedCommentsById: Feed_Comment;
@@ -646,6 +647,11 @@ export type QueryFindLikeByIdArgs = {
 
 export type QueryFindUserAnalystWithIdArgs = {
   userAnalystId: Scalars['String'];
+};
+
+
+export type QueryFindUserAnalystWithUserIdArgs = {
+  userId: Scalars['String'];
 };
 
 
@@ -1030,6 +1036,19 @@ export type LikeFeedMutation = (
   ) }
 );
 
+export type CreateAnalystSubscriberMutationVariables = Exact<{
+  userAnalystId: Scalars['String'];
+}>;
+
+
+export type CreateAnalystSubscriberMutation = (
+  { __typename?: 'Mutation' }
+  & { createUserAnalystSubscriber: (
+    { __typename?: 'USER_ANALYST_SUBSCRIBER' }
+    & Pick<User_Analyst_Subscriber, 'id'>
+  ) }
+);
+
 export type TopPublicFeedsQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -1339,6 +1358,34 @@ export type FindFeedByUserIdQuery = (
   )> }
 );
 
+export type FindUserAnalystWithUserIdQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type FindUserAnalystWithUserIdQuery = (
+  { __typename?: 'Query' }
+  & { findUserAnalystWithUserId: (
+    { __typename?: 'USER_ANALYST' }
+    & Pick<User_Analyst, 'id' | 'bio'>
+    & { user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'profileImageUrl' | 'firstName' | 'lastName' | 'id'>
+      & { feedsCreatedByThisUser: Array<(
+        { __typename?: 'FEED' }
+        & Pick<Feed, 'id'>
+      )> }
+    ), subscribedUsersToThisAnalyst: Array<(
+      { __typename?: 'USER_ANALYST_SUBSCRIBER' }
+      & Pick<User_Analyst_Subscriber, 'id'>
+      & { user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id'>
+      ) }
+    )> }
+  ) }
+);
+
 export const LoginDocument = gql`
     mutation login($payload: LoginUserDTO!) {
   login(payload: $payload) {
@@ -1599,6 +1646,24 @@ export const LikeFeedDocument = gql`
   })
   export class LikeFeedGQL extends Apollo.Mutation<LikeFeedMutation, LikeFeedMutationVariables> {
     document = LikeFeedDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CreateAnalystSubscriberDocument = gql`
+    mutation createAnalystSubscriber($userAnalystId: String!) {
+  createUserAnalystSubscriber(userAnalystId: $userAnalystId) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateAnalystSubscriberGQL extends Apollo.Mutation<CreateAnalystSubscriberMutation, CreateAnalystSubscriberMutationVariables> {
+    document = CreateAnalystSubscriberDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -2073,6 +2138,40 @@ export const FindFeedByUserIdDocument = gql`
   })
   export class FindFeedByUserIdGQL extends Apollo.Query<FindFeedByUserIdQuery, FindFeedByUserIdQueryVariables> {
     document = FindFeedByUserIdDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindUserAnalystWithUserIdDocument = gql`
+    query findUserAnalystWithUserId($userId: String!) {
+  findUserAnalystWithUserId(userId: $userId) {
+    user {
+      profileImageUrl
+      firstName
+      lastName
+      id
+      feedsCreatedByThisUser {
+        id
+      }
+    }
+    id
+    bio
+    subscribedUsersToThisAnalyst {
+      id
+      user {
+        id
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindUserAnalystWithUserIdGQL extends Apollo.Query<FindUserAnalystWithUserIdQuery, FindUserAnalystWithUserIdQueryVariables> {
+    document = FindUserAnalystWithUserIdDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

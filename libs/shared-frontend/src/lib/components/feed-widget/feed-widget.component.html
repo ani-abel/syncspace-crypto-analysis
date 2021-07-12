@@ -1,4 +1,4 @@
-<div class="feed-widget mb-20">
+<div class="feed-widget" [ngClass]="{ 'mb-20': isLast === false }">
     <div class="feed-header">
         <a [routerLink]="['/auth', 'user-feed', feedItem.user.id]" class="text-decoration-none">
             <h4 class="text-capitalize">
@@ -29,7 +29,7 @@
        <!-- <img [src]="feedItem.imageUrl" [alt]="feedItem.title" /> -->
     </div>
     <div class="feed-content full-width">
-        <a [routerLink]="['/auth', 'analysis-feed', 2]" class="text-decoration-none">
+        <a [routerLink]="['/auth', 'analysis-feed', feedItem.id]" class="text-decoration-none">
             <h4 class="text-danger text-capitalize">
                 {{ feedItem.title | uppercase }}
             </h4>

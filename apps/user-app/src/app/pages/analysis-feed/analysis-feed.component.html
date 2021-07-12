@@ -33,11 +33,13 @@
 <main class="page-container full-width">
     <div class="feed-section page-section" *ngIf="(feeds$ | async) as feeds">
         <syncspace-crypto-analysis-feed-widget 
-           *ngFor="let feed of feeds"
+           *ngFor="let feed of feeds; let last = last"
            [feedItem]="feed" 
+           [isLast]="last"
            (like)="onLike($event)"
            (comment)="onComment($event)"
-           (commentForm)="onFormReset($event)"></syncspace-crypto-analysis-feed-widget>
+           (commentForm)="onFormReset($event)">
+        </syncspace-crypto-analysis-feed-widget>
     </div>
 
     <div class="tag-section page-section hidden-md-down">

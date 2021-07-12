@@ -458,4 +458,44 @@ export const AppReducer = createReducer(
             feed: [...payload],
         }
     }),
+    on(AppActions.FindUserAnalystByUserIdInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        };
+    }),
+    on(AppActions.FindUserAnalystByUserIdFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.FindUserAnalystByUserIdSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            analystBio: payload,
+        }
+    }),
+    on(AppActions.SubcribeToAnalystInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(AppActions.SubscribeToAnalystFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload
+        }
+    }),
+    on(AppActions.SubscribeToAnalystSuccessfulAction, (state) => {
+        return {
+            ...state,
+            isLoading: false,
+            successMessage: 'Subscribed',
+        }
+    }),
 );

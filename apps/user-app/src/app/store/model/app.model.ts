@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApolloError } from "@apollo/client/errors";
-import { AuthResponse, Country, Feed, StatisticsDto, Subscription_Package, User } from "@syncspace-crypto-analysis/graphql-config";
+import { AuthResponse, Country, Feed, StatisticsDto, Subscription_Package, User, User_Analyst } from "@syncspace-crypto-analysis/graphql-config";
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export interface AppModel {
     authenticatedUser: Partial<User>;
+    analystBio: Partial<User_Analyst>;
     authenticationResponse: Partial<AuthResponse>;
     isLoading: boolean;
     error: Error | ApolloError;
@@ -22,6 +23,7 @@ export interface AppModel {
 
 export const InitialAppState: AppModel =  {
     authenticatedUser: undefined,
+    analystBio: undefined,
     authenticationResponse: undefined,
     isLoading: false,
     error: undefined,

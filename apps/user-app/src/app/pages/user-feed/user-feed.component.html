@@ -1,11 +1,22 @@
 <main class="page-container full-width">
-    <div class="feed-section page-section">
-        <syncspace-crypto-analysis-feed-widget></syncspace-crypto-analysis-feed-widget>
-
-        <syncspace-crypto-analysis-feed-widget></syncspace-crypto-analysis-feed-widget>
+    <div class="feed-section page-section" *ngIf="(userFeeds$ | async) as feeds">
+        <syncspace-crypto-analysis-feed-widget 
+           *ngFor="let feed of feeds; let last = last"
+           [feedItem]="feed" 
+           [isLast]="last"
+           (like)="onLike($event)"
+           (comment)="onComment($event)"
+           (commentForm)="onFormReset($event)">
+        </syncspace-crypto-analysis-feed-widget>
     </div>
 
-    <div class="tag-section page-section">
-       <syncspace-crypto-analysis-user-profile-card [canSubscribe]="true"></syncspace-crypto-analysis-user-profile-card>
+    <div class="tag-section page-section" *ngIf="(analystBio$ | async) as analystBio">
+       <syncspace-crypto-analysis-user-profile-card
+          (subscribe)="onSubscription($event, analystBio.id)"
+          [isSubscriptionComplete]="isSubscriptionComplete"
+          [analystBio]="analystBio" 
+          [canSubscribe]="!(userIdFromLocalStorage === userId)"
+          [canEdit]="userIdFromLocalStorage === userId">
+        </syncspace-crypto-analysis-user-profile-card>
     </div>
 </main>

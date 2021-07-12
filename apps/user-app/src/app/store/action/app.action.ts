@@ -19,7 +19,8 @@ import {
     UpdateFeedDto, 
     UpdateSubscriptionPackageDto, 
     User,
-    User_Analyst
+    User_Analyst,
+    User_Analyst_Subscriber
 } from "@syncspace-crypto-analysis/graphql-config";
 
 export enum AppActionType {
@@ -118,6 +119,14 @@ export enum AppActionType {
     GROUP_FEED_BY_CREATED_USER_INITIATED = '[FEED] GROUP_FEED_BY_CREATED_USER_INITIATED',
     GROUP_FEED_BY_CREATED_USER_FAILED = '[FEED] GROUP_FEED_BY_CREATED_USER_FAILED',
     GROUP_FEED_BY_CREATED_USER_SUCCESSFUL = '[FEED] GROUP_FEED_BY_CREATED_USER_SUCCESSFUL',
+
+    FIND_USER_ANALYST_BY_USER_ID_INITIATED = '[USER_ANALYST] FIND_USER_ANALYST_BY_USER_ID_INITIATED',
+    FIND_USER_ANALYST_BY_USER_ID_FAILED = '[USER_ANALYST] FIND_USER_ANALYST_BY_USER_ID_FAILED',
+    FIND_USER_ANALYST_BY_USER_ID_SUCCESSFUL = '[USER_ANALYST] FIND_USER_ANALYST_BY_USER_ID_SUCCESSFUL',
+
+    SUBSCRIBE_TO_ANALYST_INITIATED = '[ANALYST_SUBSCRIPTION] SUBSCRIBE_TO_ANALYST_INITIATED',
+    SUBSCRIBE_TO_ANALYST_FAILED = '[ANALYST_SUBSCRIPTION] SUBSCRIBE_TO_ANALYST_FAILED',
+    SUBSCRIBE_TO_ANALYST_SUCCESSFUL = '[ANALYST_SUBSCRIPTION] SUBSCRIBE_TO_ANALYST_SUCCESSFUL',
 
     CLEAR_MESSAGES_FROM_STATE = '[MESSAGES] CLEAR_MESSAGES_FROM_STATE',
 
@@ -414,5 +423,29 @@ export const actions = {
     GroupFeedByCreatedUserSuccessfulAction: createAction(
         AppActionType.GROUP_FEED_BY_CREATED_USER_SUCCESSFUL,
         props<{ payload: Partial<Feed | any>[] }>()
+    ),
+    FindUserAnalystByUserIdInitiatedAction: createAction(
+        AppActionType.FIND_USER_ANALYST_BY_USER_ID_INITIATED,
+        props<{ userId: string }>()
+    ),
+    FindUserAnalystByUserIdFailedAction: createAction(
+        AppActionType.FIND_USER_ANALYST_BY_USER_ID_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindUserAnalystByUserIdSuccessfulAction: createAction(
+        AppActionType.FIND_USER_ANALYST_BY_USER_ID_SUCCESSFUL,
+        props<{ payload: Partial<User_Analyst> }>()
+    ),
+    SubcribeToAnalystInitiatedAction: createAction(
+        AppActionType.SUBSCRIBE_TO_ANALYST_INITIATED,
+        props<{ userAnalystId: string }>()
+    ),
+    SubscribeToAnalystFailedAction:createAction(
+        AppActionType.SUBSCRIBE_TO_ANALYST_FAILED,
+        props<{ payload: Error }>()
+    ),
+    SubscribeToAnalystSuccessfulAction: createAction(
+        AppActionType.SUBSCRIBE_TO_ANALYST_SUCCESSFUL,
+        props<{ payload: Partial<User_Analyst_Subscriber> }>()
     ),
 };
