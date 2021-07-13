@@ -498,4 +498,24 @@ export const AppReducer = createReducer(
             successMessage: 'Subscribed',
         }
     }),
+    on(AppActions.FindAnalystsIFollowInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true
+        }
+    }),
+    on(AppActions.FindAnalystsIFollowFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload
+        }
+    }),
+    on(AppActions.FindAnalystsIFollowSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            analystsIFollow: [...payload],
+        }
+    }),
 );

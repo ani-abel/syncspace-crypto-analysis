@@ -314,3 +314,21 @@ query findUserAnalystWithUserId($userId: String!) {
     }
   }
 }
+
+query findAnalystsIFollow {
+  findAnalystsUserIsSubscribedTo {
+    id,
+    user {
+      id,
+      firstName,
+      lastName
+    },
+    userAnalyst {
+      user {
+        id,
+        firstName,
+        lastName
+      }
+    }
+  }
+}

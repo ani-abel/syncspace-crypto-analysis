@@ -335,5 +335,16 @@ export class AppEffectService {
         )
       })
     ));
+
+  findAnalystsIFollow$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(AppActions.FindAnalystsIFollowInitiatedAction),
+      switchMap(() => {
+        return this.gqlRequestSrv.findAnalystsIFollow().pipe(
+          map((data) => AppActions.FindAnalystsIFollowSuccessfulAction({ payload: data })),
+          catchError((error: Error) => of(AppActions.FindAnalystsIFollowFailedAction({ payload: error })))
+        )
+      })
+    ));
     
 }

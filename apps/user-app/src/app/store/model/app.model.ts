@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApolloError } from "@apollo/client/errors";
-import { AuthResponse, Country, Feed, StatisticsDto, Subscription_Package, User, User_Analyst } from "@syncspace-crypto-analysis/graphql-config";
+import { AuthResponse, Country, Feed, StatisticsDto, Subscription_Package, User, User_Analyst, User_Analyst_Subscriber } from "@syncspace-crypto-analysis/graphql-config";
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export interface AppModel {
@@ -19,6 +19,7 @@ export interface AppModel {
     subscriptionPackagesYouCreated: Partial<Subscription_Package>[];
     selectedSubscriptionPackage: Partial<Subscription_Package>;
     dashboardStats: StatisticsDto[],
+    analystsIFollow: Partial<User_Analyst_Subscriber | any>[],
 }
 
 export const InitialAppState: AppModel =  {
@@ -37,4 +38,5 @@ export const InitialAppState: AppModel =  {
     subscriptionPackagesYouCreated: [],
     selectedSubscriptionPackage: undefined,
     dashboardStats: [],
+    analystsIFollow: [],
 };

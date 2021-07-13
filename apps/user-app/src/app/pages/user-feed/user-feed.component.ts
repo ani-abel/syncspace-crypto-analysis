@@ -60,6 +60,13 @@ OnDestroy {
     }
   }
 
+  refreshFeed(): void {
+    setTimeout(() => {
+      this.store.dispatch(AppActions.GroupFeedByCreatedUserInitiatedAction({ userId: this.userId }));
+      this.userFeeds$ = this.store.select((data) => data[0].feed);
+    }, 0);
+  }
+
   onLike(event: string) {
     if (event) {
       this.store.dispatch(AppActions.LikeFeedInitiatedAction({ payload: event }));

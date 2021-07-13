@@ -552,6 +552,7 @@ export type Query = {
   findPackageSubscriberById: Package_Subscriber;
   findUserAnalyst: Array<User_Analyst_Subscriber>;
   findUserAnalystSubscriberByIdWithRelations: User_Analyst_Subscriber;
+  findAnalystsUserIsSubscribedTo: Array<User_Analyst_Subscriber>;
   findFeedSponsors: Array<Feed_Sponsorship>;
   findFeedSponsorById: Feed_Sponsorship;
   findLikesByFeed: Array<Feed_Like>;
@@ -1386,6 +1387,27 @@ export type FindUserAnalystWithUserIdQuery = (
   ) }
 );
 
+export type FindAnalystsIFollowQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAnalystsIFollowQuery = (
+  { __typename?: 'Query' }
+  & { findAnalystsUserIsSubscribedTo: Array<(
+    { __typename?: 'USER_ANALYST_SUBSCRIBER' }
+    & Pick<User_Analyst_Subscriber, 'id'>
+    & { user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'id' | 'firstName' | 'lastName'>
+    ), userAnalyst: (
+      { __typename?: 'USER_ANALYST' }
+      & { user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id' | 'firstName' | 'lastName'>
+      ) }
+    ) }
+  )> }
+);
+
 export const LoginDocument = gql`
     mutation login($payload: LoginUserDTO!) {
   login(payload: $payload) {
@@ -2172,6 +2194,36 @@ export const FindUserAnalystWithUserIdDocument = gql`
   })
   export class FindUserAnalystWithUserIdGQL extends Apollo.Query<FindUserAnalystWithUserIdQuery, FindUserAnalystWithUserIdQueryVariables> {
     document = FindUserAnalystWithUserIdDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindAnalystsIFollowDocument = gql`
+    query findAnalystsIFollow {
+  findAnalystsUserIsSubscribedTo {
+    id
+    user {
+      id
+      firstName
+      lastName
+    }
+    userAnalyst {
+      user {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindAnalystsIFollowGQL extends Apollo.Query<FindAnalystsIFollowQuery, FindAnalystsIFollowQueryVariables> {
+    document = FindAnalystsIFollowDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

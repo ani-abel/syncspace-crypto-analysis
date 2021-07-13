@@ -8,6 +8,10 @@
            (comment)="onComment($event)"
            (commentForm)="onFormReset($event)">
         </syncspace-crypto-analysis-feed-widget>
+
+        <p class="text-danger text-center text-bold mt-20">
+            End of feed. Trying <a (click)="refreshFeed()" class="text-decoration-none cursor-pointer">refreshing</a> to find out more
+        </p>
     </div>
 
     <div class="tag-section page-section" *ngIf="(analystBio$ | async) as analystBio">

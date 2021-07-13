@@ -3,45 +3,41 @@
         <li>
             <i class="fa fa-filter"></i>
         </li>
-        <li>
-            Crypto
+        <li *ngFor="let category of categoryTags" 
+           [ngClass]="{ 'active': defaultFilter === category }"
+           (click)="onFilter(category)">
+            {{ category | uppercase }}
         </li>
-        <li>
-            Crypto
-        </li>
-        <li>
-            Crypto
-        </li>
-        <li>
-            Crypto
-        </li>
-        <li>
-            Crypto
-        </li>
-        <li>
-            Crypto
-        </li>
-        <li>
-            Crypto
-        </li>
-        <li>
-            Crypto
+        <li *ngFor="let analyst of (analystsIFollow$ | async)"
+           (click)="onFilterByUserId(analyst.userAnalyst.user.id)"
+           [ngClass]="{ 'active': defaultFilter === analyst.userAnalyst.user.id }">
+            {{ analyst.userAnalyst.user.firstName }} {{ analyst.userAnalyst.user.lastName }}
         </li>
     </ul>
 </div>
 
 <main class="page-container full-width">
-    <div class="feed-section page-section" *ngIf="(feeds$ | async) as feeds">
-        <syncspace-crypto-analysis-feed-widget 
-           *ngFor="let feed of feeds; let last = last"
-           [feedItem]="feed" 
-           [isLast]="last"
-           (like)="onLike($event)"
-           (comment)="onComment($event)"
-           (commentForm)="onFormReset($event)">
+    <div class="feed-section page-section" *ngIf="(feeds$ | async) as feeds; else noFeedContent">
+        <!-- <virtual-scroller #scroll [items]="feeds"> -->
+            <syncspace-crypto-analysis-feed-widget 
+                *ngFor="let feed of feeds; let last = last"
+                [feedItem]="feed" 
+                [isLast]="last"
+                (like)="onLike($event)"
+                (comment)="onComment($event)"
+                (commentForm)="onFormReset($event)">
         </syncspace-crypto-analysis-feed-widget>
-    </div>
+        <!-- </virtual-scroller> -->
 
+        <p class="text-danger text-center text-bold mt-20">
+            End of feed. Trying <a (click)="refreshFeed()" class="text-decoration-none cursor-pointer">refreshing</a> to find out more
+        </p>
+    </div>
+    <ng-template #noFeedContent>
+        <div class="feed-section page-section">
+            <syncspace-crypto-analysis-no-content></syncspace-crypto-analysis-no-content>
+        </div>
+    </ng-template>
     <div class="tag-section page-section hidden-md-down">
         <h2 class="text-danger text-center no-padding">
             <i class="fa fa-filter"></i> Filters
@@ -50,24 +46,19 @@
             Filter the content your want to see on your feed
         </p>
         <div class="tags-container">
-            <div class="tag">
-                <div class="tag-inner">
-                    Crypto
+            <div class="tag" *ngFor="let category of categoryTags">
+                <div (click)="onFilter(category)" 
+                   class="tag-inner" 
+                   [ngClass]="{ 'active': defaultFilter === category }">
+                    {{ category | uppercase }}
                 </div>
             </div>
-            <div class="tag">
-                <div class="tag-inner">
-                    Crypto
-                </div>
-            </div>
-            <div class="tag">
-                <div class="tag-inner">
-                    Crypto
-                </div>
-            </div>
-            <div class="tag">
-                <div class="tag-inner">
-                    Crypto
+            <div class="tag" *ngFor="let analyst of (analystsIFollow$ | async)">
+                <div title="{{ analyst.userAnalyst.user.firstName + ' ' + analyst.userAnalyst.user.lastName }}" 
+                  (click)="onFilterByUserId(analyst.userAnalyst.user.id)" 
+                  class="tag-inner"
+                  [ngClass]="{ 'active': defaultFilter === analyst.userAnalyst.user.id }">
+                  {{ analyst.userAnalyst.user.firstName + ' ' + analyst.userAnalyst.user.lastName | summarizeContent : 10 }}
                 </div>
             </div>
         </div>

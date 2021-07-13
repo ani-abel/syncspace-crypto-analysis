@@ -42,6 +42,7 @@ import {
   FindUserAnalystWithUserIdGQL,
   UserDashboardStatsGQL,
   FindFeedLikeByIdGQL,
+  FindAnalystsIFollowGQL,
   Feed_Comment,
   Feed_Like,
   FeedStatatisticsDto, 
@@ -97,6 +98,7 @@ export class GraphqlRequestsService {
     private readonly myFeedSrv: MyFeedGQL,
     private readonly createAnalystSubscriberSrv: CreateAnalystSubscriberGQL,
     private readonly findUserAnalystWithUserIdSrv: FindUserAnalystWithUserIdGQL,
+    private readonly findAnalystsIFollowSrv: FindAnalystsIFollowGQL,
     private readonly findSubscriptionPackagesByCurrentUserIdSrv: FindSubscriptionPackagesByCurrentUserIdGQL,
   ) {}
 
@@ -392,6 +394,15 @@ export class GraphqlRequestsService {
                 map((res) => res.data.createUserAnalystSubscriber),
                 catchError((error: ApolloError) => throwError(error.graphQLErrors))
               )
+  }
+
+  findAnalystsIFollow(): Observable<Partial<User_Analyst_Subscriber | any>[]> {
+    return this.findAnalystsIFollowSrv
+               .fetch({})
+               .pipe(
+                map(({ data }) => data.findAnalystsUserIsSubscribedTo),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+               );
   }
 
 }

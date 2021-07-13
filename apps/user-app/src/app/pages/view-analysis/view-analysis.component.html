@@ -17,45 +17,54 @@
                     <!-- <virtual-scroller #scroll [items]="(feedCreatedByUser$ | async)"> -->
                         <!-- <virtual-scroller [items]="(feedCreatedByUser$ | async)" (update)="visibleElements = $event" style="height: calc(100vh - 4.2rem - 4.2rem - 4.2rem + 1.29rem);" [childHeight]="46"> -->
                         <tbody>
-                            <tr *ngFor="let feed of (feedCreatedByUser$ | async)">
-                                <td>{{ feed.title }}</td>
-                                <td *ngIf="feed.subscriptionPackage; else noSubscription">
-                                    {{ feed.subscriptionPackage.name }}
-                                </td>
-                                <ng-template #noSubscription>
-                                    <td>
-                                        ---------
+                            <ng-container *ngIf="(feedCreatedByUser$ | async)?.length > 0; else noContent">
+                                <tr *ngFor="let feed of (feedCreatedByUser$ | async)">
+                                    <td>{{ feed.title }}</td>
+                                    <td *ngIf="feed.subscriptionPackage; else noSubscription">
+                                        {{ feed.subscriptionPackage.name }}
                                     </td>
-                                </ng-template>
-                                <td>{{ feed.dateCreated | date : 'short' }}</td>
-                                <td>
-                                    <button class="btn btn-danger btn-slim" (click)="onDelete(feed.id)">
-                                        Delete
-                                    </button>
-                                </td>
-                                <td>
-                                    <a [routerLink]="['/auth', 'payment']"
-                                        [queryParams]="{ 
-                                            purpose: 'sponsorship',
-                                            feedId: feed.id
-                                        }" 
-                                        class="btn btn-success text-decoration-none">
-                                       Sponsor
-                                    </a>
-                                </td>
-                                <td>
-                                    <a [routerLink]="['/auth', 'analysis-feed', feed.id]" 
-                                        class="btn btn-danger text-decoration-none">
-                                        View
-                                    </a>
-                                </td>
-                                <td>
-                                    <a [routerLink]="['edit', feed.id]" 
-                                        class="btn btn-primary text-decoration-none">
-                                        Edit
-                                    </a>
-                                </td>
-                            </tr>
+                                    <ng-template #noSubscription>
+                                        <td>
+                                            ---------
+                                        </td>
+                                    </ng-template>
+                                    <td>{{ feed.dateCreated | date : 'short' }}</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-slim" (click)="onDelete(feed.id)">
+                                            Delete
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <a [routerLink]="['/auth', 'payment']"
+                                            [queryParams]="{ 
+                                                purpose: 'sponsorship',
+                                                feedId: feed.id
+                                            }" 
+                                            class="btn btn-success text-decoration-none">
+                                           Sponsor
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a [routerLink]="['/auth', 'analysis-feed', feed.id]" 
+                                            class="btn btn-danger text-decoration-none">
+                                            View
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a [routerLink]="['edit', feed.id]" 
+                                            class="btn btn-primary text-decoration-none">
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <ng-template #noContent>
+                                <tr>
+                                    <td colspan="7">
+                                        <syncspace-crypto-analysis-no-content></syncspace-crypto-analysis-no-content>
+                                    </td>
+                                </tr>
+                            </ng-template>
                         </tbody>
                     <!-- </virtual-scroller> -->
             </table>
