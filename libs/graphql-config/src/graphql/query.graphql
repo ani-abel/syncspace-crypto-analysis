@@ -332,3 +332,14 @@ query findAnalystsIFollow {
     }
   }
 }
+
+query findRecommendedAnalysts($limit: Int!) {
+  findRecommendedAnalysts(limit: $limit) {
+    id,
+    user {
+      firstName,
+      lastName,
+      profileImageUrl
+    }
+  }
+}

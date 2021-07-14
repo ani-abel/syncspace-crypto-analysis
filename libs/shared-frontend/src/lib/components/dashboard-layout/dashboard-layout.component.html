@@ -1,7 +1,10 @@
 <ion-content [fullscreen]="true">
     <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
 
-    <syncspace-crypto-analysis-sidebar [isOpen]="isOpen"></syncspace-crypto-analysis-sidebar>
+    <syncspace-crypto-analysis-sidebar 
+       [isOpen]="isOpen"
+       (logout)="onLogout($event)">
+    </syncspace-crypto-analysis-sidebar>
 
     <header class="full-width">
         <nav>

@@ -540,6 +540,7 @@ export type Query = {
   findCountryById: Country;
   findCountriesByStatus: Array<Country>;
   userDashboardStats: Array<StatisticsDto>;
+  findRecommendedAnalysts: Array<User_Analyst>;
   myFeed: Array<Feed>;
   getFeedStatistics: FeedStatatisticsDto;
   findFeeds: Array<Feed>;
@@ -598,6 +599,11 @@ export type QueryFindCountryByIdArgs = {
 
 export type QueryFindCountriesByStatusArgs = {
   status: Scalars['Boolean'];
+};
+
+
+export type QueryFindRecommendedAnalystsArgs = {
+  limit: Scalars['Int'];
 };
 
 
@@ -1404,6 +1410,23 @@ export type FindAnalystsIFollowQuery = (
         { __typename?: 'USER' }
         & Pick<User, 'id' | 'firstName' | 'lastName'>
       ) }
+    ) }
+  )> }
+);
+
+export type FindRecommendedAnalystsQueryVariables = Exact<{
+  limit: Scalars['Int'];
+}>;
+
+
+export type FindRecommendedAnalystsQuery = (
+  { __typename?: 'Query' }
+  & { findRecommendedAnalysts: Array<(
+    { __typename?: 'USER_ANALYST' }
+    & Pick<User_Analyst, 'id'>
+    & { user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'firstName' | 'lastName' | 'profileImageUrl'>
     ) }
   )> }
 );
@@ -2224,6 +2247,29 @@ export const FindAnalystsIFollowDocument = gql`
   })
   export class FindAnalystsIFollowGQL extends Apollo.Query<FindAnalystsIFollowQuery, FindAnalystsIFollowQueryVariables> {
     document = FindAnalystsIFollowDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindRecommendedAnalystsDocument = gql`
+    query findRecommendedAnalysts($limit: Int!) {
+  findRecommendedAnalysts(limit: $limit) {
+    id
+    user {
+      firstName
+      lastName
+      profileImageUrl
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindRecommendedAnalystsGQL extends Apollo.Query<FindRecommendedAnalystsQuery, FindRecommendedAnalystsQueryVariables> {
+    document = FindRecommendedAnalystsDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

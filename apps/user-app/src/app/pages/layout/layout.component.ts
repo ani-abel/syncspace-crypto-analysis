@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../../modules/shared/services/shared.service';
 
 @Component({
   selector: 'syncspace-crypto-analysis-layout',
@@ -6,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  isOpen: boolean = false;
+  isOpen = false;
 
-  constructor() { }
+  constructor(
+    private readonly sharedSrv: SharedService,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -19,6 +23,10 @@ export class LayoutComponent implements OnInit {
 
   closeSidebar(): void {
     this.isOpen = false;
+  }
+
+  onLogout(event: boolean): void {
+    this.sharedSrv.onLogout();
   }
 
 }

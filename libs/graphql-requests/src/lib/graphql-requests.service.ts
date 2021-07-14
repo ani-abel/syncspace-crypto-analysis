@@ -57,10 +57,10 @@ import {
   FindFeedByUserIdGQL,
   CreateAnalystSubscriberGQL,
   User_Analyst_Subscriber,
+  FindRecommendedAnalystsGQL,
 } from "@syncspace-crypto-analysis/graphql-config";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-
 
 @Injectable({
   providedIn: 'root'
@@ -99,6 +99,7 @@ export class GraphqlRequestsService {
     private readonly createAnalystSubscriberSrv: CreateAnalystSubscriberGQL,
     private readonly findUserAnalystWithUserIdSrv: FindUserAnalystWithUserIdGQL,
     private readonly findAnalystsIFollowSrv: FindAnalystsIFollowGQL,
+    private readonly findRecommendedAnalystsSrv: FindRecommendedAnalystsGQL,
     private readonly findSubscriptionPackagesByCurrentUserIdSrv: FindSubscriptionPackagesByCurrentUserIdGQL,
   ) {}
 
@@ -403,6 +404,15 @@ export class GraphqlRequestsService {
                 map(({ data }) => data.findAnalystsUserIsSubscribedTo),
                 catchError((error: ApolloError) => throwError(error.graphQLErrors))
                );
+  }
+
+  findRecommendedAnalysts(limit: number): Observable<Partial<User_Analyst | any>[]> {
+    return this.findRecommendedAnalystsSrv
+                .fetch({ limit })
+                .pipe(
+                  map(({ data }) => data.findRecommendedAnalysts),
+                  catchError((error: ApolloError) => throwError(error.graphQLErrors))
+                );
   }
 
 }

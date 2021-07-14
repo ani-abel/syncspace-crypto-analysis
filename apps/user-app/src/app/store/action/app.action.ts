@@ -132,6 +132,10 @@ export enum AppActionType {
     FIND_ANALYSTS_I_FOLLOW_FAILED = '[ANALYST_SUBSCRIPTION] FIND_ANALYSTS_I_FOLLOW_FAILED',
     FIND_ANALYSTS_I_FOLLOW_SUCCESSFUL = '[ANALYST_SUBSCRIPTION] FIND_ANALYSTS_I_FOLLOW_SUCCESSFUL',
 
+    FIND_RECOMMENDED_ANALYSTS_INITIATED = '[ANALYST_RECOMMENDATION] FIND_RECOMMENDED_ANALYSTS_INITIATED',
+    FIND_RECOMMENDED_ANALYSTS_FAILED = '[ANALYST_RECOMMENDATION] FIND_RECOMMENDED_ANALYSTS_FAILED',
+    FIND_RECOMMENDED_ANALYSTS_SUCCESSFUL = '[ANALYST_RECOMMENDATION] FIND_RECOMMENDED_ANALYSTS_SUCCESSFUL',
+
     CLEAR_MESSAGES_FROM_STATE = '[MESSAGES] CLEAR_MESSAGES_FROM_STATE',
 
     CLEAR_APP_STATE = "[APP_ROOT] CLEAR_APP_STATE",
@@ -450,7 +454,7 @@ export const actions = {
     ),
     SubscribeToAnalystSuccessfulAction: createAction(
         AppActionType.SUBSCRIBE_TO_ANALYST_SUCCESSFUL,
-        props<{ payload: Partial<User_Analyst_Subscriber> }>()
+        props<{ userAnalystId: string, payload: Partial<User_Analyst_Subscriber> }>()
     ),
     FindAnalystsIFollowInitiatedAction: createAction(
         AppActionType.FIND_ANALYSTS_I_FOLLOW_INITIAITED,
@@ -462,5 +466,17 @@ export const actions = {
     FindAnalystsIFollowSuccessfulAction: createAction(
         AppActionType.FIND_ANALYSTS_I_FOLLOW_SUCCESSFUL,
         props<{ payload: Partial<User_Analyst_Subscriber | any>[] }>()
+    ),
+    FindRecommendedAnalystInitiatedAction: createAction(
+        AppActionType.FIND_RECOMMENDED_ANALYSTS_INITIATED,
+        props<{ limit: number }>()
+    ),
+    FindRecommendedAnalystFailedAction: createAction(
+        AppActionType.FIND_RECOMMENDED_ANALYSTS_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindRecommendedAnalystSuccessfulAction: createAction(
+        AppActionType.FIND_RECOMMENDED_ANALYSTS_SUCCESSFUL,
+        props<{ payload: Partial<User_Analyst>[] }>()
     ),
 };

@@ -15,19 +15,21 @@
                 </ion-card-header>
                 <ion-card-content>
                   <div class="analysts-section full-width">
-                      <div class="analysts-widget">
-                          <div class="info-section widget-section">
-                            <h3>
-                                <img src="/assets/images/user-icon-female.png" alt="Jane Doe" />
-                                &nbsp;Jane Doe
-                            </h3>
-                          </div>
-                          <div class="action-section widget-section text-right">
-                              <a href="" class="btn btn-danger text-decoration-none">
-                                Subscribe
-                              </a>
-                          </div>
-                      </div>
+                      <ng-container *ngIf="(recommendedAnalysts$ | async)?.length > 0; else noContentSection">
+                        <div class="analysts-widget" *ngFor="let analyst of (recommendedAnalysts$ | async)">
+                            <div class="info-section widget-section">
+                              <h3>
+                                <img [src]="analyst.user.profileImageUrl" [alt]="analyst.user.firstName" />
+                                &nbsp;{{ analyst.user.firstName }}{{ analyst.user.lastName }}
+                              </h3>
+                            </div>
+                            <div class="action-section widget-section text-right">
+                                <button class="btn btn-slim btn-danger" (click)="onSubscribe(analyst.id)">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </div>
+                      </ng-container>
                       <ng-template #noContentSection>
                         <div class="analysts-widget">
                             <syncspace-crypto-analysis-no-content></syncspace-crypto-analysis-no-content>

@@ -330,7 +330,7 @@ export class AppEffectService {
       ofType(AppActions.SubcribeToAnalystInitiatedAction),
       switchMap(({ userAnalystId }) => {
         return this.gqlRequestSrv.createUserAnalystSubscriber(userAnalystId).pipe(
-          map((data) => AppActions.SubscribeToAnalystSuccessfulAction({ payload: data })),
+          map((data) => AppActions.SubscribeToAnalystSuccessfulAction({ userAnalystId, payload: data })),
           catchError((error: Error) => of(AppActions.SubscribeToAnalystFailedAction({ payload: error })))
         )
       })
@@ -346,5 +346,16 @@ export class AppEffectService {
         )
       })
     ));
-    
+
+  findRecommendedAnalysts$ = createEffect(() => 
+    this.actions$.pipe(
+       ofType(AppActions.FindRecommendedAnalystInitiatedAction),
+       switchMap(({ limit }) => {
+        return this.gqlRequestSrv.findRecommendedAnalysts(limit).pipe(
+          map((data) => AppActions.FindRecommendedAnalystSuccessfulAction({ payload: data })),
+          catchError((error: Error) => of(AppActions.FindRecommendedAnalystFailedAction({ payload: error })))
+        );
+      })
+    )
+  );
 }

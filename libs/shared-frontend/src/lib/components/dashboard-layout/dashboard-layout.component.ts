@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'syncspace-crypto-analysis-dashboard-layout',
@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard-layout.component.scss']
 })
 export class DashboardLayoutComponent {
+  @Output() logout: EventEmitter<boolean> = new EventEmitter<boolean>();
   isOpen = false;
 
   openSidebar(): void {
@@ -14,6 +15,10 @@ export class DashboardLayoutComponent {
 
   closeSidebar(): void {
     this.isOpen = false;
+  }
+
+  onLogout(event: boolean): void {
+    this.logout.emit(event);
   }
 
 }

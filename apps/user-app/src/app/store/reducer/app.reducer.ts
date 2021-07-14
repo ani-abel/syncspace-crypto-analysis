@@ -491,11 +491,14 @@ export const AppReducer = createReducer(
             error: payload
         }
     }),
-    on(AppActions.SubscribeToAnalystSuccessfulAction, (state) => {
+    on(AppActions.SubscribeToAnalystSuccessfulAction, (state, { userAnalystId }) => {
+        // ? Remove from analyst recommendation-list
+        const updatedAnalystRecommendations = state.recommendedAnalysts.filter((analyst) => analyst.id !== userAnalystId);
         return {
             ...state,
             isLoading: false,
             successMessage: 'Subscribed',
+            recommendedAnalysts: [...updatedAnalystRecommendations],
         }
     }),
     on(AppActions.FindAnalystsIFollowInitiatedAction, (state) => {
@@ -517,5 +520,25 @@ export const AppReducer = createReducer(
             isLoading: false,
             analystsIFollow: [...payload],
         }
+    }),
+    on(AppActions.FindRecommendedAnalystInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        };
+    }),
+    on(AppActions.FindRecommendedAnalystFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        };
+    }),
+    on(AppActions.FindRecommendedAnalystSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            recommendedAnalysts: [...payload],
+        };
     }),
 );

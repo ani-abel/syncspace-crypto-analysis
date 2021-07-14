@@ -1,16 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'syncspace-crypto-analysis-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
+  @Output() logout: EventEmitter<boolean> =  new EventEmitter<boolean>();
   @Input() isOpen: boolean;
-
-  constructor() { }
-
-  ngOnInit(): void {
+  
+  onLogout(): void {
+    this.logout.emit(true);
   }
 
 }
