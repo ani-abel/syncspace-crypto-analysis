@@ -63,7 +63,8 @@ OnDestroy {
         password,
         phone,
         countryId,
-      } }));
+      } 
+    }));
     
     this.subSink.sink =
     this.store

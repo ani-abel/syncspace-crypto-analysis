@@ -32,7 +32,11 @@ export const AppReducer = createReducer(
         return { ...state, isLoading: false, error: payload, }
     }),
     on(AppActions.SignUpSuccessfulAction, (state) => {
-        return { ...state, isLoading: false, successMessage: 'Signup successful' };
+        return { 
+            ...state, 
+            isLoading: false, 
+            successMessage: 'Successful. Check you email for validation link' 
+        };
     }),
     on(AppActions.FindCountriesInitiatedAction, (state) => {
         return { ...state, isLoading: true };
