@@ -2,7 +2,12 @@ import { createReducer, on } from '@ngrx/store';
 import { Feed } from '@syncspace-crypto-analysis/graphql-config';
 import { InitialAppState } from '../model/app.model';
 import { actions as AppActions } from '../action/app.action';
-import { updateFeedItemWithNewComment, updateFeedItemWithNewLike, updateFeedWithNewComment, updateFeedWithNewLike } from '../utils/app.utils';
+import { 
+    updateFeedItemWithNewComment, 
+    updateFeedItemWithNewLike, 
+    updateFeedWithNewComment, 
+    updateFeedWithNewLike 
+} from '../utils/app.utils';
 
 export const GENERIC_ERROR_MESSAGE = 'An error occured';
 

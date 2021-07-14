@@ -1,7 +1,10 @@
 <ion-content [fullscreen]="true">
     <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
     <section class="page-container full-width" [ngClass]="{ 'closed': ref.isOpen }">
-        <syncspace-crypto-analysis-nav-sidebar (closeNavbar)="ref.isOpen = false"></syncspace-crypto-analysis-nav-sidebar>
+        <syncspace-crypto-analysis-nav-sidebar 
+            [userAppUrl]="env.userAppUrl"
+            (closeNavbar)="ref.isOpen = false">
+        </syncspace-crypto-analysis-nav-sidebar>
 
         <header class="full-width">
             <nav class="nav-lg full-width">
@@ -27,7 +30,7 @@
                             <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
                         </li> -->
                         <li>
-                            <a [routerLink]="['/sign-up']" class="btn btn-danger">Sign up</a>
+                            <a href="{{ env.userAppUrl }}/sign-up" class="btn btn-danger">Sign up</a>
                         </li>
                     </ul>
                 </div>
@@ -86,6 +89,6 @@
             </div>
         </main>
 
-        <syncspace-crypto-analysis-footer></syncspace-crypto-analysis-footer>
+        <syncspace-crypto-analysis-footer [userAppUrl]="env.userAppUrl"></syncspace-crypto-analysis-footer>
     </section>
 </ion-content>

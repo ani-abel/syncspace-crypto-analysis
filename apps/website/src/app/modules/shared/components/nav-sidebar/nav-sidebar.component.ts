@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'syncspace-crypto-analysis-nav-sidebar',
@@ -7,6 +7,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class NavSidebarComponent implements OnInit {
   @Output() closeNavbar: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() userAppUrl: string;
 
   constructor() { }
 

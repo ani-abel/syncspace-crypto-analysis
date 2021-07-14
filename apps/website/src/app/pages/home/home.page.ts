@@ -7,6 +7,7 @@ import {
   User_Analyst 
 } from '@syncspace-crypto-analysis/graphql-config';
 import { Observable } from 'rxjs';
+import { environment as env } from '../../../environments/environment';
 
 @Component({
   selector: 'syncspace-crypto-analysis-home',
@@ -17,6 +18,7 @@ export class HomePage implements OnInit {
   topPublicFeed$: Observable<Partial<Feed>[]>;
   topAnalysts$: Observable<Partial<User_Analyst | any>[]>;
   feedStatistics$: Observable<Partial<FeedStatatisticsDto>>;
+  env = env;
 
   constructor(
     private readonly gqlRequestSrv: GraphqlRequestsService,

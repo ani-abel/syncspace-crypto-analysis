@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NgModule } from '@angular/core';
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,7 +9,7 @@ declare let process: any;
 const env = process.env.NODE_ENV;
 
 const uri = (env === 'production') ? 
-  'https://abel-ani.herokuapp.com/graphql' : 
+  'https://syncspace-backend.herokuapp.com/graphql' : 
   'http://localhost:3000/graphql';
 
 export function createApollo(httpLink: HttpLink) {

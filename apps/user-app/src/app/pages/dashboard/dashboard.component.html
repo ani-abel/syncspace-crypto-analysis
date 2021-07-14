@@ -19,8 +19,9 @@
                         <div class="analysts-widget" *ngFor="let analyst of (recommendedAnalysts$ | async)">
                             <div class="info-section widget-section">
                               <h3>
-                                <img [src]="analyst.user.profileImageUrl" [alt]="analyst.user.firstName" />
-                                &nbsp;{{ analyst.user.firstName }}{{ analyst.user.lastName }}
+                                <img [src]="analyst.user.profileImageUrl" 
+                                alt="{{ analyst.user.firstName }} {{ analyst.user.firstName }}" />
+                                &nbsp;{{ analyst.user.firstName }} {{ analyst.user.lastName }}
                               </h3>
                             </div>
                             <div class="action-section widget-section text-right">

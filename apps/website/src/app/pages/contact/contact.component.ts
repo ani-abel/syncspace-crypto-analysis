@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { CreateContactMessageGQL } from '@syncspace-crypto-analysis/graphql-config';
 import { GraphqlRequestsService } from '@syncspace-crypto-analysis/graphql-requests';
 import { SubSink } from 'subsink';
+import { environment as env } from '../../../environments/environment';
 
 @Component({
   selector: 'syncspace-crypto-analysis-contact',
@@ -15,6 +16,7 @@ OnInit,
 OnDestroy {
   subSink: SubSink = new SubSink();
   contactMessageForm: FormGroup;
+  env = env;
 
   constructor(
     private readonly createContactMessageGraphQLSrv: CreateContactMessageGQL,

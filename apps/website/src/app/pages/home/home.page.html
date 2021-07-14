@@ -2,7 +2,10 @@
   <syncspace-crypto-analysis-theme-toggle></syncspace-crypto-analysis-theme-toggle>
 
   <section class="page-container full-width" [ngClass]="{ 'closed': ref.isOpen }">
-      <syncspace-crypto-analysis-nav-sidebar (closeNavbar)="ref.isOpen = false"></syncspace-crypto-analysis-nav-sidebar>
+    <syncspace-crypto-analysis-nav-sidebar 
+        [userAppUrl]="env.userAppUrl" 
+        (closeNavbar)="ref.isOpen = false">
+    </syncspace-crypto-analysis-nav-sidebar>
 
       <header class="full-width">
           <nav class="nav-lg full-width">
@@ -27,8 +30,13 @@
                       <!-- <li>
                           <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
                       </li> -->
-                      <li>
+                      <!-- <li>
                           <a [routerLink]="['/sign-up']" class="btn btn-danger">Sign up</a>
+                      </li> -->
+                      <li>
+                          <a href="{{ env.userAppUrl }}/sign-up" class="btn btn-danger">
+                            Sign Up
+                        </a>
                       </li>
                   </ul>
               </div>
@@ -56,13 +64,19 @@
                           <!-- Syncspace is the one-stop for financial info, data &amp; and   -->
                       </p>
                       <p class="text-center">
-                          <a [routerLink]="['/sign-up']" class="btn btn-danger text-decoration-none text-capitalize">
+                          <!-- <a [routerLink]="['/sign-up']" class="btn btn-danger text-decoration-none text-capitalize">
+                            Get started
+                          </a> -->
+                          <a href="{{ env.userAppUrl }}/sign-up" class="btn btn-danger text-decoration-none text-capitalize">
                             Get started
                           </a>
                           &nbsp;
                           <span>OR</span>
                           &nbsp;
-                          <a [routerLink]="['/login']" class="btn btn-primary text-decoration-none text-capitalize">
+                          <!-- <a [routerLink]="['/login']" class="btn btn-primary text-decoration-none text-capitalize">
+                            Login
+                          </a> -->
+                          <a href="{{ env.userAppUrl }}/login" class="btn btn-primary text-decoration-none text-capitalize">
                             Login
                           </a>
                       </p>
@@ -380,6 +394,6 @@
           </div> -->
       </section>
 
-      <syncspace-crypto-analysis-footer></syncspace-crypto-analysis-footer>
+      <syncspace-crypto-analysis-footer [userAppUrl]="env.userAppUrl"></syncspace-crypto-analysis-footer>
   </section>
 </ion-content>

@@ -5,7 +5,6 @@ import { FinancialForcastDetailRoutingModule } from './financial-forcast-detail-
 import { FinancialForcastDetailComponent } from './financial-forcast-detail.component';
 import { SharedModule } from '../../modules/shared/shared.module';
 
-
 @NgModule({
   declarations: [
     FinancialForcastDetailComponent
