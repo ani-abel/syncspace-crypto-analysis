@@ -16,10 +16,10 @@ const routes: Routes = [
     path: 'privacy', 
     loadChildren: () => import('./pages/privacy/privacy.module').then(m => m.PrivacyModule) 
   },
-  { 
-    path: 'login', 
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) 
-  },
+  // { 
+  //   path: 'login', 
+  //   loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) 
+  // },
   { 
     path: 'contact', 
     loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule) 
@@ -28,10 +28,10 @@ const routes: Routes = [
     path: 'faq', 
     loadChildren: () => import('./pages/faq/faq.module').then(m => m.FaqModule) 
   },
-  { 
-    path: 'sign-up', 
-    loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule) 
-  },
+  // { 
+  //   path: 'sign-up', 
+  //   loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule) 
+  // },
   { 
     path: 'financial-forcast/:feedId',
     loadChildren: () => import('./pages/financial-forcast-detail/financial-forcast-detail.module').then(m => m.FinancialForcastDetailModule) 

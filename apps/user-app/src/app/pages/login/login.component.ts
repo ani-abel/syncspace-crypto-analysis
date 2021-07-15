@@ -19,8 +19,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.sharedSrv.loginAsync();
     this.initForm();
+    setTimeout(async () => {
+      await this.sharedSrv.loginAsync();
+    }, 0);
   }
 
   initForm(): void {

@@ -14,13 +14,24 @@ const CACHE_FOLDER = 'CACHED-IMG';
   template: `
     <img [src]="_src" 
       [alt]="_alt"
+      (click)="openModal(_src)"
       [ngClass]="{ 'rounder-img': isRounded }"
+      class="cursor-pointer"
       *ngIf="_src !== ''; else loading" 
       [style.width]="width" 
       [style.height]="height" />
+
     <ng-template #loading>
       <ion-skeleton-text animated></ion-skeleton-text>
     </ng-template>
+
+    <ng-container *ngIf="isImagePreviewed">
+      <syncspace-crypto-analysis-image-preview 
+        (closeModal)="closeModal()"
+        [altText]="_alt"
+        [imagePath]="_src">
+      </syncspace-crypto-analysis-image-preview>
+    </ng-container>
   `,
   styleUrls: ['./cached-image.component.scss']
 })
@@ -29,6 +40,7 @@ export class CachedImageComponent {
   @Input() width = '100%';
   @Input() height = '100%';
   @Input() isRounded: boolean;
+  isImagePreviewed = false;
   _src = '';
   _alt = '';
 
@@ -72,6 +84,14 @@ export class CachedImageComponent {
       directory: FilesystemDirectory.Cache
     });
     return savedFile;
+  }
+
+  openModal(path: string): void {
+    this.isImagePreviewed = true;
+  }
+
+  closeModal(): void {
+    this.isImagePreviewed = false;
   }
 
   private convertBlobToBase64(blob: Blob)

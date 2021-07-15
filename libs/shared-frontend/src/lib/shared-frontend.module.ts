@@ -7,6 +7,7 @@ import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 import { NavbarToggleDirective } from './directives/navbar-toggle.directive';
 import { ThemeToggleDirective } from './directives/theme-toggle.directive';
 import { ToggleDirective } from './directives/toggle.directive';
+import { ImagePreviewComponent } from './components/image-preview/image-preview.component';
 import { DashboardLayoutComponent } from './components/dashboard-layout/dashboard-layout.component';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { FeedWidgetComponent } from './components/feed-widget/feed-widget.component';
@@ -43,6 +44,7 @@ import { SummarizeContentPipe } from './pipes/summarize.pipe';
     CapitalizePipe,
     SliceContentPipe,
     SummarizeContentPipe,
+    ImagePreviewComponent,
   ],
   imports: [
     CommonModule, 
@@ -71,6 +73,7 @@ import { SummarizeContentPipe } from './pipes/summarize.pipe';
     LoginComponent,
     ForgotPasswordComponent,
     AdminDashboardLayoutComponent,
+    ImagePreviewComponent,
     AdminSidebarComponent,
     CachedImageComponent,
     CapitalizePipe,
