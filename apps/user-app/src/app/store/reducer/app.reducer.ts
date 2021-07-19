@@ -550,4 +550,64 @@ export const AppReducer = createReducer(
             recommendedAnalysts: [...payload],
         };
     }),
+    on(AppActions.FindUserSubscribedToAnalystInitaitedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.FindUserSubscribedToAnalystFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.FindUserSubscribedToAnalystSuccessfulAction, (state, { payload } ) => {
+        return {
+            ...state,
+            isLoading: false,
+            usersSubscribedToAnalyst: [...payload],
+        }
+    }),
+    on(AppActions.FindUserSubscribedToPackageInitaitedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.FindUserSubscribedToPackageFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.FindUserSubscribedToPackageSuccessfulAction, (state, { payload } ) => {
+        return {
+            ...state,
+            isLoading: false,
+            usersSubscribedToPackage: { ...payload },
+        }
+    }),
+    on(AppActions.FindMyProfileInitiatedAction, (state) => {
+        return {
+            ...state,
+            isLoading: true,
+        }
+    }),
+    on(AppActions.FindMyProfileFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload
+        }
+    }),
+    on(AppActions.FindMyProfileSuccessfulAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            myProfile: { ...payload },
+        }
+    }),
 );

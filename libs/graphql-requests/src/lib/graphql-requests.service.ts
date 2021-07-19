@@ -58,6 +58,9 @@ import {
   CreateAnalystSubscriberGQL,
   User_Analyst_Subscriber,
   FindRecommendedAnalystsGQL,
+  FindUsersSubscribedToPackageGQL,
+  FindUsersSubscribedToAnalystGQL,
+  MyProfileGQL,
 } from "@syncspace-crypto-analysis/graphql-config";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -100,6 +103,9 @@ export class GraphqlRequestsService {
     private readonly findUserAnalystWithUserIdSrv: FindUserAnalystWithUserIdGQL,
     private readonly findAnalystsIFollowSrv: FindAnalystsIFollowGQL,
     private readonly findRecommendedAnalystsSrv: FindRecommendedAnalystsGQL,
+    private readonly findUsersSubscribedToPackageSrv: FindUsersSubscribedToPackageGQL,
+    private readonly findUsersSubscribedToAnalystSrv: FindUsersSubscribedToAnalystGQL,
+    private readonly myProfileSrv: MyProfileGQL,
     private readonly findSubscriptionPackagesByCurrentUserIdSrv: FindSubscriptionPackagesByCurrentUserIdGQL,
   ) {}
 
@@ -413,6 +419,40 @@ export class GraphqlRequestsService {
                   map(({ data }) => data.findRecommendedAnalysts),
                   catchError((error: ApolloError) => throwError(error.graphQLErrors))
                 );
+  }
+
+  findUsersSubscribedToAnalyst(userId: string): Observable<Partial<User>[]> {
+    return this.findUsersSubscribedToAnalystSrv
+              .fetch({ userId })
+              .pipe(
+                map(({ data }) => data.findUserAnalystWithUserId),
+                map(({ subscribedUsersToThisAnalyst }) => {
+                  return subscribedUsersToThisAnalyst.map((data) => data.user)
+                }),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
+  }
+
+  findUsersSubscribedToPackage(packageId:string)
+  : Observable<Partial<Subscription_Package | any>> {
+    return this.findUsersSubscribedToPackageSrv
+                .fetch({ packageId })
+                .pipe(
+                  map(({ data }) => data.findSubscriptionPackageById),
+                  // map(({ subscribersToThisPackage }) => {
+                  //   return subscribersToThisPackage.map((data) => data.user)
+                  // }),
+                  catchError((error: ApolloError) => throwError(error.graphQLErrors))
+                );
+  }
+
+  myProfile(): Observable<Partial<User | any>> {
+    return this.myProfileSrv
+              .fetch({})
+              .pipe(
+                map(({ data }) => data.myProfile),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors)),
+              );
   }
 
 }

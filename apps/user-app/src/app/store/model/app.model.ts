@@ -13,6 +13,7 @@ import {
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export interface AppModel {
+    myProfile: Partial<User>;
     authenticatedUser: Partial<User>;
     analystBio: Partial<User_Analyst>;
     authenticationResponse: Partial<AuthResponse>;
@@ -30,9 +31,12 @@ export interface AppModel {
     dashboardStats: StatisticsDto[],
     analystsIFollow: Partial<User_Analyst_Subscriber | any>[],
     recommendedAnalysts: Partial<User_Analyst>[],
+    usersSubscribedToAnalyst: Partial<User>[];
+    usersSubscribedToPackage: Partial<Subscription_Package>;
 }
 
 export const InitialAppState: AppModel =  {
+    myProfile: undefined,
     authenticatedUser: undefined,
     analystBio: undefined,
     authenticationResponse: undefined,
@@ -50,4 +54,6 @@ export const InitialAppState: AppModel =  {
     dashboardStats: [],
     analystsIFollow: [],
     recommendedAnalysts: [],
+    usersSubscribedToAnalyst: [],
+    usersSubscribedToPackage: undefined,
 };

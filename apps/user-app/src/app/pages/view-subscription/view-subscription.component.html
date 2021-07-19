@@ -11,6 +11,7 @@
                         <th>Price(₦)</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,11 +32,16 @@
                                     Edit
                                 </a>
                             </td>
+                            <td>
+                                <a [routerLink]="['view-package-subscribers', package.id]" class="btn btn-success text-decoration-none">
+                                    Subscribers
+                                </a>
+                            </td>
                         </tr>
                     </ng-container>
                     <ng-template #noContent>
                         <tr>
-                            <td colspan="6">
+                            <td colspan="7">
                                 <syncspace-crypto-analysis-no-content></syncspace-crypto-analysis-no-content>
                             </td>
                         </tr>

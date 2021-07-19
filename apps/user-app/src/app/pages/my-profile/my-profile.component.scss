@@ -17,3 +17,72 @@
         width: 100%;
     }
 }
+
+
+// Tester
+@media (max-width: 992px) {}
+
+@media (max-width: 768px) { }
+
+.user-card {
+    padding: 25px 15px;
+    background: var(--bg-secondary);
+    box-shadow: var(--box-shadow-md);
+    border-radius: 10px;
+
+    .image-section {
+        height: 80px;
+
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .details {
+        color: var(--secondary-text-color);
+        padding: 5px 0;
+    }
+
+    .user-details {
+        padding: 15px 0;
+
+        .content {
+            padding: 10px 0 0 0;
+        }
+    }
+}
+
+@media (max-width: 576px) { 
+    // .user-card {
+    //     padding: 25px 15px;
+    //     background: var(--bg-secondary);
+    //     box-shadow: var(--box-shadow-md);
+    //     border-radius: 10px;
+
+    //     .image-section {
+    //         height: 80px;
+
+    //         img {
+    //             width: 80px;
+    //             height: 80px;
+    //             border-radius: 100%;
+    //         }
+    //     }
+
+    //     .details {
+    //         color: var(--secondary-text-color);
+    //         padding: 5px 0;
+    //     }
+
+    //     .user-details {
+    //         padding: 15px 0;
+
+    //         .content {
+    //             padding: 10px 0 0 0;
+    //         }
+    //     }
+    // }
+}

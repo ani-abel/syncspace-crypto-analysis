@@ -358,4 +358,37 @@ export class AppEffectService {
       })
     )
   );
+
+  findUsersSubscribribedToAnalyst$ = createEffect(() => 
+    this.actions$.pipe(
+      ofType(AppActions.FindUserSubscribedToAnalystInitaitedAction),
+      switchMap(({ userId }) => {
+        return this.gqlRequestSrv.findUsersSubscribedToAnalyst(userId).pipe(
+          map((data) => AppActions.FindUserSubscribedToAnalystSuccessfulAction({ payload: data })),
+          catchError((error: Error) => of(AppActions.FindUserSubscribedToAnalystFailedAction({ payload: error })))
+        )
+      }),
+    ));
+
+    findUsersSubscribedToPackage$ = createEffect(() => 
+      this.actions$.pipe(
+        ofType(AppActions.FindUserSubscribedToPackageInitaitedAction),
+        switchMap(({ packageId }) => {
+          return this.gqlRequestSrv.findUsersSubscribedToPackage(packageId).pipe(
+            map((data) => AppActions.FindUserSubscribedToPackageSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.FindUserSubscribedToPackageFailedAction({ payload: error })))
+          )
+        })
+      ));
+
+    myProfile$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(AppActions.FindMyProfileInitiatedAction),
+        switchMap(() => {
+          return this.gqlRequestSrv.myProfile().pipe(
+            map((data) => AppActions.FindMyProfileSuccessfulAction({ payload: data })),
+            catchError((error: Error) => of(AppActions.FindMyProfileFailedAction({ payload: error })))
+          )
+        })
+      ));
 }

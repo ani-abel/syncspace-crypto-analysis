@@ -136,6 +136,18 @@ export enum AppActionType {
     FIND_RECOMMENDED_ANALYSTS_FAILED = '[ANALYST_RECOMMENDATION] FIND_RECOMMENDED_ANALYSTS_FAILED',
     FIND_RECOMMENDED_ANALYSTS_SUCCESSFUL = '[ANALYST_RECOMMENDATION] FIND_RECOMMENDED_ANALYSTS_SUCCESSFUL',
 
+    FIND_USERS_SUBSCRIBED_TO_ANALYST_INITIATED = '[SUBSCRIBERS] FIND_USERS_SUBSCRIBED_TO_ANALYST_INITIATED',
+    FIND_USERS_SUBSCRIBED_TO_ANALYST_FAILED = '[SUBSCRIBERS] FIND_USERS_SUBSCRIBED_TO_ANALYST_FAILED',
+    FIND_USERS_SUBSCRIBED_TO_ANALYST_SUCCESSFUL = '[SUBSCRIBERS] FIND_USERS_SUBSCRIBED_TO_ANALYST_SUCCESSFUL',
+
+    FIND_USERS_SUBSCRIBED_TO_PACKAGE_INITIATED = '[SUBSCRIBERS] FIND_USERS_SUBSCRIBED_TO_PACKAGE_INITIATED',
+    FIND_USERS_SUBSCRIBED_TO_PACKAGE_FAILED = '[SUBSCRIBERS] FIND_USERS_SUBSCRIBED_TO_PACKAGE_FAILED',
+    FIND_USERS_SUBSCRIBED_TO_PACKAGE_SUCCESSFUL = '[SUBSCRIBERS] FIND_USERS_SUBSCRIBED_TO_PACKAGE_SUCCESSFUL',
+
+    FIND_MY_PROFILE_INITIATED = '[MY_PROFILE] FIND_MY_PROFILE_INITIATED',
+    FIND_MY_PROFILE_FAILED = '[MY_PROFILE] FIND_MY_PROFILE_FAILED',
+    FIND_MY_PROFILE_SUCCESSFUL = '[MY_PROFILE] FIND_MY_PROFILE_SUCCESSFUL',
+
     CLEAR_MESSAGES_FROM_STATE = '[MESSAGES] CLEAR_MESSAGES_FROM_STATE',
 
     CLEAR_APP_STATE = "[APP_ROOT] CLEAR_APP_STATE",
@@ -478,5 +490,40 @@ export const actions = {
     FindRecommendedAnalystSuccessfulAction: createAction(
         AppActionType.FIND_RECOMMENDED_ANALYSTS_SUCCESSFUL,
         props<{ payload: Partial<User_Analyst>[] }>()
+    ),
+    FindUserSubscribedToAnalystInitaitedAction: createAction(
+        AppActionType.FIND_USERS_SUBSCRIBED_TO_ANALYST_INITIATED,
+        props<{ userId: string }>()
+    ),
+    FindUserSubscribedToAnalystFailedAction: createAction(
+        AppActionType.FIND_USERS_SUBSCRIBED_TO_ANALYST_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindUserSubscribedToAnalystSuccessfulAction: createAction(
+        AppActionType.FIND_USERS_SUBSCRIBED_TO_ANALYST_SUCCESSFUL,
+        props<{ payload: Partial<User>[] }>()
+    ),
+    FindUserSubscribedToPackageInitaitedAction: createAction(
+        AppActionType.FIND_USERS_SUBSCRIBED_TO_PACKAGE_INITIATED,
+        props<{ packageId: string }>()
+    ),
+    FindUserSubscribedToPackageFailedAction: createAction(
+        AppActionType.FIND_USERS_SUBSCRIBED_TO_PACKAGE_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindUserSubscribedToPackageSuccessfulAction: createAction(
+        AppActionType.FIND_USERS_SUBSCRIBED_TO_PACKAGE_SUCCESSFUL,
+        props<{ payload: Partial<Subscription_Package> }>()
+    ),
+    FindMyProfileInitiatedAction: createAction(
+        AppActionType.FIND_MY_PROFILE_INITIATED,
+    ),
+    FindMyProfileFailedAction: createAction(
+        AppActionType.FIND_MY_PROFILE_FAILED,
+        props<{ payload: Error }>()
+    ),
+    FindMyProfileSuccessfulAction: createAction(
+        AppActionType.FIND_MY_PROFILE_SUCCESSFUL,
+        props<{ payload: Partial<User> }>()
     ),
 };

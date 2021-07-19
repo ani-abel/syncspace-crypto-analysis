@@ -104,6 +104,11 @@ export type CreateFeedCommentDto = {
   body: Scalars['String'];
 };
 
+export type CreateFeedCommentReplyDto = {
+  feedCommentId: Scalars['String'];
+  body: Scalars['String'];
+};
+
 export type CreateFeedDto = {
   imageUrl: Scalars['String'];
   title: Scalars['String'];
@@ -173,7 +178,6 @@ export type Feed = {
   accessLevel: AccessLevelType;
   imageUrl: Scalars['String'];
   subscriptionPackageId?: Maybe<Scalars['String']>;
-  /** Only works if a feed item is selected under a particular subs plan */
   subscriptionPackage?: Maybe<Subscription_Package>;
   userId: Scalars['String'];
   user: User;
@@ -182,7 +186,7 @@ export type Feed = {
   dateCreated: Scalars['DateTime'];
   likesForThisFeed: Array<Feed_Like>;
   commentsForThisFeed: Array<Feed_Comment>;
-  sponsorshipsForThisFeed: Array<Feed_Sponsorship>;
+  sponsorshipsForThisFeed?: Maybe<Array<Feed_Sponsorship>>;
 };
 
 export type Feed_Comment = {
@@ -261,7 +265,6 @@ export type Mutation = {
   verifyAccount: DefaultResponseTypeGql;
   forgotPassword: DefaultResponseTypeGql;
   changePassword: DefaultResponseTypeGql;
-  login: AuthResponse;
   createCountry: Country;
   updateCountry: DefaultResponseTypeGql;
   deleteCountry: DefaultResponseTypeGql;
@@ -271,27 +274,29 @@ export type Mutation = {
   createPackageSubscriber: Package_Subscriber;
   updatePackageSubsciber: DefaultResponseTypeGql;
   deletePackageSubscriber: DefaultResponseTypeGql;
+  createSubscriptionPackage: Subscription_Package;
+  updateSubscriptionPackage: DefaultResponseTypeGql;
+  deleteSubscriptionPackage: DefaultResponseTypeGql;
   createUserAnalystSubscriber: User_Analyst_Subscriber;
   deleteUserAnalystSubscriber: DefaultResponseTypeGql;
   updateUserAnalystSubscriber: DefaultResponseTypeGql;
-  createFeedSponsorship: Feed_Sponsorship;
-  deleteFeedSponship: DefaultResponseTypeGql;
   createLike: Feed_Like;
   deleteFeedLike: DefaultResponseTypeGql;
+  createFeedSponsorship: Feed_Sponsorship;
+  deleteFeedSponship: DefaultResponseTypeGql;
   createUserAnalyst: User_Analyst;
   updateUserAnalyst: DefaultResponseTypeGql;
   deleteUserAnalyst: DefaultResponseTypeGql;
   deleteUserAnalystByUserId: DefaultResponseTypeGql;
   createFeedComment: Feed_Comment;
   deleteFeedComment: DefaultResponseTypeGql;
+  createFeedCommentReply: Feed_Comment_Reply;
   createPaymentLog: Payment_Log;
   deletePaymentLog: DefaultResponseTypeGql;
-  createSubscriptionPackage: Subscription_Package;
-  updateSubscriptionPackage: DefaultResponseTypeGql;
-  deleteSubscriptionPackage: DefaultResponseTypeGql;
   createFeeSetup: Fee_Setup;
   deleteFeeSetup: DefaultResponseTypeGql;
   updateFeeSetup: DefaultResponseTypeGql;
+  login: AuthResponse;
   createContactMessage: ContactMessage;
   deleteContactMessage: DefaultResponseTypeGql;
   updateContactMessage: DefaultResponseTypeGql;
@@ -321,11 +326,6 @@ export type MutationForgotPasswordArgs = {
 
 export type MutationChangePasswordArgs = {
   payload: ChangePasswordDto;
-};
-
-
-export type MutationLoginArgs = {
-  payload: LoginUserDto;
 };
 
 
@@ -374,6 +374,21 @@ export type MutationDeletePackageSubscriberArgs = {
 };
 
 
+export type MutationCreateSubscriptionPackageArgs = {
+  payload: CreateSubscriptionPackageDto;
+};
+
+
+export type MutationUpdateSubscriptionPackageArgs = {
+  payload: UpdateSubscriptionPackageDto;
+};
+
+
+export type MutationDeleteSubscriptionPackageArgs = {
+  packageId: Scalars['String'];
+};
+
+
 export type MutationCreateUserAnalystSubscriberArgs = {
   userAnalystId: Scalars['String'];
 };
@@ -389,16 +404,6 @@ export type MutationUpdateUserAnalystSubscriberArgs = {
 };
 
 
-export type MutationCreateFeedSponsorshipArgs = {
-  payload: CreateFeedSponsorDto;
-};
-
-
-export type MutationDeleteFeedSponshipArgs = {
-  feedSponsorshipId: Scalars['String'];
-};
-
-
 export type MutationCreateLikeArgs = {
   feedId: Scalars['String'];
 };
@@ -406,6 +411,16 @@ export type MutationCreateLikeArgs = {
 
 export type MutationDeleteFeedLikeArgs = {
   feedId: Scalars['String'];
+};
+
+
+export type MutationCreateFeedSponsorshipArgs = {
+  payload: CreateFeedSponsorDto;
+};
+
+
+export type MutationDeleteFeedSponshipArgs = {
+  feedSponsorshipId: Scalars['String'];
 };
 
 
@@ -439,6 +454,11 @@ export type MutationDeleteFeedCommentArgs = {
 };
 
 
+export type MutationCreateFeedCommentReplyArgs = {
+  payload: CreateFeedCommentReplyDto;
+};
+
+
 export type MutationCreatePaymentLogArgs = {
   payload: CreatePaymentLogDto;
 };
@@ -446,21 +466,6 @@ export type MutationCreatePaymentLogArgs = {
 
 export type MutationDeletePaymentLogArgs = {
   paymentLogId: Scalars['String'];
-};
-
-
-export type MutationCreateSubscriptionPackageArgs = {
-  payload: CreateSubscriptionPackageDto;
-};
-
-
-export type MutationUpdateSubscriptionPackageArgs = {
-  payload: UpdateSubscriptionPackageDto;
-};
-
-
-export type MutationDeleteSubscriptionPackageArgs = {
-  packageId: Scalars['String'];
 };
 
 
@@ -476,6 +481,11 @@ export type MutationDeleteFeeSetupArgs = {
 
 export type MutationUpdateFeeSetupArgs = {
   payload: UpdateFeeSetupDto;
+};
+
+
+export type MutationLoginArgs = {
+  payload: LoginUserDto;
 };
 
 
@@ -533,6 +543,7 @@ export enum PaymentStatus {
 export type Query = {
   __typename?: 'Query';
   sayHello: DefaultResponseTypeGql;
+  myProfile: User;
   findUserById: User;
   findUserByEmail: User;
   findUsers: Array<User>;
@@ -551,14 +562,20 @@ export type Query = {
   topSponsoredFeeds: Array<Feed>;
   findPackageSubscribers: Array<Package_Subscriber>;
   findPackageSubscriberById: Package_Subscriber;
+  findSubscriptionPackages: Array<Subscription_Package>;
+  findSubscriptionPackageById: Subscription_Package;
+  /** Returns all packages created by a finance analyst */
+  findSubscriptionPackagesByCurrentUserId: Array<Subscription_Package>;
+  /** Returns all packages created by a finance analyst */
+  findSubscriptionPackagesByUserId: Array<Subscription_Package>;
   findUserAnalyst: Array<User_Analyst_Subscriber>;
   findUserAnalystSubscriberByIdWithRelations: User_Analyst_Subscriber;
   findAnalystsUserIsSubscribedTo: Array<User_Analyst_Subscriber>;
-  findFeedSponsors: Array<Feed_Sponsorship>;
-  findFeedSponsorById: Feed_Sponsorship;
   findLikesByFeed: Array<Feed_Like>;
   findLikes: Array<Feed_Like>;
   findLikeById: Feed_Like;
+  findFeedSponsors: Array<Feed_Sponsorship>;
+  findFeedSponsorById: Feed_Sponsorship;
   findUserAnalysts: Array<User_Analyst>;
   findUserAnalystWithId: User_Analyst;
   findUserAnalystWithUserId: User_Analyst;
@@ -566,14 +583,10 @@ export type Query = {
   findFeedComments: Array<Feed_Comment>;
   findFeedCommentsById: Feed_Comment;
   findFeedCommentsByFeedId: Feed_Comment;
+  findCommentReplies: Array<Feed_Comment_Reply>;
+  findCommentRepliesByCommentId: Array<Feed_Comment_Reply>;
   findPaymentLogs: Array<Payment_Log>;
   findPaymentLogsByProvider: Array<Payment_Log>;
-  findSubscriptionPackages: Array<Subscription_Package>;
-  findSubscriptionPackageById: Subscription_Package;
-  /** Returns all packages created by a finance analyst */
-  findSubscriptionPackagesByCurrentUserId: Array<Subscription_Package>;
-  /** Returns all packages created by a finance analyst */
-  findSubscriptionPackagesByUserId: Array<Subscription_Package>;
   findFeeSetups: Array<Fee_Setup>;
   findFeeSetupById: Fee_Setup;
   findContactMessageById: ContactMessage;
@@ -632,13 +645,18 @@ export type QueryFindPackageSubscriberByIdArgs = {
 };
 
 
-export type QueryFindUserAnalystSubscriberByIdWithRelationsArgs = {
-  userAnalystSubscriberId: Scalars['String'];
+export type QueryFindSubscriptionPackageByIdArgs = {
+  packageId: Scalars['String'];
 };
 
 
-export type QueryFindFeedSponsorByIdArgs = {
-  feedSponsorshipId: Scalars['String'];
+export type QueryFindSubscriptionPackagesByUserIdArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryFindUserAnalystSubscriberByIdWithRelationsArgs = {
+  userAnalystSubscriberId: Scalars['String'];
 };
 
 
@@ -649,6 +667,11 @@ export type QueryFindLikesByFeedArgs = {
 
 export type QueryFindLikeByIdArgs = {
   feedLikeId: Scalars['String'];
+};
+
+
+export type QueryFindFeedSponsorByIdArgs = {
+  feedSponsorshipId: Scalars['String'];
 };
 
 
@@ -677,18 +700,13 @@ export type QueryFindFeedCommentsByFeedIdArgs = {
 };
 
 
+export type QueryFindCommentRepliesByCommentIdArgs = {
+  feedCommentId: Scalars['String'];
+};
+
+
 export type QueryFindPaymentLogsByProviderArgs = {
   provider: Scalars['String'];
-};
-
-
-export type QueryFindSubscriptionPackageByIdArgs = {
-  packageId: Scalars['String'];
-};
-
-
-export type QueryFindSubscriptionPackagesByUserIdArgs = {
-  userId: Scalars['String'];
 };
 
 
@@ -740,8 +758,7 @@ export type User = {
   lastName: Scalars['String'];
   email: Scalars['String'];
   phone: Scalars['String'];
-  countryId: Scalars['String'];
-  country: Country;
+  country?: Maybe<Country>;
   status: Scalars['Boolean'];
   profileImageUrl: Scalars['String'];
   role: AppRole;
@@ -1429,6 +1446,67 @@ export type FindRecommendedAnalystsQuery = (
       & Pick<User, 'firstName' | 'lastName' | 'profileImageUrl'>
     ) }
   )> }
+);
+
+export type FindUsersSubscribedToPackageQueryVariables = Exact<{
+  packageId: Scalars['String'];
+}>;
+
+
+export type FindUsersSubscribedToPackageQuery = (
+  { __typename?: 'Query' }
+  & { findSubscriptionPackageById: (
+    { __typename?: 'SUBSCRIPTION_PACKAGE' }
+    & Pick<Subscription_Package, 'id' | 'name'>
+    & { subscribersToThisPackage: Array<(
+      { __typename?: 'PACKAGE_SUBSCRIBER' }
+      & { user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id' | 'firstName' | 'lastName'>
+      ) }
+    )> }
+  ) }
+);
+
+export type FindUsersSubscribedToAnalystQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type FindUsersSubscribedToAnalystQuery = (
+  { __typename?: 'Query' }
+  & { findUserAnalystWithUserId: (
+    { __typename?: 'USER_ANALYST' }
+    & Pick<User_Analyst, 'id'>
+    & { user: (
+      { __typename?: 'USER' }
+      & Pick<User, 'id' | 'firstName' | 'lastName'>
+    ), subscribedUsersToThisAnalyst: Array<(
+      { __typename?: 'USER_ANALYST_SUBSCRIBER' }
+      & { user: (
+        { __typename?: 'USER' }
+        & Pick<User, 'id' | 'firstName' | 'lastName'>
+      ) }
+    )> }
+  ) }
+);
+
+export type MyProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MyProfileQuery = (
+  { __typename?: 'Query' }
+  & { myProfile: (
+    { __typename?: 'USER' }
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'phone' | 'profileImageUrl'>
+    & { country?: Maybe<(
+      { __typename?: 'COUNTRY' }
+      & Pick<Country, 'name' | 'id'>
+    )>, feedsCreatedByThisUser: Array<(
+      { __typename?: 'FEED' }
+      & Pick<Feed, 'id'>
+    )> }
+  ) }
 );
 
 export const LoginDocument = gql`
@@ -2270,6 +2348,92 @@ export const FindRecommendedAnalystsDocument = gql`
   })
   export class FindRecommendedAnalystsGQL extends Apollo.Query<FindRecommendedAnalystsQuery, FindRecommendedAnalystsQueryVariables> {
     document = FindRecommendedAnalystsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindUsersSubscribedToPackageDocument = gql`
+    query findUsersSubscribedToPackage($packageId: String!) {
+  findSubscriptionPackageById(packageId: $packageId) {
+    id
+    name
+    subscribersToThisPackage {
+      user {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindUsersSubscribedToPackageGQL extends Apollo.Query<FindUsersSubscribedToPackageQuery, FindUsersSubscribedToPackageQueryVariables> {
+    document = FindUsersSubscribedToPackageDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const FindUsersSubscribedToAnalystDocument = gql`
+    query findUsersSubscribedToAnalyst($userId: String!) {
+  findUserAnalystWithUserId(userId: $userId) {
+    id
+    user {
+      id
+      firstName
+      lastName
+    }
+    subscribedUsersToThisAnalyst {
+      user {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FindUsersSubscribedToAnalystGQL extends Apollo.Query<FindUsersSubscribedToAnalystQuery, FindUsersSubscribedToAnalystQueryVariables> {
+    document = FindUsersSubscribedToAnalystDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const MyProfileDocument = gql`
+    query myProfile {
+  myProfile {
+    id
+    firstName
+    lastName
+    email
+    phone
+    profileImageUrl
+    country {
+      name
+      id
+    }
+    feedsCreatedByThisUser {
+      id
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class MyProfileGQL extends Apollo.Query<MyProfileQuery, MyProfileQueryVariables> {
+    document = MyProfileDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

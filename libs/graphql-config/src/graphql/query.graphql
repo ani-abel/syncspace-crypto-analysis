@@ -343,3 +343,53 @@ query findRecommendedAnalysts($limit: Int!) {
     }
   }
 }
+
+query findUsersSubscribedToPackage($packageId: String!) {
+  findSubscriptionPackageById(packageId: $packageId) {
+    id,
+    name,
+    subscribersToThisPackage {
+      user {
+        id,
+        firstName,
+        lastName
+      }
+    }
+  }
+}
+
+query findUsersSubscribedToAnalyst($userId: String!) {
+  findUserAnalystWithUserId(userId: $userId) {
+    id,
+    user {
+      id,
+      firstName,
+      lastName
+    },
+    subscribedUsersToThisAnalyst {
+      user {
+        id,
+        firstName,
+        lastName
+      }
+    }
+  } 
+}
+
+query myProfile {
+  myProfile {
+    id,
+    firstName,
+    lastName,
+    email,
+    phone,
+    profileImageUrl,
+    country {
+      name,
+      id,
+    },
+    feedsCreatedByThisUser {
+      id
+    },
+  }
+}

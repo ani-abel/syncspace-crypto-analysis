@@ -1,3 +1,32 @@
 <main class="page-container">
-    <syncspace-crypto-analysis-user-profile-card [canEdit]="true"></syncspace-crypto-analysis-user-profile-card>
+    <div class="user-card full-width" *ngIf="(myProfile$ | async) as myProfile">
+        <div class="image-section full-width text-center">
+            <syncspace-crypto-analysis-cached-image 
+                [width]="'80px'"
+                [height]="'80px'"
+                [isRounded]="true"
+                [src]="myProfile.profileImageUrl"
+                [alt]="myProfile.firstName">
+            </syncspace-crypto-analysis-cached-image>
+        </div>
+        <div class="user-details full-width">
+            <h3 class="title text-danger text-center text-capitalize no-padding">
+                {{ myProfile.firstName }} {{ myProfile.lastName }}
+            </h3>
+            <p class="no-margin text-center details">
+                <span *ngIf="myProfile?.country">🌎 {{ myProfile.country.name | uppercase }} |</span> ⛳ {{ myProfile.feedsCreatedByThisUser.length ?? 0 }} Posts
+            </p>
+            <!-- <p class="no-margin text-center details">
+                👏 {{ analystBio.subscribedUsersToThisAnalyst.length ?? 0 }} Followers | ⛳ {{ analystBio.user.feedsCreatedByThisUser.length ?? 0 }} Posts
+            </p> -->
+            <!-- <p class="text-center content no-margin">
+                {{ analystBio.bio | capitalize }}
+            </p> -->
+        </div>
+        <div class="user-action full-width text-center">
+            <a [routerLink]="['/auth', 'edit-profile']" class="text-decoration-none btn btn-danger">
+                Edit Profile
+            </a>
+        </div>
+    </div>
 </main>

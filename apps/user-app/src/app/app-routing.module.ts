@@ -50,6 +50,12 @@ const routes: Routes = [
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) 
       },
       { 
+        path: 'view-analyst-subscribers', 
+        canActivate: [RoleGuard],
+        data: { roles: [AppRole.UnverifiedAnalyst, AppRole.VerifiedAnalyst] },
+        loadChildren: () => import('./pages/view-analyst-subscribers/view-analyst-subscribers.module').then(m => m.ViewAnalystSubscribersModule) 
+      },
+      { 
         path: 'analysis-feed', 
         children: [
           {
@@ -101,6 +107,10 @@ const routes: Routes = [
           { 
             path: 'edit/:packageId', 
             loadChildren: () => import('./pages/edit-subscription/edit-subscription.module').then(m => m.EditSubscriptionModule) 
+          },
+          { 
+            path: 'view-package-subscribers/:packageId', 
+            loadChildren: () => import('./pages/view-package-subscribers/view-package-subscribers.module').then(m => m.ViewPackageSubscribersModule) 
           },
         ],
       },
