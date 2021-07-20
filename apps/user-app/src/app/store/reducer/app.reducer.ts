@@ -610,4 +610,24 @@ export const AppReducer = createReducer(
             myProfile: { ...payload },
         }
     }),
+    on(AppActions.UpdateProfileInitiatedAction, (state) => {
+        return { 
+            ...state,
+            isLoading: true,
+        };
+    }),
+    on(AppActions.UpdateProfileFailedAction, (state, { payload }) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        }
+    }),
+    on(AppActions.UpdateProfileSuccessfulAction, (state, { payload: { message } }) => {
+        return {
+            ...state,
+            isLoading: false,
+            successMessage: message,
+        }
+    }),
 );

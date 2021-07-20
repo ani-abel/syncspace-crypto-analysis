@@ -100,3 +100,10 @@ mutation createAnalystSubscriber($userAnalystId: String!) {
     id
   }
 }
+
+mutation updateProfile($payload: UpdateUserDTO!) {
+  updateUser(payload: $payload) {
+    message,
+    status
+  }
+}

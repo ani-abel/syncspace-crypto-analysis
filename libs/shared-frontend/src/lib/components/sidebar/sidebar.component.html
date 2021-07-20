@@ -1,8 +1,9 @@
 <aside class="side-bar-nav" 
         [ngClass]="{ 'hidden-visually': !isOpen }">
         <div class="logo-section full-width text-center">
-            <img src="/assets/images/user-icon-female-muslim.png" />
-            <h5 class="text-capitalize text-danger">Jim Clark</h5>
+            <!-- <img src="/assets/images/user-icon-female-muslim.png" /> -->
+            <img [src]="profileImage" alt="{{ firstName }} {{  lastName }}"/>
+            <h5 class="text-capitalize text-danger">{{ firstName }} {{  lastName }}</h5>
         </div>
         <div class="nav-content">
             <ul class="no-margin">

@@ -1073,6 +1073,19 @@ export type CreateAnalystSubscriberMutation = (
   ) }
 );
 
+export type UpdateProfileMutationVariables = Exact<{
+  payload: UpdateUserDto;
+}>;
+
+
+export type UpdateProfileMutation = (
+  { __typename?: 'Mutation' }
+  & { updateUser: (
+    { __typename?: 'DefaultResponseTypeGQL' }
+    & Pick<DefaultResponseTypeGql, 'message' | 'status'>
+  ) }
+);
+
 export type TopPublicFeedsQueryVariables = Exact<{
   limit: Scalars['Int'];
 }>;
@@ -1787,6 +1800,25 @@ export const CreateAnalystSubscriberDocument = gql`
   })
   export class CreateAnalystSubscriberGQL extends Apollo.Mutation<CreateAnalystSubscriberMutation, CreateAnalystSubscriberMutationVariables> {
     document = CreateAnalystSubscriberDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdateProfileDocument = gql`
+    mutation updateProfile($payload: UpdateUserDTO!) {
+  updateUser(payload: $payload) {
+    message
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateProfileGQL extends Apollo.Mutation<UpdateProfileMutation, UpdateProfileMutationVariables> {
+    document = UpdateProfileDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

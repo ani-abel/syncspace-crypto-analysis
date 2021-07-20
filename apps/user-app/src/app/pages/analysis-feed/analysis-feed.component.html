@@ -17,10 +17,10 @@
 </div>
 
 <main class="page-container full-width">
-    <div class="feed-section page-section" *ngIf="(feeds$ | async) as feeds; else noFeedContent">
+    <div class="feed-section page-section" *ngIf="(feeds$ | async)?.length > 0; else noFeedContent">
         <!-- <virtual-scroller #scroll [items]="feeds"> -->
             <syncspace-crypto-analysis-feed-widget 
-                *ngFor="let feed of feeds; let last = last"
+                *ngFor="let feed of (feeds$ | async); let last = last"
                 [feedItem]="feed" 
                 [isLast]="last"
                 (like)="onLike($event)"

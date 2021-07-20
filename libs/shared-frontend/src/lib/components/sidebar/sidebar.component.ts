@@ -8,6 +8,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class SidebarComponent {
   @Output() logout: EventEmitter<boolean> =  new EventEmitter<boolean>();
   @Input() isOpen: boolean;
+  @Input() firstName: string;
+  @Input() lastName: string;
+  @Input() profileImage: string;
   
   onLogout(): void {
     this.logout.emit(true);

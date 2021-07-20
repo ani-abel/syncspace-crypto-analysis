@@ -391,4 +391,15 @@ export class AppEffectService {
           )
         })
       ));
+
+      updateProfile$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(AppActions.UpdateProfileInitiatedAction),
+          switchMap(({ payload }) => {
+            return this.gqlRequestSrv.updateProfile(payload).pipe(
+              map((data) => AppActions.UpdateProfileSuccessfulAction({ payload: data })),
+              catchError((error: Error) => of(AppActions.UpdateProfileFailedAction({ payload: error }))),
+            )
+          })
+        ));
 }

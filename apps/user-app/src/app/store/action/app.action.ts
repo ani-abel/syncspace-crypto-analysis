@@ -18,6 +18,7 @@ import {
     Subscription_Package, 
     UpdateFeedDto, 
     UpdateSubscriptionPackageDto, 
+    UpdateUserDto, 
     User,
     User_Analyst,
     User_Analyst_Subscriber
@@ -147,6 +148,10 @@ export enum AppActionType {
     FIND_MY_PROFILE_INITIATED = '[MY_PROFILE] FIND_MY_PROFILE_INITIATED',
     FIND_MY_PROFILE_FAILED = '[MY_PROFILE] FIND_MY_PROFILE_FAILED',
     FIND_MY_PROFILE_SUCCESSFUL = '[MY_PROFILE] FIND_MY_PROFILE_SUCCESSFUL',
+
+    UPDATE_PROFILE_INITIATED = '[USER_PROFILE] UPDATE_PROFILE_INITIATED',
+    UPDATE_PROFILE_FAILED = '[USER_PROFILE] UPDATE_PROFILE_FAILED',
+    UPDATE_PROFILE_SUCCESSFUL = '[USER_PROFILE] UPDATE_PROFILE_SUCCESSFUL',
 
     CLEAR_MESSAGES_FROM_STATE = '[MESSAGES] CLEAR_MESSAGES_FROM_STATE',
 
@@ -525,5 +530,17 @@ export const actions = {
     FindMyProfileSuccessfulAction: createAction(
         AppActionType.FIND_MY_PROFILE_SUCCESSFUL,
         props<{ payload: Partial<User> }>()
+    ),
+    UpdateProfileInitiatedAction: createAction(
+        AppActionType.UPDATE_PROFILE_INITIATED,
+        props<{ payload: UpdateUserDto }>()
+    ),
+    UpdateProfileFailedAction: createAction(
+        AppActionType.UPDATE_PROFILE_FAILED,
+        props<{ payload: Error }>()
+    ),
+    UpdateProfileSuccessfulAction: createAction(
+        AppActionType.UPDATE_PROFILE_SUCCESSFUL,
+        props<{ payload: Partial<DefaultResponseTypeGql> }>()
     ),
 };

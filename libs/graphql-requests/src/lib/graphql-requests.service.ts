@@ -61,6 +61,8 @@ import {
   FindUsersSubscribedToPackageGQL,
   FindUsersSubscribedToAnalystGQL,
   MyProfileGQL,
+  UpdateProfileGQL,
+  UpdateUserDto,
 } from "@syncspace-crypto-analysis/graphql-config";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -99,6 +101,7 @@ export class GraphqlRequestsService {
     private readonly userDashboardStatsSrv: UserDashboardStatsGQL,
     private readonly findFeedByUserIdSrv: FindFeedByUserIdGQL,
     private readonly myFeedSrv: MyFeedGQL,
+    private readonly updateProfileSrv: UpdateProfileGQL,
     private readonly createAnalystSubscriberSrv: CreateAnalystSubscriberGQL,
     private readonly findUserAnalystWithUserIdSrv: FindUserAnalystWithUserIdGQL,
     private readonly findAnalystsIFollowSrv: FindAnalystsIFollowGQL,
@@ -451,6 +454,15 @@ export class GraphqlRequestsService {
               .fetch({})
               .pipe(
                 map(({ data }) => data.myProfile),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors)),
+              );
+  }
+
+  updateProfile(payload: UpdateUserDto): Observable<Partial<DefaultResponseTypeGql>> {
+    return this.updateProfileSrv
+              .mutate({ payload })
+              .pipe(
+                map(({ data }) => data.updateUser),
                 catchError((error: ApolloError) => throwError(error.graphQLErrors)),
               );
   }

@@ -3,7 +3,10 @@
 
     <syncspace-crypto-analysis-sidebar 
        [isOpen]="isOpen"
-       (logout)="onLogout($event)">
+       (logout)="onLogout($event)"
+       [firstName]="user?.firstName"
+       [lastName]="user?.lastName"
+       [profileImage]="user?.profileImageUrl">
     </syncspace-crypto-analysis-sidebar>
 
     <header class="full-width">

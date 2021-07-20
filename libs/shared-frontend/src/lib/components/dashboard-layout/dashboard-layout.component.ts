@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { User } from '@syncspace-crypto-analysis/graphql-config';
 
 @Component({
   selector: 'syncspace-crypto-analysis-dashboard-layout',
@@ -7,6 +8,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class DashboardLayoutComponent {
   @Output() logout: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() user: Partial<User>;
   isOpen = false;
 
   openSidebar(): void {

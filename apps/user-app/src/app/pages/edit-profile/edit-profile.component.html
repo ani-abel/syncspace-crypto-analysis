@@ -1,11 +1,12 @@
 <section class="page-container full-width">
     <main class="page-content">
-        <div class="form-section">
+        <div class="form-section" *ngIf="(myProfile$ | async) as myProfile">
             <h2 class="no-padding text-danger text-center">Update Profile</h2>
-            <form>
+            <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit(myProfile)">
                 <div class="form-group">
                     <label for="analysis-image">Image*</label>&nbsp;
                     <input accept="image/*" 
+                        (change)="onChange($event)"
                         type="file" 
                         id="analysis-image" 
                         class="display-none"
@@ -14,41 +15,81 @@
                         (click)="fileUploadEl.click()">
                         Select Image
                     </button>
-                    <ng-container>
+                    <ng-container *ngIf="profileImageUrl">
                         <div class="image-preview mt-20 full-width">
-                            <img src="/assets/images/financial-analysis-pic1.jpg" alt="Analysis image" />
+                            <img [src]="profileImageUrl" alt="{{ myProfile.firstName }} {{ myProfile.lastName }}" />
                         </div>
                     </ng-container>
                 </div>
                 <div class="form-group">
                     <label for="first-name">First Name*</label>
-                    <input type="text" id="first-name" class="form-control" />
+                    <input type="text" 
+                        [formControlName]="'firstName'"
+                        id="first-name" 
+                        class="form-control" />
+                    <span *ngIf="editProfileForm.get('firstName').touched && editProfileForm.get('firstName').errors as errorList">
+                        <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                    </span>
                 </div>
                 <div class="form-group">
                     <label for="last-name">Last Name*</label>
-                    <input type="text" id="last-name" class="form-control" />
+                    <input type="text" 
+                        [formControlName]="'lastName'"
+                        id="last-name" 
+                        class="form-control" />
+                    <span *ngIf="editProfileForm.get('lastName').touched && editProfileForm.get('lastName').errors as errorList">
+                        <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                    </span>
                 </div>
                 <div class="form-group">
                     <label for="email">Email*</label>
-                    <input type="email" id="email" class="form-control" />
+                    <input type="email" 
+                        [formControlName]="'email'"
+                        id="email" 
+                        class="form-control" />
+                    <span *ngIf="editProfileForm.get('email').touched && editProfileForm.get('email').errors as errorList">
+                        <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                        <p class="form-helper danger" *ngIf="errorList['email']">Email required</p>
+                    </span>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone*</label>
-                    <input type="tel" id="phone" class="form-control" />
+                    <input type="tel" 
+                        [formControlName]="'phone'"
+                        id="phone" 
+                        class="form-control" />
+                    <span *ngIf="editProfileForm.get('phone').touched && editProfileForm.get('phone').errors as errorList">
+                        <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                    </span>
                 </div>
                 <div class="form-group">
                     <label for="country">Country*</label>
-                    <select id="country" class="form-control">
-                        <option>Select Country</option>
-                        <option value="">Nigeria</option>
+                    <select [formControlName]="'country'" 
+                        id="country" 
+                        class="form-control">
+                        <option value="">Select Country</option>
+                        <option [value]="country.id"
+                            *ngFor="let country of (countries$ | async)">
+                            {{ country.name | uppercase }}
+                        </option>
                     </select>
+                    <span *ngIf="editProfileForm.get('country').touched && editProfileForm.get('country').errors as errorList">
+                        <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                        <p class="form-helper danger" *ngIf="errorList['email']">Email required</p>
+                    </span>
                 </div>
                 <div class="form-group">
                     <label for="password">Password*</label>
-                    <input type="password" id="password" class="form-control" />
+                    <input type="password" 
+                        [formControlName]="'password'"
+                        id="password" 
+                        class="form-control" />
+                    <span *ngIf="editProfileForm.get('password').touched && editProfileForm.get('password').errors as errorList">
+                        <p class="form-helper danger" *ngIf="errorList['required']">Required field</p>
+                    </span>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-danger btn-block">
+                    <button class="btn btn-danger btn-block" [disabled]="editProfileForm.invalid">
                        Update
                     </button>
                 </div>
