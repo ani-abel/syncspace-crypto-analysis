@@ -176,6 +176,11 @@ p {
     color: var(--primary-text-color);
 }
 
+img {
+    --font-size: 12px;
+    font-size: var(--font-size);
+}
+
 h1,
 h2,
 h3,

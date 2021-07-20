@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AnalysisType, CategoryTag } from '@syncspace-crypto-analysis/graphql-config';
+import { AnalysisType, AuthResponse, CategoryTag } from '@syncspace-crypto-analysis/graphql-config';
+import { getDataFromLocalStorage, LocalStorageKey } from '@syncspace-crypto-analysis/utils';
 import { SubSink } from 'subsink';
 import { actions as AppActions } from '../../store/action/app.action';
 import { AppModel } from '../../store/model/app.model';
@@ -18,13 +19,18 @@ OnDestroy {
   becomeAnalystForm: FormGroup;
   targetMarket = Object.values(CategoryTag);
   analysistTypes = Object.values(AnalysisType);
+  email: string;
 
   constructor(
     private readonly store: Store<AppModel>,
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.initForm();
+    const authResponse = await getDataFromLocalStorage<AuthResponse>(LocalStorageKey.SYNCSPACE_USER);
+    if (authResponse?.email) {
+      this.email = authResponse.email;
+    }
   }
 
   private initForm(): void {
@@ -51,6 +57,10 @@ OnDestroy {
       .subscribe((res) => {
         if (res) {
           this.becomeAnalystForm.reset();
+          if (this.email) {
+            //? Refresh user token to reflect user's new role
+            this.store.dispatch(AppActions.LoginWithEmailInitiatedAction({ email: this.email }));
+          }
         }
       });
   }

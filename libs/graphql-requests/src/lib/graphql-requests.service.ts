@@ -53,6 +53,7 @@ import {
   CreateContactMessageDto,
   ContactMessage,
   StatisticsDto,
+  LoginWithEmailGQL,
   MyFeedGQL,
   FindFeedByUserIdGQL,
   CreateAnalystSubscriberGQL,
@@ -109,6 +110,7 @@ export class GraphqlRequestsService {
     private readonly findUsersSubscribedToPackageSrv: FindUsersSubscribedToPackageGQL,
     private readonly findUsersSubscribedToAnalystSrv: FindUsersSubscribedToAnalystGQL,
     private readonly myProfileSrv: MyProfileGQL,
+    private readonly loginWithEmailSrv: LoginWithEmailGQL,
     private readonly findSubscriptionPackagesByCurrentUserIdSrv: FindSubscriptionPackagesByCurrentUserIdGQL,
   ) {}
 
@@ -157,6 +159,15 @@ export class GraphqlRequestsService {
                     map((res) => res.data?.login),
                     catchError((error: ApolloError) => throwError(error.graphQLErrors))
                   );
+  }
+
+  loginWithEmail(email: string): Observable<Partial<AuthResponse>> {
+    return this.loginWithEmailSrv
+              .mutate({ email })
+              .pipe(
+                map(({ data }) => data.loginWithEmail),
+                catchError((error: ApolloError) => throwError(error.graphQLErrors))
+              );
   }
 
   signUp(payload: CreateUserDto): Observable<Partial<User>> {

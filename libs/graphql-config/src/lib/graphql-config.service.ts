@@ -297,6 +297,7 @@ export type Mutation = {
   deleteFeeSetup: DefaultResponseTypeGql;
   updateFeeSetup: DefaultResponseTypeGql;
   login: AuthResponse;
+  loginWithEmail: AuthResponse;
   createContactMessage: ContactMessage;
   deleteContactMessage: DefaultResponseTypeGql;
   updateContactMessage: DefaultResponseTypeGql;
@@ -486,6 +487,11 @@ export type MutationUpdateFeeSetupArgs = {
 
 export type MutationLoginArgs = {
   payload: LoginUserDto;
+};
+
+
+export type MutationLoginWithEmailArgs = {
+  email: Scalars['String'];
 };
 
 
@@ -886,6 +892,19 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = (
   { __typename?: 'Mutation' }
   & { login: (
+    { __typename?: 'AuthResponse' }
+    & Pick<AuthResponse, 'userId' | 'email' | 'role' | 'token' | 'tokenExpiryDate' | 'tokenInitializationDate' | 'dateCreated'>
+  ) }
+);
+
+export type LoginWithEmailMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type LoginWithEmailMutation = (
+  { __typename?: 'Mutation' }
+  & { loginWithEmail: (
     { __typename?: 'AuthResponse' }
     & Pick<AuthResponse, 'userId' | 'email' | 'role' | 'token' | 'tokenExpiryDate' | 'tokenInitializationDate' | 'dateCreated'>
   ) }
@@ -1541,6 +1560,30 @@ export const LoginDocument = gql`
   })
   export class LoginGQL extends Apollo.Mutation<LoginMutation, LoginMutationVariables> {
     document = LoginDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const LoginWithEmailDocument = gql`
+    mutation loginWithEmail($email: String!) {
+  loginWithEmail(email: $email) {
+    userId
+    email
+    role
+    token
+    tokenExpiryDate
+    tokenInitializationDate
+    dateCreated
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class LoginWithEmailGQL extends Apollo.Mutation<LoginWithEmailMutation, LoginWithEmailMutationVariables> {
+    document = LoginWithEmailDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

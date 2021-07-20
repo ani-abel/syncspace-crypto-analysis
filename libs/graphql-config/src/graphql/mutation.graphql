@@ -10,6 +10,18 @@ mutation login($payload: LoginUserDTO!){
   }
 }
 
+mutation loginWithEmail($email: String!) {
+  loginWithEmail(email: $email) {
+    userId,
+    email,
+    role,
+    token,
+    tokenExpiryDate,
+    tokenInitializationDate,
+    dateCreated
+  }
+}
+
 mutation createContactMessage($payload: CreateContactMessageDTO!) {
   createContactMessage(payload: $payload) {
     id

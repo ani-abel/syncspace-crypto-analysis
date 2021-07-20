@@ -25,9 +25,11 @@ export class SharedService implements OnDestroy {
     private readonly store: Store
   ) { }
 
-  async onLogin(payload: Partial<AuthResponse>): Promise<void> {
+  async onLogin(payload: Partial<AuthResponse>, navigate = true): Promise<void> {
     await saveDataToLocalStorage(LocalStorageKey.SYNCSPACE_USER, payload);
-    this.router.navigate(['/auth']);
+    if(navigate) {
+      this.router.navigate(['/auth']);
+    }
   }
 
   async displayMessage(message: string) {

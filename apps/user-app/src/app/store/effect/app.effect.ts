@@ -38,6 +38,22 @@ export class AppEffectService {
       })
     ));
 
+  loginWithEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AppActions.LoginWithEmailInitiatedAction),
+      switchMap(({ email }) => {
+        return this.gqlRequestSrv.loginWithEmail(email).pipe(
+          map((data) => AppActions.LoginWithEmailSuccessfulAction({  payload: data })),
+          tap(({ payload }) => {
+            if (payload?.userId) {
+              this.sharedSrv.onLogin(payload, false);
+            }
+          }),
+          catchError((error: Error) => of(AppActions.LoginWithEmailFailedAction({ payload: error })))
+        )
+      })
+    ));
+
     signUp$ = createEffect(() => 
       this.actions$.pipe(
         ofType(AppActions.SignUpInitiatedAction),

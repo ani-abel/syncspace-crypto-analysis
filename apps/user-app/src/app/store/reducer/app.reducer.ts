@@ -25,6 +25,16 @@ export const AppReducer = createReducer(
     on(AppActions.LoginSuccessfulAction, (state, { payload }) => {
         return { ...state, isLoading: false, authenticationResponse: payload };
     }),
+    // ? Refresh
+    on(AppActions.LoginWithEmailInitiatedAction, (state) => {
+        return { ...state, isLoading: true };
+    }),
+    on(AppActions.LoginWithEmailFailedAction, (state, { payload }) => {
+        return { ...state, error: payload, isLoading: false };
+    }),
+    on(AppActions.LoginWithEmailSuccessfulAction, (state, { payload }) => {
+        return { ...state, isLoading: false, authenticationResponse: payload };
+    }),
     on(AppActions.SignUpInitiatedAction, (state) => {
         return { ...state, isLoading: true, };
     }),

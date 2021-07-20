@@ -29,6 +29,10 @@ export enum AppActionType {
     LOGIN_SUCCESSFUL = '[LOGIN] LOGIN_SUCCESSFUL',
     LOGIN_FAILED = '[LOGIN] LOGIN_FAILED',
 
+    LOGIN_WITH_EMAIL_INITIATED = '[LOGIN_REFRESH] LOGIN_WITH_EMAIL_INITIATED',
+    LOGIN_WITH_EMAIL_SUCCESSFUL = '[LOGIN_REFRESH] LOGIN_WITH_EMAIL_SUCCESSFUL',
+    LOGIN_WITH_EMAIL_FAILED = '[LOGIN_REFRESH] LOGIN_WITH_EMAIL_FAILED',
+
     SIGN_UP_INITIATED = '[SIGN_UP] SIGN_UP_INITIATED',
     SIGN_UP_FAILED = '[SIGN_UP] SIGN_UP_FAILED',
     SIGN_UP_SUCCESSFUL = '[SIGN_UP] SIGN_UP_SUCCESSFUL',
@@ -172,6 +176,19 @@ export const actions = {
     ),
     LoginSuccessfulAction: createAction(
         AppActionType.LOGIN_SUCCESSFUL,
+        props<{ payload: Partial<AuthResponse> }>()
+    ),
+    // ? Refresh
+    LoginWithEmailInitiatedAction: createAction(
+        AppActionType.LOGIN_WITH_EMAIL_INITIATED,
+        props<{ email: string }>()
+    ),
+    LoginWithEmailFailedAction: createAction(
+        AppActionType.LOGIN_WITH_EMAIL_FAILED,
+        props<{ payload: Error }>()
+    ),
+    LoginWithEmailSuccessfulAction: createAction(
+        AppActionType.LOGIN_WITH_EMAIL_SUCCESSFUL,
         props<{ payload: Partial<AuthResponse> }>()
     ),
     SignUpInitiatedAction: createAction(
