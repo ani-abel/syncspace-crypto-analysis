@@ -7,6 +7,8 @@ ion-skeleton-text {
 img {
     object-fit: cover;
     vertical-align: middle;
+    --font-size: 12px;
+    font-size: var(--font-size);
 }
 
 .rounder-img {

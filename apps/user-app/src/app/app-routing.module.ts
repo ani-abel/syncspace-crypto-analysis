@@ -116,6 +116,8 @@ const routes: Routes = [
       },
       {
         path: 'analysis',
+        canActivate: [RoleGuard],
+        data: { roles: [AppRole.Trader, AppRole.UnverifiedAnalyst, AppRole.VerifiedAnalyst] },
         children: [
           {
             path: '',
